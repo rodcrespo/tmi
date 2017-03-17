@@ -94,7 +94,6 @@
 		var basicMaterial = new THREE.MeshBasicMaterial({color: 0x0095DD});
 		cube = new THREE.Mesh(boxGeometry, basicMaterial);
 		scene.add(cube);
-		cube.rotation.set(0.4, rotation, 0);
 
         // LIGHT
         var light = new THREE.PointLight(0xffffff);
@@ -130,6 +129,7 @@
         var delta = clock.getDelta();
 				if (rotationEnabled){
 						rotation += 0.1;
+						cube.rotation.set(0.4, rotation, 0);
 				}
 
         annie.update(1000 * delta);
