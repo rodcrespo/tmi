@@ -18,9 +18,21 @@
         // Let's define a command.
         var commands = {
             'hola': function() {
-                console.log("HOLA")
+                console.log("HOLA");
                 alert('Hello world!');
-            }
+            },
+						'rojo': function() {
+							console.log("rojo");
+							cube.material.color.setHex( 0xff0000 );
+						},
+						'verde': function() {
+							console.log("verde");
+							cube.material.color.setHex( 0x00ff00 );
+						},
+						'azul': function() {
+							console.log("azul");
+							cube.material.color.setHex( 0x0000ff );
+						},
         };
 
         // Add our commands to annyang
