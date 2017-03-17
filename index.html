@@ -22,9 +22,11 @@
                 alert('Hello world!');
             },
 						'gira': function() {
+							console.log("Gira");
 							rotationEnabled = true;
 						},
 						'para' : function() {
+							console.log("Para");
 							rotationEnabled = false;
 						},
 						'rojo': function() {
@@ -128,7 +130,7 @@
     {
         var delta = clock.getDelta();
 				if (rotationEnabled){
-						rotation += 0.1;
+						rotation += 0.05;
 						cube.rotation.set(0.4, rotation, 0);
 				}
 
