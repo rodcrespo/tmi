@@ -12,6 +12,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
 
+<script src="./scripts/functions.js"></script>
 <script>
 
     if (annyang) {
@@ -41,6 +42,28 @@
 							console.log("azul");
 							cube.material.color.setHex( 0x0000ff );
 						},
+                        'bang': function() {
+							console.log("bang");
+                            if (speakPoint.position.x - circle.position.x >= 10) {
+                                circle.position.set(startPos.x, startPos.y, startPos.z);
+                                score += 1;
+                            }
+						},
+                        'comienza': function() {
+							console.log("comienza");
+							scene.remove(circle);
+                            circle.position.set(startPos.x, startPos.y, startPos.z);
+                            scene.add(circle);
+                            score = 0;
+						},
+                        'circulo': function() {
+							console.log("circulo");
+                            scene.getObjectByName('player').geometry = new THREE.SphereGeometry( 20, 30, 30 );
+						},
+                        'cuadrado': function() {
+							console.log("cuadrado");
+                            scene.getObjectByName('player').geometry = new THREE.BoxGeometry(30, 30, 30);
+						},
         };
 
         // Add our commands to annyang
@@ -54,13 +77,16 @@
     // MAIN
 
     // standard global variables
-    var container, scene, camera, renderer, cube, stats;
+    var container, scene, camera, renderer, cube, stats, circle, speakPoint;
     var clock = new THREE.Clock();
 
     // custom global variables
     var annie, boomer; // animators
-		var rotation = 0;
-		var rotationEnabled = false;
+	var rotation = 0;
+	var rotationEnabled = false;
+    var circleSpeed = new THREE.Vector3 (-1, 0, 0);
+    var startPos, endPos;
+    var score = 0;
 
     init();
     animate();
@@ -95,7 +121,28 @@
 		var boxGeometry = new THREE.BoxGeometry(30, 30, 30);
 		var basicMaterial = new THREE.MeshBasicMaterial({color: 0x0095DD});
 		cube = new THREE.Mesh(boxGeometry, basicMaterial);
+        cube.name = 'player';
 		scene.add(cube);
+
+        // CIRCLE
+        var circleGeometry = new THREE.CircleGeometry(5, 32, 0.65 * Math.PI * 2, 0.75 * Math.PI * 2);
+        var circleMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+        circle = new THREE.Mesh( circleGeometry, circleMaterial );
+        //alert(screen2WorldPoint(camera, new THREE.Vector3(0 + 20, window.innerHeight, 0)).x);
+        startPos = screen2WorldPoint(camera, new THREE.Vector3(window.innerWidth*1.5, window.innerHeight, 0));
+        endPos = new THREE.Vector3(0, startPos.y, startPos.z);
+        circle.position.set (startPos.x, startPos.y, startPos.z);
+        circle.name = 'enemy';
+        scene.add(circle);
+
+        // SPEAKPOINT
+        var speakPointGeometry = new THREE.BoxGeometry(0.5, 60, 0.5)
+        var speakPointMaterial = new THREE.MeshBasicMaterial( { color: 0x000000 } );
+        speakPointMaterial.side = THREE.DoubleSide;
+        //speakPointMaterial.wireframe = true;
+        speakPoint = new THREE.Mesh( speakPointGeometry, speakPointMaterial );
+        speakPoint.position.set (cube.position.x + 120, 0, cube.position.z);
+        scene.add(speakPoint);
 
         // LIGHT
         var light = new THREE.PointLight(0xffffff);
@@ -129,10 +176,20 @@
     function update()
     {
         var delta = clock.getDelta();
-				if (rotationEnabled){
-						rotation += 0.05;
-						cube.rotation.set(0.4, rotation, 0);
-				}
+		if (rotationEnabled){
+		    rotation += 0.05;
+		    cube.rotation.set(0.4, rotation, 0);
+		}
+
+        if (scene.getObjectByName('enemy')) {
+            circle.position.x += circleSpeed.x;
+            if (circle.position.distanceToManhattan(endPos) <= 5) {
+                scene.remove(circle);
+                alert ("Game Over!\nScore: " + score );
+            }
+        } 
+        
+
 
         annie.update(1000 * delta);
     }
