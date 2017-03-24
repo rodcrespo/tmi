@@ -13,13 +13,14 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
 
 <script src="js/annyang.js"></script>
-<script src="js/scene.js"></script>
+<script src="js/player.js"></script>
+<script src="js/game.js"></script>
 
 <script src="./scripts/functions.js"></script>
 <script>
-	ANNYANG.init();
-	SCENE.init();
-	SCENE.render();
+	var game = new Game();
+	game.init();
+	game.animate();
 
 </script>
 </body>
