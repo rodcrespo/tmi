@@ -25,6 +25,8 @@ var Game = function(){
 
 Game.prototype.init = function(){
     // console.log(this)
+  	ANNYANG.init();
+
     this.scene = new THREE.Scene();
 
     this.camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
@@ -108,7 +110,3 @@ Game.prototype.animate = function(){
     this.render();
     this.update();
 };
-
-
-
-
