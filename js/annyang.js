@@ -12,6 +12,14 @@ const ANNYANG = {
 			// Start listening.
 			annyang.start();
 		}
+	},
+
+	pause: function pause() {
+		annyang.pause();
+	},
+
+	resume: function resume() {
+		annyang.resume();
 	}
 }
 
@@ -31,7 +39,7 @@ function parseCommands(commandString) {
 
 
 /**
- * Search for command in the command dictionary 
+ * Search for command in the command dictionary
  * and execute the associated function
  */
 function executeCommand(command) {
@@ -85,9 +93,9 @@ function executeCommand(command) {
 			scene.getObjectByName('player').geometry = new THREE.BoxGeometry(30, 30, 30);
 		},
 	};
-	
+
 	if (command in commands) {
 		commands[command]();
 	}
-	
+
 }

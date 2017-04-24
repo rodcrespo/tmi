@@ -36,6 +36,8 @@ Game.prototype.load = function(){
 
 Game.prototype.init = function(){
     // console.log(this)
+  	ANNYANG.init();
+
     this.scene = new THREE.Scene();
 
     this.camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
@@ -78,13 +80,13 @@ Game.prototype.init = function(){
     // this.scene.add(circle);
 
     // SPEAKPOINT
-    // var speakPointGeometry = new THREE.BoxGeometry(0.5, 60, 0.5)
-    // var speakPointMaterial = new THREE.MeshBasicMaterial( { color: 0x000000 } );
-    // speakPointMaterial.side = THREE.DoubleSide;
-    // //speakPointMaterial.wireframe = true;
-    // speakPoint = new THREE.Mesh( speakPointGeometry, speakPointMaterial );
-    // speakPoint.position.set (cube.position.x + 120, 0, cube.position.z);
-    // this.scene.add(speakPoint);
+    var speakPointGeometry = new THREE.BoxGeometry(0.5, 60, 0.5)
+    var speakPointMaterial = new THREE.MeshBasicMaterial( { color: 0x000000 } );
+    speakPointMaterial.side = THREE.DoubleSide;
+    //speakPointMaterial.wireframe = true;
+    speakPoint = new THREE.Mesh( speakPointGeometry, speakPointMaterial );
+    speakPoint.position.set (cube.position.x + 120, 0, cube.position.z);
+    this.scene.add(speakPoint);
 
     // LIGHT
     this.light = new THREE.PointLight(0xffffff);
@@ -128,7 +130,3 @@ Game.prototype.animate = function(){
     this.render();
     this.update();
 };
-
-
-
-
