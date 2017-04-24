@@ -23,6 +23,17 @@ var Game = function(){
     this.clock = new THREE.Clock();
 };
 
+Game.prototype.load = function(){
+    this.textureManager = new TextureManager(function () {
+        console.log("All loaded")
+        console.log(this.textureManager.textures)
+        this.init();
+        this.animate();
+    }.bind(this));
+    this.textureManager.load();
+
+}
+
 Game.prototype.init = function(){
     // console.log(this)
     this.scene = new THREE.Scene();
@@ -30,21 +41,30 @@ Game.prototype.init = function(){
     this.camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
     this.scene.add(this.camera);
     this.camera.position.set(0, 150, 400);
-    this.camera.lookAt(this.scene.position);
+    this.camera.lookAt(new THREE.Vector3(0,50,0));
 
     // RENDERER
     this.renderer = new THREE.WebGLRenderer({antialias:true});
     this.renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-    this.renderer.setClearColor(0xDDDDDD, 1);
+    this.renderer.setClearColor(0x87CEEB, 1);
     document.body.appendChild(this.renderer.domElement);
+
+
+    this.city= new CityBackground(this.textureManager);
+    this.scene.add( this.city.plane );
+
+    this.floor= new Floor(this.textureManager);
+    this.scene.add( this.floor.plane );
+
+
 
     //CUBE
 
-    var boxGeometry = new THREE.BoxGeometry(30, 30, 30);
-    var basicMaterial = new THREE.MeshBasicMaterial({color: 0x0095DD});
-    cube = new THREE.Mesh(boxGeometry, basicMaterial);
-    cube.name = 'player';
-    this.scene.add(cube);
+    // var boxGeometry = new THREE.BoxGeometry(30, 30, 30);
+    // var basicMaterial = new THREE.MeshBasicMaterial({color: 0x0095DD});
+    // cube = new THREE.Mesh(boxGeometry, basicMaterial);
+    // cube.name = 'player';
+    // this.scene.add(cube);
 
     // // CIRCLE
     // var circleGeometry = new THREE.CircleGeometry(5, 32, 0.65 * Math.PI * 2, 0.75 * Math.PI * 2);

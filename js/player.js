@@ -8,7 +8,7 @@ Player.prototype.init = function(){
     var runnerMaterial = new THREE.MeshBasicMaterial( { map: this.texture, side: THREE.DoubleSide } );
     var runnerGeometry = new THREE.PlaneGeometry(50, 50, 1, 1);
     this.runner = new THREE.Mesh(runnerGeometry, runnerMaterial);
-    this.runner.position.set(-100, 25, 0);
+    this.runner.position.set(0, 0, 0);
 }
 
 function TextureAnimator(texture, tilesHoriz, tilesVert, numTiles, tileDispDuration)
