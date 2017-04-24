@@ -80,13 +80,13 @@ Game.prototype.init = function(){
     // this.scene.add(circle);
 
     // SPEAKPOINT
-    var speakPointGeometry = new THREE.BoxGeometry(0.5, 60, 0.5)
-    var speakPointMaterial = new THREE.MeshBasicMaterial( { color: 0x000000 } );
-    speakPointMaterial.side = THREE.DoubleSide;
-    //speakPointMaterial.wireframe = true;
-    speakPoint = new THREE.Mesh( speakPointGeometry, speakPointMaterial );
-    speakPoint.position.set (cube.position.x + 120, 0, cube.position.z);
-    this.scene.add(speakPoint);
+    // var speakPointGeometry = new THREE.BoxGeometry(0.5, 60, 0.5)
+    // var speakPointMaterial = new THREE.MeshBasicMaterial( { color: 0x000000 } );
+    // speakPointMaterial.side = THREE.DoubleSide;
+    // //speakPointMaterial.wireframe = true;
+    // speakPoint = new THREE.Mesh( speakPointGeometry, speakPointMaterial );
+    // speakPoint.position.set (cube.position.x + 120, 0, cube.position.z);
+    // this.scene.add(speakPoint);
 
     // LIGHT
     this.light = new THREE.PointLight(0xffffff);
