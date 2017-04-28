@@ -55,6 +55,13 @@ Game.prototype.init = function(){
     this.city= new CityBackground(this.textureManager);
     this.scene.add( this.city.plane );
 
+    this.bakery_shop = new BakeryShop(this.textureManager);
+    this.scene.add( this.bakery_shop.plane );
+
+
+    this.flower_shop = new FlowerShop(this.textureManager);
+    this.scene.add( this.flower_shop.plane );
+
     this.floor= new Floor(this.textureManager);
     this.scene.add( this.floor.plane );
 

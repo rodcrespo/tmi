@@ -9,9 +9,15 @@ var TextureManager = function(onLoad){
     this.textureLoader = new THREE.TextureLoader( this.manager );
     this.textures = {
         skyline: {
-            type: "png",
+            type: "jpg",
         },
         run: {
+            type: "png"
+        },
+        bakery_shop: {
+            type: "png"
+        },
+        flower_shop: {
             type: "png"
         }
     };
