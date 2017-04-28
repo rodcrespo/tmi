@@ -6,7 +6,7 @@ var TextureManager = function(onLoad){
 
     this.manager.onLoad = onLoad;
 
-    this.textureLoader = new THREE.ImageLoader( this.manager );
+    this.textureLoader = new THREE.TextureLoader( this.manager );
     this.textures = {
         skyline: {
             type: "png",
@@ -16,17 +16,16 @@ var TextureManager = function(onLoad){
         }
     };
 
-    
+
 }
 
 TextureManager.prototype.load = function(){
     for(var name in this.textures){
         var item = this.textures[name];
         this.textureLoader.load('img/' + name + "." + item.type, function ( texture ) {
-            console.log(texture)
-            this.context.textures[this.name].material = new THREE.MeshBasicMaterial( {map: texture, side: THREE.DoubleSide, transparent: true} );
-            this.context.textures[this.name].width = texture.width;
-            this.context.textures[this.name].height = texture.height;
+            this.context.textures[this.name].texture = texture;
+            this.context.textures[this.name].width = texture.image.width;
+            this.context.textures[this.name].height = texture.image.height;
         }.bind({context: this, name: name}));
     }
 }

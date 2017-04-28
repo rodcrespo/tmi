@@ -26,7 +26,7 @@ var Game = function(){
 Game.prototype.load = function(){
     this.textureManager = new TextureManager(function () {
         console.log("All loaded")
-        console.log(this.textureManager.textures)
+        // console.log(this.textureManager.textures)
         this.init();
         this.animate();
     }.bind(this));
@@ -40,13 +40,13 @@ Game.prototype.init = function(){
 
     this.scene = new THREE.Scene();
 
-    this.camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
+    this.camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
     this.scene.add(this.camera);
     this.camera.position.set(0, 150, 400);
     this.camera.lookAt(new THREE.Vector3(0,50,0));
 
     // RENDERER
-    this.renderer = new THREE.WebGLRenderer({antialias:true});
+    this.renderer = new THREE.WebGLRenderer({antialias: true});
     this.renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
     this.renderer.setClearColor(0x87CEEB, 1);
     document.body.appendChild(this.renderer.domElement);

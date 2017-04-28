@@ -11,6 +11,7 @@ const ANNYANG = {
 			annyang.setLanguage("es-ES");
 			// Start listening.
 			annyang.start();
+			annyang.pause();
 		}
 	},
 
