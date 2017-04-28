@@ -1,5 +1,5 @@
-var Player = function(){
-    this.texture = new THREE.ImageUtils.loadTexture( 'img/run.png' );
+var Player = function(textureManager){
+    this.texture = textureManager.getTexture("run");
 }
 
 Player.prototype.init = function(){

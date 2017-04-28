@@ -24,12 +24,10 @@ TextureManager.prototype.load = function(){
         var item = this.textures[name];
         this.textureLoader.load('img/' + name + "." + item.type, function ( texture ) {
             this.context.textures[this.name].texture = texture;
-            this.context.textures[this.name].width = texture.image.width;
-            this.context.textures[this.name].height = texture.image.height;
         }.bind({context: this, name: name}));
     }
 }
 
 TextureManager.prototype.getTexture = function(textureName){
-    return this.textures[textureName];
+    return this.textures[textureName].texture;
 }

@@ -93,7 +93,7 @@ Game.prototype.init = function(){
     this.light.position.set(0,250,0);
     this.scene.add(this.light);
 
-    this.player = new Player();
+    this.player = new Player(this.textureManager);
     this.player.init();
     // console.log(this.player);
     this.scene.add(this.player.runner);

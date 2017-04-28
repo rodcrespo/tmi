@@ -1,11 +1,11 @@
 var CityBackground = function(textureManager){
 
     var texture = textureManager.getTexture("skyline");
-    var ratio = texture.height / texture.width;
+    var ratio = texture.image.height / texture.image.width;
     var cityWidth = SCREEN_WIDTH / 2.5;
     var cityHeight = SCREEN_WIDTH / 2.5 * ratio;
     this.geometry = new THREE.PlaneGeometry( cityWidth , cityHeight);
-    this.material = new THREE.MeshBasicMaterial( {map: texture.texture, side: THREE.DoubleSide, transparent: true} );
+    this.material = new THREE.MeshBasicMaterial( {map: texture, side: THREE.DoubleSide, transparent: true} );
     this.plane = new THREE.Mesh( this.geometry, this.material );
     this.plane.position.set(0, cityHeight /2, -5);
 
