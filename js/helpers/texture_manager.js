@@ -11,7 +11,7 @@ var TextureManager = function(onLoad){
         skyline: {
             type: "jpg",
         },
-        run: {
+        runner: {
             type: "png"
         },
         bakery_shop: {

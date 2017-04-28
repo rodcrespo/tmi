@@ -49,11 +49,20 @@ Game.prototype.init = function(){
     this.renderer = new THREE.WebGLRenderer({antialias: true});
     this.renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
     this.renderer.setClearColor(0x87CEEB, 1);
+    this.renderer.sortObjects = false;
     document.body.appendChild(this.renderer.domElement);
 
+    this.floor= new Floor(this.textureManager);
+    this.scene.add( this.floor.plane );
 
+    
     this.city= new CityBackground(this.textureManager);
     this.scene.add( this.city.plane );
+
+    this.player = new Player(this.textureManager);
+    this.player.init();
+    // console.log(this.player);
+    this.scene.add(this.player.runner);
 
     this.bakery_shop = new BakeryShop(this.textureManager);
     this.scene.add( this.bakery_shop.plane );
@@ -62,8 +71,11 @@ Game.prototype.init = function(){
     this.flower_shop = new FlowerShop(this.textureManager);
     this.scene.add( this.flower_shop.plane );
 
-    this.floor= new Floor(this.textureManager);
-    this.scene.add( this.floor.plane );
+
+
+
+
+
 
 
 
@@ -100,10 +112,7 @@ Game.prototype.init = function(){
     this.light.position.set(0,250,0);
     this.scene.add(this.light);
 
-    this.player = new Player(this.textureManager);
-    this.player.init();
-    // console.log(this.player);
-    this.scene.add(this.player.runner);
+
 
 
 };
