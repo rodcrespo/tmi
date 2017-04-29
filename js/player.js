@@ -65,11 +65,11 @@ Player.prototype.jump = function(velocity) {
 }
 
 Player.prototype.jumpHigh = function(){
-	this.jump(80); //TODO ? extract high jump velocity
+	this.jump(400); //TODO ? extract high jump velocity
 }
 
 Player.prototype.jumpLow = function(){
-	this.jump(50); //TODO ? extract low jump velocity
+	this.jump(200); //TODO ? extract low jump velocity
 }
 
 Player.prototype.stopHorizontally = function() {
@@ -80,7 +80,7 @@ Player.prototype.update = function(lapsedMillis, colliders) {
 	//update animations
 	this.animatedTexture.update(lapsedMillis);
 	
-	return;
+	//return;
 	//update velocities (gravity and/or friction)
 	this.updateVelocities(lapsedMillis);
 	this.restrictVelocities();
@@ -91,12 +91,12 @@ Player.prototype.update = function(lapsedMillis, colliders) {
 	var bboxBottom	= this.runner.position.clone().add(new THREE.Vector3(0, -this.playerHeight/2+2, 0));
 	var bboxTop		= this.runner.position.clone().add(new THREE.Vector3(0,  this.playerHeight/2-2, 0));
 	//distance (from the players CENTER OF MASS) to the respective direction (null if infinite)
-	var distanceRight	= getNearestCollisionFrom([bboxTop, bboxBottom], new THREE.Vector3(-1,  0, 0), colliders);
-	var distanceLeft	= getNearestCollisionFrom([bboxTop, bboxBottom], new THREE.Vector3( 1,  0, 0), colliders);
+	var distanceRight	= getNearestCollisionFrom([bboxTop, bboxBottom], new THREE.Vector3( 1,  0, 0), colliders);
+	var distanceLeft	= getNearestCollisionFrom([bboxTop, bboxBottom], new THREE.Vector3(-1,  0, 0), colliders);
 	var distanceTop		= getNearestCollisionFrom([bboxLeft, bboxRight], new THREE.Vector3( 0,  1, 0), colliders);
 	var distanceBottom	= getNearestCollisionFrom([bboxLeft, bboxRight], new THREE.Vector3( 0, -1, 0), colliders);
 	//update positions based on the player's velocity (while checking collisions)
-	this.updateVerticalPositionAndVelocity(lapsedMillis, distanceTop, distanceBottom);
+	this.updateVerticalPositionAndVelocity(lapsedMillis, distanceBottom, distanceTop);
 	this.updateHorizontalPositionAndVelocity(lapsedMillis, distanceLeft, distanceRight);
 }
 //////////////// END PLAYER API

@@ -1,7 +1,7 @@
 var WorldPhysics = function(){
-    this.gravity = -9.8;
+    this.gravity = -980;
 	this.friction = 0.5;
-	this.terminalVelocity = 8;
+	this.terminalVelocity = 800;
 }
 
 WorldPhysics.prototype.getGravity = function() {

@@ -31,7 +31,7 @@ function getAbsoluteMovement(distance, velocity, lapsedMillis, positionOffset) {
 	var movement = 0;
 	if (!distance || distance > intendedMovement + positionOffset) {
 		movement = intendedMovement;
-	} else { //HIT going UP!
+	} else { //HIT!
 		movement = distance - positionOffset;
 	}
 	return movement;

@@ -1,11 +1,17 @@
+var leftHeld = false;
+var rightHeld = false;
+
+
 var onKeyDown = function(e) {
 	var keyCode = e.which;
 	switch(keyCode) {
 		case KEYCODE_LEFT: 
 			game.player.startMovingLeft();
+			leftHeld = true;
 			break;
 		case KEYCODE_RIGHT: 
 			game.player.startMovingRight();
+			rightHeld = true;
 			break;
 		case KEYCODE_UP: 
 			game.player.jumpHigh();
@@ -23,10 +29,14 @@ var onKeyUp = function(e) {
 	var keyCode = e.which;
 	switch(keyCode) {
 		case KEYCODE_LEFT: 
-			game.player.stopHorizontally();
+			if (!rightHeld)
+				game.player.stopHorizontally();
+			leftHeld = false;
 			break;
 		case KEYCODE_RIGHT: 
-			game.player.stopHorizontally();
+			if (!leftHeld)
+				game.player.stopHorizontally();
+			rightHeld = false;
 			break;
 		case KEYCODE_UP: 
 			//nothing yet

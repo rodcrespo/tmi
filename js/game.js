@@ -34,30 +34,6 @@ Game.prototype.load = function(){
 	this.collidables = [];
 }
 
-Game.prototype.createPlatforms = function (){
-
-	this.createCube(300, 10, 200, new THREE.Vector3( 50, 195, 0), 0);
-	this.createCube(10, 200, 200, new THREE.Vector3( -100, 100, 0), 0);
-	this.createCube(200, 10, 200, new THREE.Vector3( 0, 5, 0), 0);				
-	this.createCube(10, 100, 200, new THREE.Vector3( 100, 50, 0), 0);
-	this.createCube(100, 10, 200, new THREE.Vector3( 150, 95, 0), 0);
-
-}
-
-Game.prototype.createCube = function (sx, sy, sz, p, ry){
-
-	var cube = new THREE.Mesh( new THREE.CubeGeometry( sx, sy, sz ), new THREE.MeshLambertMaterial( { color: 0x003300 } ) );
-	cube.position.x = p.x;
-	cube.position.y = p.y;
-	cube.position.z = p.z;
-	cube.rotation.y = ry;
-	this.scene.add(cube);
-
-	//THREE.Collisions.colliders.push( THREE.CollisionUtils.MeshOBB(cube) );
-	this.collidables.push(cube);
-	return cube;
-}
-
 Game.prototype.init = function(){
     // console.log(this)
   	ANNYANG.init();
@@ -78,6 +54,7 @@ Game.prototype.init = function(){
 
     this.floor= new Floor(this.textureManager);
     this.scene.add( this.floor.plane );
+	this.collidables.push(this.floor.plane);
 
     
     this.city= new CityBackground(this.textureManager);
@@ -94,8 +71,6 @@ Game.prototype.init = function(){
 
     this.flower_shop = new FlowerShop(this.textureManager);
     this.scene.add( this.flower_shop.plane );
-
-	//this.createPlatforms();
 
 
 
