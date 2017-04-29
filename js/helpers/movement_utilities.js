@@ -22,7 +22,7 @@ function getDirectionalMovement(lapsedMillis, velocity, distanceLow, distanceHig
 	} else { //going towards negative coords
 		movement = -getAbsoluteMovement(distanceLow, -velocity, lapsedMillis, positionOffset);
 	}
-	this.position.x += movement;
+	return movement;
 }
 
 

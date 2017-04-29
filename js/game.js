@@ -31,7 +31,31 @@ Game.prototype.load = function(){
         this.animate();
     }.bind(this));
     this.textureManager.load();
+	this.collidables = [];
+}
 
+Game.prototype.createPlatforms = function (){
+
+	this.createCube(300, 10, 200, new THREE.Vector3( 50, 195, 0), 0);
+	this.createCube(10, 200, 200, new THREE.Vector3( -100, 100, 0), 0);
+	this.createCube(200, 10, 200, new THREE.Vector3( 0, 5, 0), 0);				
+	this.createCube(10, 100, 200, new THREE.Vector3( 100, 50, 0), 0);
+	this.createCube(100, 10, 200, new THREE.Vector3( 150, 95, 0), 0);
+
+}
+
+Game.prototype.createCube = function (sx, sy, sz, p, ry){
+
+	var cube = new THREE.Mesh( new THREE.CubeGeometry( sx, sy, sz ), new THREE.MeshLambertMaterial( { color: 0x003300 } ) );
+	cube.position.x = p.x;
+	cube.position.y = p.y;
+	cube.position.z = p.z;
+	cube.rotation.y = ry;
+	this.scene.add(cube);
+
+	//THREE.Collisions.colliders.push( THREE.CollisionUtils.MeshOBB(cube) );
+	this.collidables.push(cube);
+	return cube;
 }
 
 Game.prototype.init = function(){
@@ -71,7 +95,7 @@ Game.prototype.init = function(){
     this.flower_shop = new FlowerShop(this.textureManager);
     this.scene.add( this.flower_shop.plane );
 
-
+	//this.createPlatforms();
 
 
 
@@ -136,8 +160,7 @@ Game.prototype.update = function(){
             alert ("Game Over!\nScore: " + score );
         }
     }
-
-    this.player.animatedTexture.update(1000 * delta);
+	this.player.update(1000 * delta, this.collidables);
 };
 
 Game.prototype.animate = function(){

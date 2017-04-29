@@ -15,6 +15,10 @@
 <script src="js/annyang.js"></script>
 <script src="js/helpers/texture_manager.js"></script>
 <script src="js/helpers/texture_animator.js"></script>
+<script src="js/helpers/movement_utilities.js"></script>
+<script src="js/helpers/keycodes.js"></script>
+<script src="js/keyboard_controller.js"></script>
+<script src="js/world_physics.js"></script>
 <script src="js/player.js"></script>
 <script src="js/city_background.js"></script>
 <script src="js/bakery_shop.js"></script>
@@ -27,22 +31,8 @@
 	var game = new Game();
 	game.load();
 
-	document.addEventListener("keydown", function(e){
-		var keyCode = e.which;
-		if (keyCode == 82) {
-			console.log("RESUME")
-			ANNYANG.resume();
-		}
-	}, false);
-
-	document.addEventListener("keyup", function(e){
-		var keyCode = e.which;
-		if (keyCode == 82) {
-			console.log("PAUSE")
-			ANNYANG.pause();
-		}
-	}, false);
-
+	document.addEventListener("keydown",  onKeyDown, false);
+	document.addEventListener("keyup", onKeyUp, false);
 </script>
 </body>
 </html>
