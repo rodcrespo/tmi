@@ -38,6 +38,8 @@ Game.prototype.init = function(){
     // console.log(this)
   	ANNYANG.init();
 
+      this.pause = false;
+
     this.scene = new THREE.Scene();
 
     this.camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
@@ -123,19 +125,22 @@ Game.prototype.render = function(){
 Game.prototype.update = function(){
     var delta = this.clock.getDelta();
     // console.log(delta)
-    if (rotationEnabled){
+    if (!this.pause) {
+        if (rotationEnabled){
         rotation += 0.05;
         cube.rotation.set(0.4, rotation, 0);
-    }
-
-    if (this.scene.getObjectByName('enemy')) {
-        circle.position.x += circleSpeed.x;
-        if (circle.position.distanceToManhattan(endPos) <= 5) {
-            this.scene.remove(circle);
-            alert ("Game Over!\nScore: " + score );
         }
+
+        if (this.scene.getObjectByName('enemy')) {
+            circle.position.x += circleSpeed.x;
+            if (circle.position.distanceToManhattan(endPos) <= 5) {
+                this.scene.remove(circle);
+                alert ("Game Over!\nScore: " + score );
+            }
+        }
+        this.player.update(1000 * delta, this.collidables);
     }
-	this.player.update(1000 * delta, this.collidables);
+    
 };
 
 Game.prototype.animate = function(){

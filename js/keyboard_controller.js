@@ -19,6 +19,9 @@ var onKeyDown = function(e) {
 		case KEYCODE_R: 
 			console.log("RESUME")
 			ANNYANG.resume();
+			break;
+		case KEYCODE_P: 
+			game.pause = !game.pause;
 			break;	
 	}
 }
