@@ -4,7 +4,8 @@ var rightHeld = false;
 
 var onKeyDown = function(e) {
 	var keyCode = e.which;
-	switch(keyCode) {
+	if (!game.pauseEvent) {
+		switch(keyCode) {
 		case KEYCODE_LEFT: 
 			game.player.startMovingLeft();
 			leftHeld = true;
@@ -22,7 +23,21 @@ var onKeyDown = function(e) {
 			break;
 		case KEYCODE_P: 
 			game.pause = !game.pause;
+			break;
+		case KEYCODE_E: 
+			console.log("Testing event");
+			game.event = testEvent();
+			game.event.start();
 			break;	
+		}
+	}
+	else {
+		if (keyCode == KEYCODE_P) {
+			game.pause = !game.pause;
+		}
+		else  {
+			game.event.checkAnswer(keyCode);
+		}
 	}
 }
 

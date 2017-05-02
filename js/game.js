@@ -38,7 +38,7 @@ Game.prototype.init = function(){
     // console.log(this)
   	ANNYANG.init();
 
-      this.pause = false;
+    this.pause = false;
 
     this.scene = new THREE.Scene();
 
@@ -74,8 +74,9 @@ Game.prototype.init = function(){
     this.flower_shop = new FlowerShop(this.textureManager);
     this.scene.add( this.flower_shop.plane );
 
-
-
+    // Event
+    this.event = null;
+    this.pauseEvent = false;
 
 
 
@@ -126,19 +127,24 @@ Game.prototype.update = function(){
     var delta = this.clock.getDelta();
     // console.log(delta)
     if (!this.pause) {
-        if (rotationEnabled){
-        rotation += 0.05;
-        cube.rotation.set(0.4, rotation, 0);
-        }
-
-        if (this.scene.getObjectByName('enemy')) {
-            circle.position.x += circleSpeed.x;
-            if (circle.position.distanceToManhattan(endPos) <= 5) {
-                this.scene.remove(circle);
-                alert ("Game Over!\nScore: " + score );
+        if (!this.pauseEvent) {
+            if (rotationEnabled){
+            rotation += 0.05;
+            cube.rotation.set(0.4, rotation, 0);
             }
+
+            if (this.scene.getObjectByName('enemy')) {
+                circle.position.x += circleSpeed.x;
+                if (circle.position.distanceToManhattan(endPos) <= 5) {
+                    this.scene.remove(circle);
+                    alert ("Game Over!\nScore: " + score );
+                }
+            }
+            this.player.update(1000 * delta, this.collidables);
         }
-        this.player.update(1000 * delta, this.collidables);
+        else {
+            this.event.update(delta);
+        }
     }
     
 };
