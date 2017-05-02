@@ -1,4 +1,5 @@
 var testEvent = function () {
+    this.badAnswer = "Has respondido mal";
     event = new Event (10, [KEYCODE_A, KEYCODE_D], 3);
     event.setFunctions(
         [
@@ -19,7 +20,10 @@ var testEvent = function () {
             console.log("Se ejecuta bien: Se ha respondido bien");
         },
         function() {
-            console.log("Se ejecuta mal; No se ha respondido bien")
+            console.log("Se ejecuta mal; No se ha respondido bien");
+        },
+        function() {
+            console.log(this.badAnswer);
         });
     return event;
 }

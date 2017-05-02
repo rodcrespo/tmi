@@ -10,12 +10,13 @@ var Event = function(time, goodAnswer, opportunities){
     this.count = 0;
 }
 
-Event.prototype.setFunctions = function (beforeEvent, event, afterSuccess, afterWrong) {
+Event.prototype.setFunctions = function (beforeEvent, event, afterSuccess, afterWrong, badAnswer) {
     this.beforeEvent = beforeEvent;
     this.event = event;
     this.afterSuccess = afterSuccess;
     this.afterWrong = afterWrong;
     this.ready = true;
+    this.badAnswer = badAnswer;
 }
 
 Event.prototype.start = function() {
@@ -32,13 +33,14 @@ Event.prototype.update = function (deltaTime) {
     if (this.running) {
         this.timer += deltaTime;
 
-        this.callFunctions(this.event);
-
         if (this.timer >= this.time) {
             this.end = true;
             this.afterEvent();
             this.running = false;
             game.pauseEvent = false;
+        }
+        else {
+            this.callFunctions(this.event);
         }
     }
 }
@@ -95,6 +97,11 @@ Event.prototype.checkAnswer = function (answer) {
                 this.timer = this.time;
             }
         }
+
+        if (!this.correct && this.badAnswer != null) {
+            this.callFunctions(this.badAnswer);
+        }
+
         if (this.opportunities > 0) {
             this.count += 1;
             if (this.count >= this.opportunities) {
