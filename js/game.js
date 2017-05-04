@@ -62,7 +62,7 @@ Game.prototype.init = function(){
     // Floor with hitpoint
     this.specialFloor = new SpecialFloor(this.textureManager, 0x550000);
     this.scene.add(this.specialFloor.plane);
-    this.triggerCollidables.push([this.specialFloor.plane, this.specialFloor]);
+    this.triggerCollidables.push(this.specialFloor);
     
     this.city= new CityBackground(this.textureManager);
     this.scene.add( this.city.plane );

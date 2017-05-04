@@ -97,13 +97,13 @@ Player.prototype.update = function(lapsedMillis, colliders, triggerColliders) {
 	var distanceBottom	= getNearestCollisionFrom([bboxLeft, bboxRight], new THREE.Vector3( 0, -1, 0), colliders);
 	//Check triggers
 	for (var i = 0; i < triggerColliders.length; i++) {
-            var distanceRightTrigger	= getNearestCollisionFrom([bboxTop, bboxBottom], new THREE.Vector3( 1,  0, 0), [triggerColliders[i][0]]);
-			var distanceLeftTrigger		= getNearestCollisionFrom([bboxTop, bboxBottom], new THREE.Vector3(-1,  0, 0), [triggerColliders[i][0]]);
-			var distanceTopTrigger		= getNearestCollisionFrom([bboxLeft, bboxRight], new THREE.Vector3( 0,  1, 0), [triggerColliders[i][0]]);
-			var distanceBottomTrigger	= getNearestCollisionFrom([bboxLeft, bboxRight], new THREE.Vector3( 0, -1, 0), [triggerColliders[i][0]]);
+            var distanceRightTrigger	= getNearestCollisionFrom([bboxTop, bboxBottom], new THREE.Vector3( 1,  0, 0), [triggerColliders[i].plane]);
+			var distanceLeftTrigger		= getNearestCollisionFrom([bboxTop, bboxBottom], new THREE.Vector3(-1,  0, 0), [triggerColliders[i].plane]);
+			var distanceTopTrigger		= getNearestCollisionFrom([bboxLeft, bboxRight], new THREE.Vector3( 0,  1, 0), [triggerColliders[i].plane]);
+			var distanceBottomTrigger	= getNearestCollisionFrom([bboxLeft, bboxRight], new THREE.Vector3( 0, -1, 0), [triggerColliders[i].plane]);
 			if (triggerCollision(lapsedMillis, this.horizontalVelocity, distanceLeftTrigger, distanceRightTrigger, this.playerWidth/2) ||
 				triggerCollision(lapsedMillis, this.verticalVelocity, distanceBottomTrigger, distanceTopTrigger, this.playerHeight/2)) {
-					triggerColliders[i][1].onTriggerEnter (this);
+					triggerColliders[i].onTriggerEnter (this);
 			}
 
     }
