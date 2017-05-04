@@ -1,5 +1,6 @@
 var Player = function(textureManager){
     this.texture = textureManager.getTexture("runner");
+	this.name = "player";
 }
 
 Player.prototype.init = function(){
@@ -76,10 +77,9 @@ Player.prototype.stopHorizontally = function() {
 	this.keepHorizontalVelocity = false;
 }
 
-Player.prototype.update = function(lapsedMillis, colliders) {
+Player.prototype.update = function(lapsedMillis, colliders, triggerColliders) {
 	//update animations
 	this.animatedTexture.update(lapsedMillis);
-	
 	//return;
 	//update velocities (gravity and/or friction)
 	this.updateVelocities(lapsedMillis);
@@ -95,6 +95,19 @@ Player.prototype.update = function(lapsedMillis, colliders) {
 	var distanceLeft	= getNearestCollisionFrom([bboxTop, bboxBottom], new THREE.Vector3(-1,  0, 0), colliders);
 	var distanceTop		= getNearestCollisionFrom([bboxLeft, bboxRight], new THREE.Vector3( 0,  1, 0), colliders);
 	var distanceBottom	= getNearestCollisionFrom([bboxLeft, bboxRight], new THREE.Vector3( 0, -1, 0), colliders);
+	//Check triggers
+	for (var i = 0; i < triggerColliders.length; i++) {
+            var distanceRightTrigger	= getNearestCollisionFrom([bboxTop, bboxBottom], new THREE.Vector3( 1,  0, 0), [triggerColliders[i][0]]);
+			var distanceLeftTrigger		= getNearestCollisionFrom([bboxTop, bboxBottom], new THREE.Vector3(-1,  0, 0), [triggerColliders[i][0]]);
+			var distanceTopTrigger		= getNearestCollisionFrom([bboxLeft, bboxRight], new THREE.Vector3( 0,  1, 0), [triggerColliders[i][0]]);
+			var distanceBottomTrigger	= getNearestCollisionFrom([bboxLeft, bboxRight], new THREE.Vector3( 0, -1, 0), [triggerColliders[i][0]]);
+			if (triggerCollision(lapsedMillis, this.horizontalVelocity, distanceLeftTrigger, distanceRightTrigger, this.playerWidth/2) ||
+				triggerCollision(lapsedMillis, this.verticalVelocity, distanceBottomTrigger, distanceTopTrigger, this.playerHeight/2)) {
+					triggerColliders[i][1].onTriggerEnter (this);
+			}
+
+    }
+	
 	//update positions based on the player's velocity (while checking collisions)
 	this.updateVerticalPositionAndVelocity(lapsedMillis, distanceBottom, distanceTop);
 	this.updateHorizontalPositionAndVelocity(lapsedMillis, distanceLeft, distanceRight);

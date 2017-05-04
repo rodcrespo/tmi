@@ -25,6 +25,7 @@ Event.prototype.start = function() {
             this.callFunctions(this.beforeEvent);
         }
         this.running = true;
+        game.event = this;
         game.pauseEvent = true;
     }
 }
@@ -38,6 +39,7 @@ Event.prototype.update = function (deltaTime) {
             this.afterEvent();
             this.running = false;
             game.pauseEvent = false;
+            game.event = null;
         }
         else {
             this.callFunctions(this.event);

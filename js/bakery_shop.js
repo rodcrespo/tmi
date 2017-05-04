@@ -8,5 +8,6 @@ var BakeryShop = function(textureManager){
     this.material = new THREE.MeshBasicMaterial( {map: texture, side: THREE.DoubleSide, transparent: true, depthTest: false} );
     this.plane = new THREE.Mesh( this.geometry, this.material );
     this.plane.position.set(-SCREEN_WIDTH/10, cityHeight /2, -5);
-
 }
+
+

@@ -1,6 +1,7 @@
-var testEvent = function () {
-    this.badAnswer = "Has respondido mal";
-    event = new Event (10, [KEYCODE_A, KEYCODE_D], 3);
+var testEvent = function (floor) {
+    this.badAnswer = "Has respondido mal ";
+    this.cont = 0;
+    event = new Event (10, [KEYCODE_A, KEYCODE_D], 2);
     event.setFunctions(
         [
             function() {
@@ -18,12 +19,15 @@ var testEvent = function () {
         },
         function () {
             console.log("Se ejecuta bien: Se ha respondido bien");
+            floor.changeColor(0x00ff00);
         },
         function() {
             console.log("Se ejecuta mal; No se ha respondido bien");
+            floor.changeColor(0xff0000);
         },
         function() {
-            console.log(this.badAnswer);
+            this.cont += 1;
+            console.log(this.badAnswer + this.cont + " veces");
         });
     return event;
 }

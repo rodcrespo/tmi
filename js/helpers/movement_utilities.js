@@ -37,3 +37,21 @@ function getAbsoluteMovement(distance, velocity, lapsedMillis, positionOffset) {
 	return movement;
 }
 
+function triggerCollision(lapsedMillis, velocity, distanceLow, distanceHigh, positionOffset) {
+	if (velocity > 0) { //going towards positive coords!!
+		return checkTriggerCollision(distanceHigh, velocity, lapsedMillis, positionOffset);
+	} else { //going towards negative coords
+		return checkTriggerCollision(distanceLow, -velocity, lapsedMillis, positionOffset);
+	}
+}
+
+
+function checkTriggerCollision(distance, velocity, lapsedMillis, positionOffset) {
+	var intendedMovement = velocity * lapsedMillis / 1000;
+	if (!distance || distance > intendedMovement + positionOffset) {
+		return false;
+	} else { //HIT!
+		return true;
+	}
+}
+

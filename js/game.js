@@ -32,6 +32,7 @@ Game.prototype.load = function(){
     }.bind(this));
     this.textureManager.load();
 	this.collidables = [];
+    this.triggerCollidables = [];
 }
 
 Game.prototype.init = function(){
@@ -58,6 +59,10 @@ Game.prototype.init = function(){
     this.scene.add( this.floor.plane );
 	this.collidables.push(this.floor.plane);
 
+    // Floor with hitpoint
+    this.specialFloor = new SpecialFloor(this.textureManager, 0x550000);
+    this.scene.add(this.specialFloor.plane);
+    this.triggerCollidables.push([this.specialFloor.plane, this.specialFloor]);
     
     this.city= new CityBackground(this.textureManager);
     this.scene.add( this.city.plane );
@@ -69,7 +74,6 @@ Game.prototype.init = function(){
 
     this.bakery_shop = new BakeryShop(this.textureManager);
     this.scene.add( this.bakery_shop.plane );
-
 
     this.flower_shop = new FlowerShop(this.textureManager);
     this.scene.add( this.flower_shop.plane );
@@ -140,7 +144,7 @@ Game.prototype.update = function(){
                     alert ("Game Over!\nScore: " + score );
                 }
             }
-            this.player.update(1000 * delta, this.collidables);
+            this.player.update(1000 * delta, this.collidables, this.triggerCollidables);
         }
         else {
             this.event.update(delta);
