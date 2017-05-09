@@ -1,5 +1,5 @@
 var WorldPhysics = function(){
-    this.gravity = -980;
+  this.gravity = -980;
 	this.friction = 0.5;
 	this.terminalVelocity = 800;
 }

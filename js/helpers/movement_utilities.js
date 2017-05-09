@@ -2,10 +2,10 @@ var raycaster = new THREE.Raycaster();
 
 function getNearestCollisionFrom(points, direction, collidables) {
 	var distance = null;
-	
+
 	for (i = 0; i < points.length; i++) {
 		raycaster.set(points[i], direction);
-		var c = raycaster.intersectObjects( collidables ) [0];	
+		var c = raycaster.intersectObjects( collidables ) [0];
 		if (c) {
 			if (!distance || distance > c.distance) {
 				distance = c.distance;
@@ -54,4 +54,3 @@ function checkTriggerCollision(distance, velocity, lapsedMillis, positionOffset)
 		return true;
 	}
 }
-

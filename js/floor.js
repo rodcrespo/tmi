@@ -23,7 +23,7 @@ var SpecialFloor = function (textureManager, colorFloor) {
     this.plane.position.set(150, -50, -5);
     this.plane.rotation.set(Math.PI/2, 0, 0);
 
-    this.hitPoint = new HitPoint(testEvent(this));
+    this.hitPoint = new Hitpoint(testEvent(this));
 }
 
 SpecialFloor.prototype.changeColor = function (colorFloor) {
@@ -32,6 +32,17 @@ SpecialFloor.prototype.changeColor = function (colorFloor) {
 
 SpecialFloor.prototype.onTriggerEnter = function (entity) {
     if (entity.name == "player") {
-        this.hitPoint.start();
+      this.hitPoint.start();
+    }
+}
+
+SpecialFloor.prototype.onTriggerStay = function (entity) {
+    if (entity.name == "player") {
+    }
+}
+
+
+SpecialFloor.prototype.onTriggerExit = function (entity) {
+    if (entity.name == "player") {
     }
 }

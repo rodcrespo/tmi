@@ -24,15 +24,15 @@ var Game = function(){
 };
 
 Game.prototype.load = function(){
-    this.textureManager = new TextureManager(function () {
-        console.log("All loaded")
-        // console.log(this.textureManager.textures)
-        this.init();
-        this.animate();
-    }.bind(this));
-    this.textureManager.load();
-	this.collidables = [];
-    this.triggerCollidables = [];
+  this.textureManager = new TextureManager(function () {
+      console.log("All loaded")
+      // console.log(this.textureManager.textures)
+      this.init();
+      this.animate();
+  }.bind(this));
+  this.textureManager.load();
+  this.collidables = [];
+  this.triggerCollidables = [];
 }
 
 Game.prototype.init = function(){
@@ -55,22 +55,18 @@ Game.prototype.init = function(){
     this.renderer.sortObjects = false;
     document.body.appendChild(this.renderer.domElement);
 
-    this.floor= new Floor(this.textureManager);
+    this.floor = new Floor(this.textureManager);
     this.scene.add( this.floor.plane );
-	this.collidables.push(this.floor.plane);
+    this.collidables.push(this.floor.plane);
 
     // Floor with hitpoint
     this.specialFloor = new SpecialFloor(this.textureManager, 0x550000);
     this.scene.add(this.specialFloor.plane);
     this.triggerCollidables.push(this.specialFloor);
-    
+
     this.city= new CityBackground(this.textureManager);
     this.scene.add( this.city.plane );
 
-    this.player = new Player(this.textureManager);
-    this.player.init();
-    // console.log(this.player);
-    this.scene.add(this.player.runner);
 
     this.bakery_shop = new BakeryShop(this.textureManager);
     this.scene.add( this.bakery_shop.plane );
@@ -78,9 +74,17 @@ Game.prototype.init = function(){
     this.flower_shop = new FlowerShop(this.textureManager);
     this.scene.add( this.flower_shop.plane );
 
+    this.player = new Player(this.textureManager);
+    this.player.init(this.collidables, this.triggerCollidables);
+    // console.log(this.player);
+    this.scene.add(this.player.runner);
+
+
     // Event
     this.event = null;
     this.pauseEvent = false;
+
+
 
 
 
@@ -144,13 +148,13 @@ Game.prototype.update = function(){
                     alert ("Game Over!\nScore: " + score );
                 }
             }
-            this.player.update(1000 * delta, this.collidables, this.triggerCollidables);
+            this.player.update(1000 * delta);
         }
         else {
             this.event.update(delta);
         }
     }
-    
+
 };
 
 Game.prototype.animate = function(){
