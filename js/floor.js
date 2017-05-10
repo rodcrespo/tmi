@@ -1,48 +1,56 @@
-var Floor = function(textureManager){
+var Floor = function (textureManager, type, x, y) {
 
-    var texture = textureManager.getTexture("skyline");
-    var ratio = texture.image.height / texture.image.width;
-    var cityWidth = SCREEN_WIDTH;
-    var cityHeight = SCREEN_WIDTH * ratio;
-    this.geometry = new THREE.PlaneGeometry( cityWidth , cityHeight);
-    this.material = new THREE.MeshBasicMaterial( {color: 0xf4a460, side: THREE.DoubleSide, transparent: true} );
-    this.plane = new THREE.Mesh( this.geometry, this.material );
-    this.plane.position.set(0, -50, -5);
-    this.plane.rotation.set(Math.PI/2, 0, 0);
+  //TODO do this outside
+  switch(type) {
+    case 'default':
+      this.color = 0xf4a460;
+      this.hitpoint = null;
+      break;
+    case 'red':
+      this.color = 0x550000;
+      this.hitpoint = new Hitpoint(testEvent(this));
+      break;
+    default:
+      this.color = 0xf4a460;
+      this.hitpoint = null;
+  }
 
+  //TODO add textures
+  // var texture = textureManager.getTexture("skyline");
+  // var ratio = texture.image.height / texture.image.width;
+  var cityWidth = SCREEN_WIDTH/10;
+  var cityHeight = SCREEN_WIDTH/10 * 4;
+  this.geometry = new THREE.PlaneGeometry(cityWidth , cityHeight);
+
+  this.material = new THREE.MeshBasicMaterial( {color: this.color, side: THREE.DoubleSide, transparent: true} );
+  this.plane = new THREE.Mesh(this.geometry, this.material);
+  this.plane.position.set(x, y - 50, -5);
+  this.plane.rotation.set(Math.PI/2, 0, 0);
 }
 
-var SpecialFloor = function (textureManager, colorFloor) {
-    var texture = textureManager.getTexture("skyline");
-    var ratio = texture.image.height / texture.image.width;
-    var cityWidth = SCREEN_WIDTH/10;
-    var cityHeight = SCREEN_WIDTH * ratio;
-    this.geometry = new THREE.PlaneGeometry( cityWidth , cityHeight);
-    this.material = new THREE.MeshBasicMaterial( {color: colorFloor, side: THREE.DoubleSide, transparent: true} );
-    this.plane = new THREE.Mesh( this.geometry, this.material );
-    this.plane.position.set(150, -50, -5);
-    this.plane.rotation.set(Math.PI/2, 0, 0);
-
-    this.hitPoint = new Hitpoint(testEvent(this));
+Floor.prototype.changeColor = function (color) {
+  this.color = color;
+  this.material.setValues ({color: this.color});
 }
 
-SpecialFloor.prototype.changeColor = function (colorFloor) {
-    this.material.setValues ({color:colorFloor});
+Floor.prototype.changeType = function (type) {
+  // this.material.setValues ({color: color});
+  console.log("WORK IN PROGRESS!!")
 }
 
-SpecialFloor.prototype.onTriggerEnter = function (entity) {
-    if (entity.name == "player") {
-      this.hitPoint.start();
-    }
+Floor.prototype.onTriggerEnter = function (entity) {
+  if (entity.name == "player" && this.hitpoint !== null) {
+    this.hitpoint.start();
+  }
 }
 
-SpecialFloor.prototype.onTriggerStay = function (entity) {
-    if (entity.name == "player") {
-    }
+Floor.prototype.onTriggerStay = function (entity) {
+  if (entity.name == "player") {
+  }
 }
 
 
-SpecialFloor.prototype.onTriggerExit = function (entity) {
-    if (entity.name == "player") {
-    }
+Floor.prototype.onTriggerExit = function (entity) {
+  if (entity.name == "player") {
+  }
 }

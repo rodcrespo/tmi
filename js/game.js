@@ -55,24 +55,24 @@ Game.prototype.init = function(){
     this.renderer.sortObjects = false;
     document.body.appendChild(this.renderer.domElement);
 
-    this.floor = new Floor(this.textureManager);
-    this.scene.add( this.floor.plane );
-    this.collidables.push(this.floor.plane);
 
-    // Floor with hitpoint
-    this.specialFloor = new SpecialFloor(this.textureManager, 0x550000);
-    this.scene.add(this.specialFloor.plane);
-    this.triggerCollidables.push(this.specialFloor);
 
     this.city= new CityBackground(this.textureManager);
     this.scene.add( this.city.plane );
 
 
-    this.bakery_shop = new BakeryShop(this.textureManager);
-    this.scene.add( this.bakery_shop.plane );
+    this.tiles = [];
+    var x = -SCREEN_WIDTH/10 * 3;
 
-    this.flower_shop = new FlowerShop(this.textureManager);
-    this.scene.add( this.flower_shop.plane );
+    for (var i = 0; i < 10; i++) {
+      var tile = new Tile(this.textureManager, Math.floor((Math.random() * 3)), x, 0);
+      this.tiles.push(tile);
+      x += SCREEN_WIDTH/10;
+      tile.addToScene(this.scene);
+      this.collidables.push(tile.getCollidable());
+      this.triggerCollidables.push(tile.getTrigger());
+    }
+
 
     this.player = new Player(this.textureManager);
     this.player.init(this.collidables, this.triggerCollidables);
