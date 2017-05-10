@@ -9,7 +9,6 @@ CollisionDetector.prototype.onTriggerEnter = function () {
     this.isColliding = true;
     console.log("Enter!");
     this.entity.onTriggerEnter(this.holder);
-    // this.hitPoint.start();
 }
 
 CollisionDetector.prototype.onTriggerStay = function () {
