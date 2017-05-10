@@ -79,6 +79,7 @@ Game.prototype.init = function(){
     // console.log(this.player);
     this.scene.add(this.player.runner);
 
+    this.camera.lookAt(this.player.runner.position);
 
     // Event
     this.event = null;
@@ -149,6 +150,7 @@ Game.prototype.update = function(){
                 }
             }
             this.player.update(1000 * delta);
+            this.cameraUpdate(delta * 1000)
         }
         else {
             this.event.update(delta);
@@ -157,6 +159,11 @@ Game.prototype.update = function(){
 
 };
 
+Game.prototype.cameraUpdate = function(delta){
+    var playerPosition = this.player.runner.position
+    this.camera.position.set(this.camera.position.x + (playerPosition.x - this.camera.position.x), 150, 400);
+    this.camera.lookAt(playerPosition);
+};
 Game.prototype.animate = function(){
     // console.log(this)
     requestAnimationFrame( this.animate.bind(this) );
