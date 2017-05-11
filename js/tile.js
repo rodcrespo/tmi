@@ -2,17 +2,17 @@ var Tile = function (textureManager, type, x, y) {
 
   // //TODO do this outside
   switch(type) {
-    case 0:
+    case Tile.TYPES.TYPE0:
       this.floor = new Floor(textureManager, "default", x, y);
-      this.wall = new Wall(textureManager, "flower_shop", x, y);
+      this.wall = new Wall(textureManager, FLOWER_SHOP, x, y);
       break;
-    case 1:
+    case Tile.TYPES.TYPE1:
       this.floor = new Floor(textureManager, "default", x, y);
-      this.wall = new Wall(textureManager, "bakery_shop", x, y);
+      this.wall = new Wall(textureManager, BAKERY_SHOP, x, y);
       break;
-    case 2:
+    case Tile.TYPES.TYPE2:
       this.floor = new Floor(textureManager, "red", x, y);
-      this.wall = new Wall(textureManager, "bakery_shop", x, y);
+      this.wall = new Wall(textureManager, BAKERY_SHOP, x, y);
       break;
     default:
 
@@ -32,4 +32,10 @@ Tile.prototype.getCollidable = function () {
 
 Tile.prototype.getTrigger = function () {
   return this.floor;
+}
+
+Tile.TYPES = {
+    TYPE0: 0,
+    TYPE1: 1,
+    TYPE2: 2
 }

@@ -1,17 +1,15 @@
 var Player = function(textureManager){
-  this.texture = textureManager.getTexture("runner");
-	this.name = "player";
+  this.texture = textureManager.getTexture(RUNNER);
+	this.name = PLAYER;
 }
 
 Player.prototype.init = function(colliders, triggerColliders){
   this.animatedTexture = new TextureAnimator( this.texture, 5, 2, 10, 75 ); // texture, #horiz, #vert, #total, duration.
   var runnerMaterial = new THREE.MeshBasicMaterial( { map: this.texture, side: THREE.DoubleSide, transparent: true, depthTest: false } );
-	this.playerWidth = 75;
-	this.playerHeight = 75 * 1.375; // Image ratio
 
-  var runnerGeometry = new THREE.PlaneGeometry(this.playerWidth, this.playerHeight, 1, 1);
+  var runnerGeometry = new THREE.PlaneGeometry(PLAYER_WIDTH, PLAYER_HEIGHT, 1, 1);
   this.runner = new THREE.Mesh(runnerGeometry, runnerMaterial);
-  this.runner.position.set(0, 0 + this.playerHeight / 2, 5);
+  this.runner.position.set(PLAYER_INIT_X, PLAYER_INIT_Y, PLAYER_INIT_Z);
 	//initialize movement
 	this.verticalVelocity = 0;
 	this.horizontalVelocity = 0;
@@ -27,11 +25,11 @@ Player.prototype.init = function(colliders, triggerColliders){
 }
 
 Player.prototype.height = function() {
-  return this.playerHeight;
+  return PLAYER_HEIGHT;
 }
 
 Player.prototype.width = function() {
-  return this.playerWidth;
+  return PLAYER_WIDTH;
 }
 
 //////FLAG FUNCTIONS
@@ -65,11 +63,11 @@ Player.prototype.setPosition = function(position) {
 }
 
 Player.prototype.startMovingLeft = function() {
-	this.startOrKeepMoving(-300); //TODO ? extract default velocity
+	this.startOrKeepMoving(-PLAYER_DEFAULT_VELOCITY);
 }
 
 Player.prototype.startMovingRight = function() {
-	this.startOrKeepMoving(300); //TODO ? extract default velocity
+	this.startOrKeepMoving(PLAYER_DEFAULT_VELOCITY);
 }
 
 Player.prototype.jump = function(velocity) {
@@ -79,11 +77,11 @@ Player.prototype.jump = function(velocity) {
 }
 
 Player.prototype.jumpHigh = function(){
-	this.jump(400); //TODO ? extract high jump velocity
+	this.jump(PLAYER_JUMP_HIGH_VELOCITY);
 }
 
 Player.prototype.jumpLow = function(){
-	this.jump(200); //TODO ? extract low jump velocity
+	this.jump(PLAYER_JUMP_LOW_VELOCITY);
 }
 
 Player.prototype.stopHorizontally = function() {
@@ -176,7 +174,7 @@ Player.prototype.restrictVelocities = function() {
 }
 
 Player.prototype.updateHorizontalPositionAndVelocity = function(lapsedMillis, distanceLeft, distanceRight) {
-	var movement = getDirectionalMovement(lapsedMillis, this.horizontalVelocity, distanceLeft, distanceRight, this.playerWidth/2);
+	var movement = getDirectionalMovement(lapsedMillis, this.horizontalVelocity, distanceLeft, distanceRight, PLAYER_WIDTH/2);
 	if (movement != 0) {
 		this.runner.position.x += movement;
 	} else {
@@ -185,7 +183,7 @@ Player.prototype.updateHorizontalPositionAndVelocity = function(lapsedMillis, di
 }
 
 Player.prototype.updateVerticalPositionAndVelocity = function(lapsedMillis, distanceBottom, distanceTop) {
-	var movement = getDirectionalMovement(lapsedMillis, this.verticalVelocity, distanceBottom, distanceTop, this.playerHeight/2);
+	var movement = getDirectionalMovement(lapsedMillis, this.verticalVelocity, distanceBottom, distanceTop, PLAYER_HEIGHT/2);
 	if (movement != 0) {
 		this.runner.position.y += movement;
 	} else {

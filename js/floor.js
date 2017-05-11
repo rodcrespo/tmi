@@ -18,13 +18,11 @@ var Floor = function (textureManager, type, x, y) {
   //TODO add textures
   // var texture = textureManager.getTexture("skyline");
   // var ratio = texture.image.height / texture.image.width;
-  var cityWidth = SCREEN_WIDTH/10;
-  var cityHeight = SCREEN_WIDTH/10 * 4;
-  this.geometry = new THREE.PlaneGeometry(cityWidth , cityHeight);
+  this.geometry = new THREE.PlaneGeometry(FLOOR_WIDTH , FLOOR_HEIGHT);
 
   this.material = new THREE.MeshBasicMaterial( {color: this.color, side: THREE.DoubleSide, transparent: true} );
   this.plane = new THREE.Mesh(this.geometry, this.material);
-  this.plane.position.set(x, y, cityHeight / 2);
+  this.plane.position.set(x, y, FLOOR_Z);
   this.plane.rotation.set(Math.PI/2, 0, 0);
 }
 
@@ -39,18 +37,18 @@ Floor.prototype.changeType = function (type) {
 }
 
 Floor.prototype.onTriggerEnter = function (entity) {
-  if (entity.name == "player" && this.hitpoint !== null) {
+  if (entity.name == PLAYER && this.hitpoint !== null) {
     this.hitpoint.start();
   }
 }
 
 Floor.prototype.onTriggerStay = function (entity) {
-  if (entity.name == "player") {
+  if (entity.name == PLAYER) {
   }
 }
 
 
 Floor.prototype.onTriggerExit = function (entity) {
-  if (entity.name == "player") {
+  if (entity.name == PLAYER) {
   }
 }

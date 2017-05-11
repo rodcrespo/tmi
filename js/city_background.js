@@ -1,13 +1,13 @@
 var CityBackground = function(textureManager){
 
-    var texture = textureManager.getTexture("skyline");
+    var texture = textureManager.getTexture(SKYLINE);
     var ratio = texture.image.height / texture.image.width;
-    var cityWidth = SCREEN_WIDTH / 1.6 ;
-    var cityHeight = SCREEN_WIDTH / 1.6 * ratio;
+    var cityWidth = CITY_WIDTH;
+    var cityHeight = CITY_WIDTH * ratio;
     this.geometry = new THREE.PlaneGeometry( cityWidth , cityHeight);
     this.material = new THREE.MeshBasicMaterial( {map: texture, side: THREE.DoubleSide, transparent: true, depthTest: false} );
     this.plane = new THREE.Mesh( this.geometry, this.material );
-    this.plane.position.set(0, cityHeight /2 - 50 , -30);
+    this.plane.position.set(CITY_X, cityHeight /2 + CITY_Y_OFFSET, CITY_Z);
 
 }
 

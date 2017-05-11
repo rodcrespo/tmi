@@ -6,18 +6,14 @@ var container, scene, camera, renderer, cube, stats, circle, speakPoint;
 
 
 // custom global variables
-var annie, boomer; // animators
 var rotation = 0;
 var rotationEnabled = false;
 var circleSpeed = new THREE.Vector3 (-1, 0, 0);
 var startPos, endPos;
 var score = 0;
 
-var SCREEN_WIDTH = window.innerWidth, SCREEN_HEIGHT = window.innerHeight;
-var ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT;
-var VIEW_ANGLE = 45;
-var NEAR = 0.1;
-var FAR = 20000;
+
+
 
 var Game = function(){
     this.clock = new THREE.Clock();
@@ -45,13 +41,13 @@ Game.prototype.init = function(){
 
     this.camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
     this.scene.add(this.camera);
-    this.camera.position.set(0, 150, 400);
-    this.camera.lookAt(new THREE.Vector3(0,50,0));
+    this.camera.position.set(CAMERA_INIT_X, CAMERA_INIT_Y, CAMERA_INIT_Z);
+    this.camera.lookAt(new THREE.Vector3(PLAYER_INIT_X,PLAYER_INIT_Y,PLAYER_INIT_Z));
 
     // RENDERER
     this.renderer = new THREE.WebGLRenderer({antialias: true});
     this.renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-    this.renderer.setClearColor(0x87CEEB, 1);
+    this.renderer.setClearColor(BACKGROUND_COLOR, 1);
     this.renderer.sortObjects = false;
     document.body.appendChild(this.renderer.domElement);
 
@@ -60,14 +56,14 @@ Game.prototype.init = function(){
     this.city= new CityBackground(this.textureManager);
     this.scene.add( this.city.plane );
 
-
+    //Initialize tiles
     this.tiles = [];
-    var x = -SCREEN_WIDTH/10 * 3;
+    var x = TILES_START;
 
-    for (var i = 0; i < 10; i++) {
-      var tile = new Tile(this.textureManager, Math.floor((Math.random() * 3)), x, 0);
+    for (var i = 0; i < TILES_NUMBER; i++) {
+      var tile = new Tile(this.textureManager, Math.floor((Math.random() * Object.keys(Tile.TYPES).length)), x, 0);
       this.tiles.push(tile);
-      x += SCREEN_WIDTH/10;
+      x += TILE_WIDTH;
       tile.addToScene(this.scene);
       this.collidables.push(tile.getCollidable());
       this.triggerCollidables.push(tile.getTrigger());
@@ -79,7 +75,6 @@ Game.prototype.init = function(){
     // console.log(this.player);
     this.scene.add(this.player.runner);
 
-    this.camera.lookAt(this.player.runner.position);
 
     // Event
     this.event = null;
@@ -119,8 +114,8 @@ Game.prototype.init = function(){
     // this.scene.add(speakPoint);
 
     // LIGHT
-    this.light = new THREE.PointLight(0xffffff);
-    this.light.position.set(0,250,0);
+    this.light = new THREE.PointLight(LIGHT_COLOR);
+    this.light.position.set(LIGHT_INIT_X, LIGHT_INIT_Y, LIGHT_INIT_Z);
     this.scene.add(this.light);
 
 
@@ -139,7 +134,6 @@ Game.prototype.update = function(){
         if (!this.pauseEvent) {
             if (rotationEnabled){
             rotation += 0.05;
-            cube.rotation.set(0.4, rotation, 0);
             }
 
             if (this.scene.getObjectByName('enemy')) {
@@ -150,7 +144,7 @@ Game.prototype.update = function(){
                 }
             }
             this.player.update(1000 * delta);
-            this.cameraUpdate(delta * 1000)
+            this.cameraUpdate();
             this.city.update(this.player.runner.position);
         }
         else {
@@ -160,13 +154,12 @@ Game.prototype.update = function(){
 
 };
 
-Game.prototype.cameraUpdate = function(delta){
-    var playerPosition = this.player.runner.position
+Game.prototype.cameraUpdate = function(){
+    var playerPosition = this.player.runner.position;
     this.camera.position.set(this.camera.position.x + (playerPosition.x - this.camera.position.x), 150, 400);
     this.camera.lookAt(playerPosition);
 };
 Game.prototype.animate = function(){
-    // console.log(this)
     requestAnimationFrame( this.animate.bind(this) );
     this.render();
     this.update();
