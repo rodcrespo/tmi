@@ -139,6 +139,7 @@ Player.prototype.getHitboxLeft = function() {
 
 //////INTERNAL FUNCTIONS
 Player.prototype.startOrKeepMoving = function(velocity) {
+	//TODO check if begging reached
 	this.setHorizontalVelocity(velocity);
 	this.keepHorizontalVelocity = true;
 }

@@ -26,6 +26,11 @@ Tile.prototype.addToScene = function (scene) {
   scene.add(this.wall.plane);
 }
 
+Tile.prototype.removeFromScene = function (scene) {
+    scene.add(this.floor.plane);
+    scene.add(this.wall.plane);
+}
+
 Tile.prototype.getCollidable = function () {
   return this.floor.plane;
 }

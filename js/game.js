@@ -146,6 +146,7 @@ Game.prototype.update = function(){
             this.player.update(1000 * delta);
             this.cameraUpdate();
             this.city.update(this.player.runner.position);
+            this.tilesUpdate();
         }
         else {
             this.event.update(delta);
@@ -159,6 +160,29 @@ Game.prototype.cameraUpdate = function(){
     this.camera.position.set(this.camera.position.x + (playerPosition.x - this.camera.position.x), 150, 400);
     this.camera.lookAt(playerPosition);
 };
+
+Game.prototype.tilesUpdate = function(){
+    var playerPosition = this.player.runner.position;
+    if(playerPosition.x > this.tiles[7].floor.plane.position.x){
+        var x = this.tiles[9].floor.plane.position.x + TILE_WIDTH;
+        this.tiles[0].removeFromScene(this.scene);
+        this.tiles.shift();
+        var tile = new Tile(this.textureManager, Math.floor((Math.random() * Object.keys(Tile.TYPES).length)), x, 0);
+        this.tiles.push(tile);
+
+        this.scene.remove(this.player.runner);
+
+        tile.addToScene(this.scene);
+        this.scene.add(this.player.runner);
+
+        this.collidables.shift();
+        this.triggerCollidables.shift();
+        this.collidables.push(tile.getCollidable());
+        this.triggerCollidables.push(tile.getTrigger());
+    }
+
+};
+
 Game.prototype.animate = function(){
     requestAnimationFrame( this.animate.bind(this) );
     this.render();
