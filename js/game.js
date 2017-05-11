@@ -151,6 +151,7 @@ Game.prototype.update = function(){
             }
             this.player.update(1000 * delta);
             this.cameraUpdate(delta * 1000)
+            this.city.update(this.player.runner.position);
         }
         else {
             this.event.update(delta);

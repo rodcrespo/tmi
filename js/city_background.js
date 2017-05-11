@@ -7,6 +7,10 @@ var CityBackground = function(textureManager){
     this.geometry = new THREE.PlaneGeometry( cityWidth , cityHeight);
     this.material = new THREE.MeshBasicMaterial( {map: texture, side: THREE.DoubleSide, transparent: true, depthTest: false} );
     this.plane = new THREE.Mesh( this.geometry, this.material );
-    this.plane.position.set(0, cityHeight /2 , -30);
+    this.plane.position.set(0, cityHeight /2 - 50 , -30);
 
+}
+
+CityBackground.prototype.update = function(playerPosition){
+    this.plane.position.x = this.plane.position.x + (playerPosition.x - this.plane.position.x)
 }

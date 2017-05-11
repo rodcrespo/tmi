@@ -11,7 +11,7 @@ Player.prototype.init = function(colliders, triggerColliders){
 
   var runnerGeometry = new THREE.PlaneGeometry(this.playerWidth, this.playerHeight, 1, 1);
   this.runner = new THREE.Mesh(runnerGeometry, runnerMaterial);
-  this.runner.position.set(0, 0, 5);
+  this.runner.position.set(0, 0 + this.playerHeight / 2, 5);
 	//initialize movement
 	this.verticalVelocity = 0;
 	this.horizontalVelocity = 0;

@@ -24,7 +24,7 @@ var Floor = function (textureManager, type, x, y) {
 
   this.material = new THREE.MeshBasicMaterial( {color: this.color, side: THREE.DoubleSide, transparent: true} );
   this.plane = new THREE.Mesh(this.geometry, this.material);
-  this.plane.position.set(x, y - 50, -5);
+  this.plane.position.set(x, y, cityHeight / 2);
   this.plane.rotation.set(Math.PI/2, 0, 0);
 }
 
