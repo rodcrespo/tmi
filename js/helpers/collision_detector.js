@@ -42,6 +42,6 @@ CollisionDetector.prototype.detectCollision = function (lapsedMillis) {
 }
 
 CollisionDetector.prototype.collidesWith = function (top, right, bottom, left, lapsedMillis) {
-  return triggerCollision(lapsedMillis, this.holder.getHorizontalVelocity(), left, right, this.holder.width()/2) ||
-    triggerCollision(lapsedMillis, this.holder.getVerticalVelocity(), bottom, top, this.holder.height()/2)
+  return triggerCollision(lapsedMillis, this.holder.getHorizontalVelocity(), left, right, this.holder.width/2) ||
+    triggerCollision(lapsedMillis, this.holder.getVerticalVelocity(), bottom, top, this.holder.height/2)
 }
