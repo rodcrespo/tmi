@@ -1,22 +1,18 @@
-var Player = function(textureManager){
-  this.texture = textureManager.getTexture(RUNNER);
+var Player = function(){
 	this.name = PLAYER;
 }
 
-Player.prototype.init = function(colliders, triggerColliders){
-  this.animatedTexture = new TextureAnimator( this.texture, 5, 2, 10, 75 ); // texture, #horiz, #vert, #total, duration.
-  var runnerMaterial = new THREE.MeshBasicMaterial( { map: this.texture, side: THREE.DoubleSide, transparent: true, depthTest: false } );
+Player.prototype.init = function(triggerColliders, mesh, texture){
 
-  var runnerGeometry = new THREE.PlaneGeometry(PLAYER_WIDTH, PLAYER_HEIGHT, 1, 1);
-  this.runner = new THREE.Mesh(runnerGeometry, runnerMaterial);
-  this.runner.position.set(PLAYER_INIT_X, PLAYER_INIT_Y, PLAYER_INIT_Z);
+  this.texture = texture;
+  this.mesh = mesh;
+  
+  this.mesh.position.set(PLAYER_INIT_X, PLAYER_INIT_Y, PLAYER_INIT_Z);
 	//initialize movement
 	this.verticalVelocity = 0;
 	this.horizontalVelocity = 0;
-	this.keepHorizontalVelocity = false;
 	this.physics = new WorldPhysics();
 
-  this.colliders = colliders;
   this.triggers = [];
 	for (var i = 0; i < triggerColliders.length; i++) {
     this.triggers.push(new CollisionDetector(this, triggerColliders[i]));
@@ -59,7 +55,7 @@ Player.prototype.isMovingLeft = function() {
 
 //////PLAYER API
 Player.prototype.setPosition = function(position) {
-	this.runner.position = position;
+	this.mesh.position = position;
 }
 
 Player.prototype.startMovingLeft = function() {
@@ -85,12 +81,14 @@ Player.prototype.jumpLow = function(){
 }
 
 Player.prototype.stopHorizontally = function() {
-	this.keepHorizontalVelocity = false;
+	this.physics.setFriction(0);
 }
 
-Player.prototype.update = function(lapsedMillis) {
+Player.prototype.update = function(game, lapsedMillis) {
 	//update animations
-	this.animatedTexture.update(lapsedMillis);
+	if (typeof this.texture.update === 'function') {
+		this.texture.update(lapsedMillis);
+	}
 	//return;
 	//update velocities (gravity and/or friction)
 	this.updateVelocities(lapsedMillis);
@@ -98,16 +96,16 @@ Player.prototype.update = function(lapsedMillis) {
 	//get nearest object in all directions
 	//points from where rays are traced
 
-  this.updateHitboxes();
+	this.updateHitboxes();
 	//distance (from the players CENTER OF MASS) to the respective direction (null if infinite)
-	var distanceRight	= getNearestCollisionFrom([this.getHitboxTop(), this.getHitboxBottom()], new THREE.Vector3( 1,  0, 0), this.colliders);
-	var distanceLeft	= getNearestCollisionFrom([this.getHitboxTop(), this.getHitboxBottom()], new THREE.Vector3(-1,  0, 0), this.colliders);
-	var distanceTop		= getNearestCollisionFrom([this.getHitboxLeft(), this.getHitboxRight()], new THREE.Vector3( 0,  1, 0), this.colliders);
-	var distanceBottom	= getNearestCollisionFrom([this.getHitboxLeft(), this.getHitboxRight()], new THREE.Vector3( 0, -1, 0), this.colliders);
+	var distanceRight	= getNearestCollisionFrom([this.getHitboxTop(), this.getHitboxBottom()], new THREE.Vector3( 1,  0, 0), game.collidables);
+	var distanceLeft	= getNearestCollisionFrom([this.getHitboxTop(), this.getHitboxBottom()], new THREE.Vector3(-1,  0, 0), game.collidables);
+	var distanceTop		= getNearestCollisionFrom([this.getHitboxLeft(), this.getHitboxRight()], new THREE.Vector3( 0,  1, 0), game.collidables);
+	var distanceBottom	= getNearestCollisionFrom([this.getHitboxLeft(), this.getHitboxRight()], new THREE.Vector3( 0, -1, 0), game.collidables);
 	//Check triggers
 	for (var trigger of this.triggers) {
-    trigger.detectCollision(lapsedMillis);
-  }
+		trigger.detectCollision(lapsedMillis);
+	}
 	//update positions based on the player's velocity (while checking collisions)
 	this.updateVerticalPositionAndVelocity(lapsedMillis, distanceBottom, distanceTop);
 	this.updateHorizontalPositionAndVelocity(lapsedMillis, distanceLeft, distanceRight);
@@ -116,10 +114,10 @@ Player.prototype.update = function(lapsedMillis) {
 
 
 Player.prototype.updateHitboxes = function() {
-  this.hitboxLeft	= this.runner.position.clone().add(new THREE.Vector3(-this.width()/2 + 2,  0, 0));
-  this.hitboxRight = this.runner.position.clone().add(new THREE.Vector3(this.width()/2 - 2,  0, 0));
-  this.hitboxBottom	= this.runner.position.clone().add(new THREE.Vector3(0, -this.height()/2 + 2, 0));
-  this.hitboxTop = this.runner.position.clone().add(new THREE.Vector3(0,  this.height()/2 - 2, 0));
+  this.hitboxLeft	= this.mesh.position.clone().add(new THREE.Vector3(-this.width()/2 + 2,  0, 0));
+  this.hitboxRight = this.mesh.position.clone().add(new THREE.Vector3(this.width()/2 - 2,  0, 0));
+  this.hitboxBottom	= this.mesh.position.clone().add(new THREE.Vector3(0, -this.height()/2 + 2, 0));
+  this.hitboxTop = this.mesh.position.clone().add(new THREE.Vector3(0,  this.height()/2 - 2, 0));
 }
 
 Player.prototype.getHitboxTop = function() {
@@ -141,7 +139,7 @@ Player.prototype.getHitboxLeft = function() {
 Player.prototype.startOrKeepMoving = function(velocity) {
 	//TODO check if begging reached
 	this.setHorizontalVelocity(velocity);
-	this.keepHorizontalVelocity = true;
+	this.physics.setFriction(1);
 }
 
 Player.prototype.setVerticalVelocity = function(velocity) {
@@ -154,7 +152,6 @@ Player.prototype.getVerticalVelocity = function() {
 
 Player.prototype.setHorizontalVelocity = function (velocity) {
 	this.horizontalVelocity = velocity;
-	this.keepHorizontalVelocity = true;
 }
 
 Player.prototype.getHorizontalVelocity = function() {
@@ -163,8 +160,7 @@ Player.prototype.getHorizontalVelocity = function() {
 
 Player.prototype.updateVelocities = function(lapsedMillis) {
 	this.verticalVelocity += this.physics.getGravity() * lapsedMillis / 1000;
-	if (!this.keepHorizontalVelocity)
-		this.horizontalVelocity *=  this.physics.getFriction();
+	this.horizontalVelocity *=  this.physics.getFriction();
 }
 
 Player.prototype.restrictVelocities = function() {
@@ -172,23 +168,27 @@ Player.prototype.restrictVelocities = function() {
 		this.verticalVelocity = this.physics.getTerminalVelocity();
 	if (this.verticalVelocity < -this.physics.getTerminalVelocity())
 		this.verticalVelocity = -this.physics.getTerminalVelocity();
+	if (this.horizontalVelocity > this.physics.getTerminalVelocity())
+		this.horizontalVelocity = this.physics.getTerminalVelocity();
+	if (this.horizontalVelocity < -this.physics.getTerminalVelocity())
+		this.horizontalVelocity = -this.physics.getTerminalVelocity();
 }
 
 Player.prototype.updateHorizontalPositionAndVelocity = function(lapsedMillis, distanceLeft, distanceRight) {
 	var movement = getDirectionalMovement(lapsedMillis, this.horizontalVelocity, distanceLeft, distanceRight, PLAYER_WIDTH/2);
 	if (movement != 0) {
-		this.runner.position.x += movement;
+		this.mesh.position.x += movement;
 	} else {
-		this.horizontalVelocity = 0;
+		this.horizontalVelocity = -this.physics.getElasticity()*this.horizontalVelocity;
 	}
 }
 
 Player.prototype.updateVerticalPositionAndVelocity = function(lapsedMillis, distanceBottom, distanceTop) {
 	var movement = getDirectionalMovement(lapsedMillis, this.verticalVelocity, distanceBottom, distanceTop, PLAYER_HEIGHT/2);
 	if (movement != 0) {
-		this.runner.position.y += movement;
+		this.mesh.position.y += movement;
 	} else {
-		this.verticalVelocity = 0;
+		this.verticalVelocity = -this.physics.getElasticity()*this.verticalVelocity;
 	}
 }
 ///////////////////// END INTERNAL FUNCTIONS

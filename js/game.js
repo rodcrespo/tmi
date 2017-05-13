@@ -70,10 +70,17 @@ Game.prototype.init = function(){
     }
 
 
-    this.player = new Player(this.textureManager);
-    this.player.init(this.collidables, this.triggerCollidables);
+	var texture = this.textureManager.getTexture(RUNNER);
+	var animatedTexture = new TextureAnimator( texture, 5, 2, 10, 75 ); // texture, #horiz, #vert, #total, duration.
+	var runnerMaterial = new THREE.MeshBasicMaterial( { map: texture, side: THREE.DoubleSide, transparent: true, depthTest: false } );
+
+	var runnerGeometry = new THREE.PlaneGeometry(PLAYER_WIDTH, PLAYER_HEIGHT, 1, 1);
+	var mesh = new THREE.Mesh(runnerGeometry, runnerMaterial);
+	
+    this.player = new Player();
+    this.player.init(this.triggerCollidables, mesh, animatedTexture);
     // console.log(this.player);
-    this.scene.add(this.player.runner);
+    this.scene.add(this.player.mesh);
 
 
     // Event
@@ -143,9 +150,9 @@ Game.prototype.update = function(){
                     alert ("Game Over!\nScore: " + score );
                 }
             }
-            this.player.update(1000 * delta);
+            this.player.update(this, 1000 * delta);
             this.cameraUpdate();
-            this.city.update(this.player.runner.position);
+            this.city.update(this.player.mesh.position);
             this.tilesUpdate();
         }
         else {
@@ -156,13 +163,13 @@ Game.prototype.update = function(){
 };
 
 Game.prototype.cameraUpdate = function(){
-    var playerPosition = this.player.runner.position;
+    var playerPosition = this.player.mesh.position;
     this.camera.position.set(this.camera.position.x + (playerPosition.x - this.camera.position.x), 150, 400);
     this.camera.lookAt(playerPosition);
 };
 
 Game.prototype.tilesUpdate = function(){
-    var playerPosition = this.player.runner.position;
+    var playerPosition = this.player.mesh.position;
     if(playerPosition.x > this.tiles[7].floor.plane.position.x){
         var x = this.tiles[9].floor.plane.position.x + TILE_WIDTH;
         this.tiles[0].removeFromScene(this.scene);
@@ -170,10 +177,10 @@ Game.prototype.tilesUpdate = function(){
         var tile = new Tile(this.textureManager, Math.floor((Math.random() * Object.keys(Tile.TYPES).length)), x, 0);
         this.tiles.push(tile);
 
-        this.scene.remove(this.player.runner);
+        this.scene.remove(this.player.mesh);
 
         tile.addToScene(this.scene);
-        this.scene.add(this.player.runner);
+        this.scene.add(this.player.mesh);
 
         this.collidables.shift();
         this.triggerCollidables.shift();
