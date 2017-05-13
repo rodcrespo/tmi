@@ -19,7 +19,10 @@ var TextureManager = function(onLoad){
         },
         flower_shop: {
             type: "png"
-        }
+        },
+		ball: {
+			type: "png"
+		}
     };
 
 

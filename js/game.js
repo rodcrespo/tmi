@@ -29,6 +29,7 @@ Game.prototype.load = function(){
   this.textureManager.load();
   this.collidables = [];
   this.triggerCollidables = [];
+  this.entities = [];
 }
 
 Game.prototype.init = function(){
@@ -69,18 +70,9 @@ Game.prototype.init = function(){
       this.triggerCollidables.push(tile.getTrigger());
     }
 
-
-	var texture = this.textureManager.getTexture(RUNNER);
-	var animatedTexture = new TextureAnimator( texture, 5, 2, 10, 75 ); // texture, #horiz, #vert, #total, duration.
-	var runnerMaterial = new THREE.MeshBasicMaterial( { map: texture, side: THREE.DoubleSide, transparent: true, depthTest: false } );
-
-	var runnerGeometry = new THREE.PlaneGeometry(PLAYER_WIDTH, PLAYER_HEIGHT, 1, 1);
-	var mesh = new THREE.Mesh(runnerGeometry, runnerMaterial);
-	
-    this.player = new Player();
-    this.player.init(this.triggerCollidables, mesh, animatedTexture);
-    // console.log(this.player);
-    this.scene.add(this.player.mesh);
+    this.player = new Player(this);
+    this.player.init(this.triggerCollidables);
+	this.addEntity(this.player);
 
 
     // Event
@@ -136,13 +128,11 @@ Game.prototype.render = function(){
 
 Game.prototype.update = function(){
     var delta = this.clock.getDelta();
-    // console.log(delta)
     if (!this.pause) {
         if (!this.pauseEvent) {
             if (rotationEnabled){
-            rotation += 0.05;
+				otation += 0.05;
             }
-
             if (this.scene.getObjectByName('enemy')) {
                 circle.position.x += circleSpeed.x;
                 if (circle.position.distanceToManhattan(endPos) <= 5) {
@@ -150,7 +140,10 @@ Game.prototype.update = function(){
                     alert ("Game Over!\nScore: " + score );
                 }
             }
-            this.player.update(this, 1000 * delta);
+			//updates all entities on screen (including the player)
+			for (var i = 0; i < this.entities.length; i++) {
+				this.entities[i].update(this, 1000 * delta);
+			}
             this.cameraUpdate();
             this.city.update(this.player.mesh.position);
             this.tilesUpdate();
@@ -160,6 +153,11 @@ Game.prototype.update = function(){
         }
     }
 
+};
+
+Game.prototype.addEntity = function(entity) {
+	this.entities.push(entity);
+	this.scene.add(entity.mesh);
 };
 
 Game.prototype.cameraUpdate = function(){

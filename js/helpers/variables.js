@@ -26,6 +26,7 @@ const CITY_Y_OFFSET = -50;
 
 // Entity names
 const PLAYER = "player";
+const BALL = "ball";
 
 // Texture names
 const RUNNER = "runner";
@@ -45,6 +46,10 @@ const PLAYER_INIT_Z = 5;
 const PLAYER_DEFAULT_VELOCITY = 300;
 const PLAYER_JUMP_HIGH_VELOCITY = 400;
 const PLAYER_JUMP_LOW_VELOCITY = 200;
+
+//BALL
+const BALL_WIDTH = 20;
+const BALL_HEIGHT = 20;
 
 //Tiles
 const TILE_WIDTH = SCREEN_WIDTH / 10;

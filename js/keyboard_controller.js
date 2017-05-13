@@ -24,6 +24,9 @@ var onKeyDown = function(e) {
 		case KEYCODE_P: 
 			game.pause = !game.pause;
 			break;
+		case KEYCODE_E:
+			game.player.shoot();
+			break;
 		}
 	}
 	else {
