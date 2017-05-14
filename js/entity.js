@@ -7,21 +7,22 @@ var Entity = function(name, mesh, texture, width, height, position){
 	this.mesh.position.set(position.x, position.y, position.z);
 	
 	this.physics = new WorldPhysics(); //keep this here to allow modification by child class
-		
+	this.triggers = [];	
 	//initialize movement
 	this.verticalVelocity = 0;
 	this.horizontalVelocity = 0;
+	
+	
 }
 
-Entity.prototype.init = function(triggerColliders){
-	this.triggers = [];
-	if (triggerColliders != null) {
-		for (var i = 0; i < triggerColliders.length; i++) {
-			this.triggers.push(new CollisionDetector(this, triggerColliders[i]));
-		}
-	}
+Entity.prototype.addTrigger = function(trigger) {
+	this.triggers.push(new CollisionDetector(this, trigger));
+}
+
+Entity.prototype.init = function(){
 	this.updateHitboxes();
 }
+
 
 //////FLAG FUNCTIONS
 Entity.prototype.isOnAir = function() {

@@ -28,7 +28,6 @@ Game.prototype.load = function(){
   }.bind(this));
   this.textureManager.load();
   this.collidables = [];
-  this.triggerCollidables = [];
   this.entities = [];
 }
 
@@ -57,23 +56,20 @@ Game.prototype.init = function(){
     this.city= new CityBackground(this.textureManager);
     this.scene.add( this.city.plane );
 
+	//initialize entities
+	this.player = new Player(this);
+    this.player.init();
+	this.addEntity(this.player);
+	
     //Initialize tiles
     this.tiles = [];
     var x = TILES_START;
-
+	
     for (var i = 0; i < TILES_NUMBER; i++) {
-      var tile = new Tile(this.textureManager, Math.floor((Math.random() * Object.keys(Tile.TYPES).length)), x, 0);
-      this.tiles.push(tile);
-      x += TILE_WIDTH;
-      tile.addToScene(this.scene);
-      this.collidables.push(tile.getCollidable());
-      this.triggerCollidables.push(tile.getTrigger());
+		var tile = new Tile(this.textureManager, Math.floor((Math.random() * Object.keys(Tile.TYPES).length)), x, 0);
+		x += TILE_WIDTH;
+		this.addTile(tile);
     }
-
-    this.player = new Player(this);
-    this.player.init(this.triggerCollidables);
-	this.addEntity(this.player);
-
 
     // Event
     this.event = null;
@@ -120,6 +116,17 @@ Game.prototype.init = function(){
 
 
 
+};
+
+Game.prototype.addTile = function(tile) {
+	this.player.addTrigger(tile.getTrigger());
+	this.tiles.push(tile);
+
+	this.scene.remove(this.player.mesh);
+	tile.addToScene(this.scene);
+	this.scene.add(this.player.mesh);
+	
+	this.collidables.push(tile.getCollidable());
 };
 
 Game.prototype.render = function(){
@@ -170,20 +177,12 @@ Game.prototype.tilesUpdate = function(){
     var playerPosition = this.player.mesh.position;
     if(playerPosition.x > this.tiles[7].floor.plane.position.x){
         var x = this.tiles[9].floor.plane.position.x + TILE_WIDTH;
-        this.tiles[0].removeFromScene(this.scene);
-        this.tiles.shift();
+        this.tiles.shift().removeFromScene(this.scene);
         var tile = new Tile(this.textureManager, Math.floor((Math.random() * Object.keys(Tile.TYPES).length)), x, 0);
-        this.tiles.push(tile);
-
-        this.scene.remove(this.player.mesh);
-
-        tile.addToScene(this.scene);
-        this.scene.add(this.player.mesh);
+		
+		this.addTile(tile);
 
         this.collidables.shift();
-        this.triggerCollidables.shift();
-        this.collidables.push(tile.getCollidable());
-        this.triggerCollidables.push(tile.getTrigger());
     }
 
 };
