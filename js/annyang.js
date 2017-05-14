@@ -23,7 +23,7 @@ const ANNYANG = {
  */
 function parseCommands(commandString) {
 	console.log("CmdString: " + commandString);
-	var commands = commandString.split(" ");
+	var commands = commandString.toLowerCase().split(" ");
 	commands.forEach(executeCommand);
 }
 
@@ -38,14 +38,18 @@ function executeCommand(command) {
 	var commands = {
 		'hola':		execCmdHello,
 		'gira':		function () {execCmdSetTurn(true);},
-		'para':		function () {execCmdSetTurn(false);},
 		'rojo':		function () {execCmdCubeColor(0xff0000);},
 		'verde':	function () {execCmdCubeColor(0x00ff00);},
 		'azul':		function () {execCmdCubeColor(0x0000ff);},
-		'bang': 	execCmdShoot,
 		'comienza': execCmdStart,
 		'círculo':	execCmdCircle,
 		'cuadrado': execCmdSquare,
+		
+		'derecha':  execCmdRight,
+		'izquierda':execCmdLeft,
+		'dispara': 	execCmdShoot,
+		'para':		execCmdStop,
+		'salta':	execCmdJump,
 	};
 	
 	if (command in commands) {
@@ -54,6 +58,34 @@ function executeCommand(command) {
 	
 }
 
+
+function execCmdRight() {
+	game.player.startMovingRight();
+}
+
+function execCmdLeft() {
+	game.player.startMovingLeft();
+}
+
+function execCmdShoot() {
+	game.player.shoot();
+}
+
+/*function execCmdShoot() {
+	console.log("bang");
+	if (speakPoint.position.x - circle.position.x >= 10) {
+		circle.position.set(startPos.x, startPos.y, startPos.z);
+		score += 1;
+	}
+}*/
+
+function execCmdStop() {
+	game.player.stopHorizontally();
+}
+
+function execCmdJump() {
+	game.player.jumpHigh();
+}
 
 function execCmdHello() {
 	console.log("HOLA");
@@ -68,14 +100,6 @@ function execCmdSetTurn(turning) {
 function execCmdCubeColor(color) {
 	console.log("CubeColor: " + color);
 	cube.material.color.setHex( color );
-}
-
-function execCmdShoot() {
-	console.log("bang");
-	if (speakPoint.position.x - circle.position.x >= 10) {
-		circle.position.set(startPos.x, startPos.y, startPos.z);
-		score += 1;
-	}
 }
 
 function execCmdStart() {

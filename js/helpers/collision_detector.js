@@ -7,18 +7,18 @@ var CollisionDetector = function(holder, entity){
 
 CollisionDetector.prototype.onTriggerEnter = function () {
     this.isColliding = true;
-    console.log("Enter!");
+    //console.log("Enter!");
     this.entity.onTriggerEnter(this.holder);
 }
 
 CollisionDetector.prototype.onTriggerStay = function () {
-    console.log("Stay!");
+    //console.log("Stay!");
     this.entity.onTriggerStay(this.holder);
 }
 
 CollisionDetector.prototype.onTriggerExit = function () {
     this.isColliding = false;
-    console.log("Exit!");
+    //console.log("Exit!");
     this.entity.onTriggerExit(this.holder);
 }
 

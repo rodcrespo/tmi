@@ -22,13 +22,13 @@ var Tile = function (textureManager, type, x, y) {
 
 
 Tile.prototype.addToScene = function (scene) {
-  scene.add(this.floor.plane);
-  scene.add(this.wall.plane);
+	scene.add(this.floor.plane);
+	scene.add(this.wall.plane);
 }
 
 Tile.prototype.removeFromScene = function (scene) {
-    scene.add(this.floor.plane);
-    scene.add(this.wall.plane);
+	scene.remove(this.floor.plane);
+	scene.remove(this.wall.plane);
 }
 
 Tile.prototype.getCollidable = function () {
