@@ -34,6 +34,11 @@ const FLOWER_SHOP = "flower_shop";
 const BAKERY_SHOP = "bakery_shop";
 const SKYLINE = "skyline";
 
+// Audio names
+const BOUNCE = "bounce";
+const JUMP = "jump";
+const SHOOT = "shoot";
+
 //Player
 const PLAYER_WIDTH = 75;
 const PLAYER_TEXTURE_ASPECT_RATIO = 1.375;

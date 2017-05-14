@@ -148,7 +148,10 @@ Entity.prototype.updateHorizontalPositionAndVelocity = function(lapsedMillis, di
 	if (movement != 0) {
 		this.mesh.position.x += movement;
 	} else {
-		this.horizontalVelocity = -this.physics.getElasticity()*this.horizontalVelocity;
+		if (this.horizontalVelocity != 0) {
+			this.horizontalVelocity = -this.physics.getElasticity()*this.horizontalVelocity;
+			this.hit();
+		}
 	}
 }
 
@@ -157,7 +160,14 @@ Entity.prototype.updateVerticalPositionAndVelocity = function(lapsedMillis, dist
 	if (movement != 0) {
 		this.mesh.position.y += movement;
 	} else {
-		this.verticalVelocity = -this.physics.getElasticity()*this.verticalVelocity;
+		if (this.verticalVelocity != 0) {
+			this.verticalVelocity = -this.physics.getElasticity()*this.verticalVelocity;
+			this.hit();
+		}
 	}
+}
+
+Entity.prototype.hit = function() {
+	//called when this object is hit by another
 }
 ///////////////////// END INTERNAL FUNCTIONS

@@ -26,6 +26,7 @@ Game.prototype.load = function(){
       this.init();
       this.animate();
   }.bind(this));
+  this.audioManager = new AudioManager();
   this.textureManager.load();
   this.collidables = [];
   this.entities = [];

@@ -13,3 +13,7 @@ var Ball = function(game){
 }
 
 Ball.prototype = Object.create(Entity.prototype);
+
+Ball.prototype.hit = function() {
+	game.audioManager.play(BOUNCE);
+}

@@ -22,6 +22,7 @@ Player.prototype.startMovingRight = function() {
 Player.prototype.jump = function(velocity) {
 	if (!this.isOnAir()) {
 		this.setVerticalVelocity(velocity);
+		game.audioManager.play(JUMP);
 	}
 }
 
@@ -42,6 +43,7 @@ Player.prototype.shoot = function() {
 	ball.init(null);
 	ball.setHorizontalVelocity
 	game.addEntity(ball);
+	game.audioManager.play(SHOOT);
 }
 //////////////// END PLAYER API
 
