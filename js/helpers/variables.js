@@ -16,7 +16,7 @@ const CAMERA_INIT_Z = 400;
 const LIGHT_INIT_X = 0;
 const LIGHT_INIT_Y = 250;
 const LIGHT_INIT_Z = 0;
-const LIGHT_COLOR = 0xFFFFFF;
+const LIGHT_COLOR = 0xE0E0E0;
 
 //Backgound city
 const CITY_WIDTH = SCREEN_WIDTH / 1.6;

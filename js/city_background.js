@@ -5,7 +5,7 @@ var CityBackground = function(textureManager){
     var cityWidth = CITY_WIDTH;
     var cityHeight = CITY_WIDTH * ratio;
     this.geometry = new THREE.PlaneGeometry( cityWidth , cityHeight);
-    this.material = new THREE.MeshBasicMaterial( {map: texture, side: THREE.DoubleSide, transparent: true, depthTest: false} );
+    this.material = new THREE.MeshLambertMaterial( {map: texture, side: THREE.DoubleSide, transparent: true, depthTest: false} );
     this.plane = new THREE.Mesh( this.geometry, this.material );
     this.plane.position.set(CITY_X, cityHeight /2 + CITY_Y_OFFSET, CITY_Z);
 

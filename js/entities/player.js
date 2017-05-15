@@ -1,7 +1,7 @@
 var Player = function(game){
 	var texture = game.textureManager.getTexture(RUNNER);
 	var animatedTexture = new TextureAnimator( texture, 5, 2, 10, 75 ); // texture, #horiz, #vert, #total, duration.
-	var runnerMaterial = new THREE.MeshBasicMaterial( { map: texture, side: THREE.DoubleSide, transparent: true, depthTest: false } );
+	var runnerMaterial = new THREE.MeshLambertMaterial( { map: texture, side: THREE.DoubleSide, transparent: true, depthTest: false } );
 	var runnerGeometry = new THREE.PlaneGeometry(PLAYER_WIDTH, PLAYER_HEIGHT, 1, 1);
 	var mesh = new THREE.Mesh(runnerGeometry, runnerMaterial);
 	

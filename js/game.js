@@ -110,11 +110,8 @@ Game.prototype.init = function(){
     // this.scene.add(speakPoint);
 
     // LIGHT
-    this.light = new THREE.PointLight(LIGHT_COLOR);
-    this.light.position.set(LIGHT_INIT_X, LIGHT_INIT_Y, LIGHT_INIT_Z);
+    this.light = new THREE.AmbientLight(LIGHT_COLOR);
     this.scene.add(this.light);
-
-
 
 
 };
