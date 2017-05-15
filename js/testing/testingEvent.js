@@ -12,7 +12,8 @@ var testEvent = function (floor) {
             },
             function () {
                 //console.log("También puedes pulsar D")
-            }
+            },
+            animation2Start
         ],
         function () {
             //console.log("\nEstoy en el evento\n");
