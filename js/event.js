@@ -6,17 +6,17 @@ var Event = function(time, goodAnswer, opportunities){
     this.correct = false;
     this.end = false;
     this.ready = false;
-    this.opportunities = opportunities;
+    this.opportunities = opportunities == undefined ? 1 : opportunities;
     this.count = 0;
 }
 
 Event.prototype.setFunctions = function (beforeEvent, event, afterSuccess, afterWrong, badAnswer) {
-    this.beforeEvent = beforeEvent;
-    this.event = event;
-    this.afterSuccess = afterSuccess;
-    this.afterWrong = afterWrong;
+    this.beforeEvent = beforeEvent == undefined ? null : beforeEvent;
+    this.event = event == undefined ? null : event;
+    this.afterSuccess = afterSuccess == undefined ? null : afterSuccess;
+    this.afterWrong = afterWrong == undefined ? null : afterWrong;
     this.ready = true;
-    this.badAnswer = badAnswer;
+    this.badAnswer = badAnswer == undefined ? null : badAnswer;
 }
 
 Event.prototype.start = function() {
