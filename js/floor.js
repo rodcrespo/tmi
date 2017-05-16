@@ -1,5 +1,7 @@
 var Floor = function (textureManager, type, x, y) {
 
+  var eventFactory = new EventFactory ();
+
   //TODO do this outside
   switch(type) {
     case 'default':
@@ -8,7 +10,7 @@ var Floor = function (textureManager, type, x, y) {
       break;
     case 'red':
       this.color = 0x550000;
-      this.hitpoint = new Hitpoint(testEvent(this));
+      this.hitpoint = new Hitpoint(eventFactory.getRandomEvent(this));
       break;
     default:
       this.color = 0xf4a460;
