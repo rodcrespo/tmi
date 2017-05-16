@@ -12,7 +12,9 @@ var Entity = function(name, mesh, texture, width, height, position){
 	this.verticalVelocity = 0;
 	this.horizontalVelocity = 0;
 	
-	
+	//helper variables to avoid triggering hit() multiple times on the same object
+	this.lastTickHorizontalMovement = 0;
+	this.lastTickVerticalMovement = 0;
 }
 
 Entity.prototype.addTrigger = function(trigger) {
@@ -73,17 +75,17 @@ Entity.prototype.update = function(game, lapsedMillis) {
 
 	this.updateHitboxes();
 	//distance (from the Entitys CENTER OF MASS) to the respective direction (null if infinite)
-	var distanceRight	= getNearestCollisionFrom([this.getHitboxTop(), this.getHitboxBottom()], new THREE.Vector3( 1,  0, 0), game.collidables);
-	var distanceLeft	= getNearestCollisionFrom([this.getHitboxTop(), this.getHitboxBottom()], new THREE.Vector3(-1,  0, 0), game.collidables);
-	var distanceTop		= getNearestCollisionFrom([this.getHitboxLeft(), this.getHitboxRight()], new THREE.Vector3( 0,  1, 0), game.collidables);
-	var distanceBottom	= getNearestCollisionFrom([this.getHitboxLeft(), this.getHitboxRight()], new THREE.Vector3( 0, -1, 0), game.collidables);
+	this.distanceRight	= getNearestCollisionFrom([this.getHitboxTop(), this.getHitboxBottom()], new THREE.Vector3( 1,  0, 0), game.collidables);
+	this.distanceLeft	= getNearestCollisionFrom([this.getHitboxTop(), this.getHitboxBottom()], new THREE.Vector3(-1,  0, 0), game.collidables);
+	this.distanceTop		= getNearestCollisionFrom([this.getHitboxLeft(), this.getHitboxRight()], new THREE.Vector3( 0,  1, 0), game.collidables);
+	this.distanceBottom	= getNearestCollisionFrom([this.getHitboxLeft(), this.getHitboxRight()], new THREE.Vector3( 0, -1, 0), game.collidables);
 	//Check triggers 
 	for (var trigger of this.triggers) {
 		trigger.detectCollision(lapsedMillis);
 	}
 	//update positions based on the Entity's velocity (while checking collisions)
-	this.updateVerticalPositionAndVelocity(lapsedMillis, distanceBottom, distanceTop);
-	this.updateHorizontalPositionAndVelocity(lapsedMillis, distanceLeft, distanceRight);
+	this.updateVerticalPositionAndVelocity(lapsedMillis, this.distanceBottom, this.distanceTop);
+	this.updateHorizontalPositionAndVelocity(lapsedMillis, this.distanceLeft, this.distanceRight);
 }
 //////////////// END Entity API
 
@@ -128,6 +130,7 @@ Entity.prototype.getHorizontalVelocity = function() {
 }
 
 Entity.prototype.updateVelocities = function(lapsedMillis) {
+	console.log(this.distanceBottom);
 	this.verticalVelocity += this.physics.getGravity() * lapsedMillis / 1000;
 	this.horizontalVelocity *=  this.physics.getFriction();
 }
@@ -145,26 +148,38 @@ Entity.prototype.restrictVelocities = function() {
 
 Entity.prototype.updateHorizontalPositionAndVelocity = function(lapsedMillis, distanceLeft, distanceRight) {
 	var movement = getDirectionalMovement(lapsedMillis, this.horizontalVelocity, distanceLeft, distanceRight, this.width/2);
-	if (movement != 0) {
-		this.mesh.position.x += movement;
+	if (movement.movement != 0) {
+		this.mesh.position.x += movement.movement;
+	} 
+	if (Math.abs(movement.movement) > 0.2) {
+		this.movedHorizontallyLastCycle = true;
 	} else {
-		if (this.horizontalVelocity != 0) {
-			this.horizontalVelocity = -this.physics.getElasticity()*this.horizontalVelocity;
+		this.movedHorizontallyLastCycle = false;
+	}
+	if (movement.hit) {//this means we are touching an object, not necessarily hit this round
+		if (Math.abs(movement.movement) > 0.2) //if we moved, then we hit it this round. > 1 for avoiding false triggers
 			this.hit();
-		}
+		this.horizontalVelocity = -this.physics.getElasticity()*this.horizontalVelocity;
 	}
 }
 
 Entity.prototype.updateVerticalPositionAndVelocity = function(lapsedMillis, distanceBottom, distanceTop) {
 	var movement = getDirectionalMovement(lapsedMillis, this.verticalVelocity, distanceBottom, distanceTop, this.height/2);
-	if (movement != 0) {
-		this.mesh.position.y += movement;
+	if (movement.movement != 0) {
+		this.mesh.position.y += movement.movement;
+	} 
+	if (Math.abs(movement.movement) > 0.2) {
+		this.movedVerticallyLastCycle = true;
 	} else {
-		if (this.verticalVelocity != 0) {
-			this.verticalVelocity = -this.physics.getElasticity()*this.verticalVelocity;
-			this.hit();
-		}
+		this.movedVerticallyLastCycle = false;
 	}
+	if (movement.hit) { //this means we are touching an object, not necessarily hit this round
+		if (Math.abs(movement.movement) > 0.2) //if we moved, then we hit it this round. > 1 for avoiding false triggers
+			this.hit();
+		this.verticalVelocity = -this.physics.getElasticity()*this.verticalVelocity;
+	}
+	console.log(movement);
+
 }
 
 Entity.prototype.hit = function() {

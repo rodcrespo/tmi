@@ -20,21 +20,30 @@ function getDirectionalMovement(lapsedMillis, velocity, distanceLow, distanceHig
 	if (velocity > 0) { //going towards positive coords!!
 		movement = getAbsoluteMovement(distanceHigh, velocity, lapsedMillis, positionOffset);
 	} else { //going towards negative coords
-		movement = -getAbsoluteMovement(distanceLow, -velocity, lapsedMillis, positionOffset);
+		movement = getAbsoluteMovement(distanceLow, -velocity, lapsedMillis, positionOffset);
+		movement.movement = -movement.movement;
 	}
 	return movement;
 }
 
-
+/**
+ * Returns a dictionary containing the movement as well as if the object collided with something
+ */
 function getAbsoluteMovement(distance, velocity, lapsedMillis, positionOffset) {
 	var intendedMovement = velocity * lapsedMillis / 1000;
-	var movement = 0;
-	if (!distance || distance > intendedMovement + positionOffset) {
-		movement = intendedMovement;
-	} else { //HIT!
-		movement = distance - positionOffset;
+	var mov = intendedMovement;
+	var coll = false;
+	//if (!distance || distance > intendedMovement + positionOffset) {
+		
+	//} else { //HIT!
+	if (distance && distance <= intendedMovement + positionOffset) {
+		mov = distance - positionOffset;
+		coll = true;
 	}
-	return movement;
+	return {
+		movement: mov,
+		hit: coll
+	};
 }
 
 function triggerCollision(lapsedMillis, velocity, distanceLow, distanceHigh, positionOffset) {

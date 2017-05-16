@@ -6,8 +6,8 @@ var Ball = function(game){
 	
 	Entity.call(this, BALL, mesh, texture, BALL_WIDTH, BALL_HEIGHT, game.player.getPosition());
 	
-	this.physics.setFriction(1);
-	this.physics.setElasticity(1);
+	this.physics.setFriction(0.8);
+	this.physics.setElasticity(0.8);
 	this.setHorizontalVelocity(Math.random() * 1000.0 - 500);
 	this.setVerticalVelocity(Math.random() * 1000.0 - 500);
 }
