@@ -20,14 +20,17 @@ Event.prototype.setFunctions = function (beforeEvent, event, afterSuccess, after
 }
 
 Event.prototype.start = function() {
-    if (this.ready) {
+    if (this.ready && game.event == null) {
         if (this.beforeEvent != null){
             this.callFunctions(this.beforeEvent);
         }
         this.running = true;
         game.event = this;
         game.pauseEvent = true;
+        return true;
     }
+
+    return false
 }
 
 Event.prototype.update = function (deltaTime) {

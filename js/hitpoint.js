@@ -5,8 +5,7 @@ var Hitpoint = function(event) {
 
 Hitpoint.prototype.start = function () {
     if (!this.done) {
-        this.done = true;
-        this.event.start();
+        this.done = this.event.start();
     }
 }
 
