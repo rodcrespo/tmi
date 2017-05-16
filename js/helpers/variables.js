@@ -17,6 +17,7 @@ const LIGHT_INIT_X = 0;
 const LIGHT_INIT_Y = 250;
 const LIGHT_INIT_Z = 0;
 const LIGHT_COLOR = 0xE0E0E0;
+const LIGHT_DARK = 0x101010;
 
 //Backgound city
 const CITY_WIDTH = SCREEN_WIDTH / 1.6;

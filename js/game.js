@@ -110,9 +110,8 @@ Game.prototype.init = function(){
     // this.scene.add(speakPoint);
 
     // LIGHT
-    this.light = new THREE.AmbientLight(LIGHT_COLOR);
-    this.scene.add(this.light);
-
+    this.light = new Light ();
+    this.scene.add(this.light.getAmbientLight()); 
 
 };
 
@@ -159,6 +158,17 @@ Game.prototype.update = function(){
     }
 
 };
+
+Game.prototype.switchSpotLight = function () {
+    if (this.light.spotLightOn) {
+        this.light.turnOffSpotLight(this);
+    }
+    else {
+        var playerPosition = this.player.getPosition();
+        this.light.turnOnSpotLight(new THREE.Vector3(playerPosition.x + PLAYER_DEFAULT_VELOCITY / 3, playerPosition.y, playerPosition.z), this);
+    }
+    
+}
 
 Game.prototype.addEntity = function(entity) {
 	this.entities.push(entity);

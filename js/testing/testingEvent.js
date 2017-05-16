@@ -12,8 +12,9 @@ var testEvent = function (floor) {
             },
             function () {
                 //console.log("También puedes pulsar D")
+                game.switchSpotLight();
             },
-            animation2Start(10, 2)
+            //animation2Start(10, 2)
         ],
         function () {
             //console.log("\nEstoy en el evento\n");
@@ -21,10 +22,12 @@ var testEvent = function (floor) {
         function () {
             //console.log("Se ejecuta bien: Se ha respondido bien");
             floor.changeColor(0x00ff00);
+            game.switchSpotLight();
         },
         function() {
             //console.log("Se ejecuta mal; No se ha respondido bien");
             floor.changeColor(0xff0000);
+            game.switchSpotLight();
         },
         function() {
             this.cont += 1;
