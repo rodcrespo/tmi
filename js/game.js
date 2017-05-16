@@ -189,7 +189,12 @@ Game.prototype.tilesUpdate = function(){
         var tile = new Tile(this.textureManager, Math.floor((Math.random() * Object.keys(Tile.TYPES).length)), x, 0);
 		
 		this.addTile(tile);
-
+		if (typeof(tile.entities) !== 'undefined') {
+			for (var i = 0; i < tile.entities.length; i++) {
+				this.addEntity(tile.entities[i]);
+				console.log(tile.entities[i]);
+			}
+		}
         this.collidables.shift();
     }
 

@@ -5,6 +5,7 @@ var Tile = function (textureManager, type, x, y) {
     case Tile.TYPES.TYPE0:
       this.floor = new Floor(textureManager, "default", x, y);
       this.wall = new Wall(textureManager, FLOWER_SHOP, x, y);
+	  this.entities = [new Ball(game, new THREE.Vector3(x, y, PLAYER_INIT_Z))];
       break;
     case Tile.TYPES.TYPE1:
       this.floor = new Floor(textureManager, "default", x, y);

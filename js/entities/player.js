@@ -39,7 +39,7 @@ Player.prototype.stopHorizontally = function() {
 }
 
 Player.prototype.shoot = function() {
-	var ball = new Ball(game);
+	var ball = new Ball(game, this.getPosition());
 	ball.init(null);
 	ball.setHorizontalVelocity
 	game.addEntity(ball);
