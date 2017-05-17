@@ -62,27 +62,27 @@ var TextureManager = function(onLoad){
         },
 		skyboxzneg: {
 			type: "png",
-			url: "img/skybox/skyboxzneg.png"
+			url: "img/skybox/skyzneg.png"
 		},
 		skyboxzpos: {
 			type: "png",
-			url: "img/skybox/skyboxzpos.png"
+			url: "img/skybox/skyzpos.png"
 		},
 		skyboxyneg: {
 			type: "png",
-			url: "img/skybox/skyboxyneg.png"
+			url: "img/skybox/skyyneg.png"
 		},
 		skyboxypos: {
 			type: "png",
-			url: "img/skybox/skyboxypos.png"
+			url: "img/skybox/skyypos.png"
 		},
 		skyboxxneg: {
 			type: "png",
-			url: "img/skybox/skyboxxneg.png"
+			url: "img/skybox/skyxneg.png"
 		},
 		skyboxxpos: {
 			type: "png",
-			url: "img/skybox/skyboxxpos.png"
+			url: "img/skybox/skyxpos.png"
 		}
 		
     };
