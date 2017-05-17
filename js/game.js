@@ -27,6 +27,7 @@ Game.prototype.load = function(){
       this.animate();
   }.bind(this));
   this.audioManager = new AudioManager();
+  this.cameraEffects = new CameraEffects();
   this.textureManager.load();
   this.collidables = [];
   this.entities = [];
@@ -192,7 +193,6 @@ Game.prototype.tilesUpdate = function(){
 		if (typeof(tile.entities) !== 'undefined') {
 			for (var i = 0; i < tile.entities.length; i++) {
 				this.addEntity(tile.entities[i]);
-				console.log(tile.entities[i]);
 			}
 		}
         this.collidables.shift();

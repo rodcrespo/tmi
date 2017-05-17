@@ -40,6 +40,11 @@ const BOUNCE = "bounce";
 const JUMP = "jump";
 const SHOOT = "shoot";
 
+// Effect names
+const ZOOM_AND_ROLL = "zoomroll";
+const LOOK_AHEAD = "lookahead";
+const LOOK_UP = "lookup";
+
 //Player
 const PLAYER_WIDTH = 75;
 const PLAYER_TEXTURE_ASPECT_RATIO = 1.375;
