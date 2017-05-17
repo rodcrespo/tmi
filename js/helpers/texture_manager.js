@@ -66,6 +66,30 @@ var TextureManager = function(onLoad){
             url: "img/player/sprite.png",
             map_url: "img/player/map.json"
         },
+		skyboxzneg: {
+			type: "png",
+			url: "img/skybox/skyzneg.png"
+		},
+		skyboxzpos: {
+			type: "png",
+			url: "img/skybox/skyzpos.png"
+		},
+		skyboxyneg: {
+			type: "png",
+			url: "img/skybox/skyyneg.png"
+		},
+		skyboxypos: {
+			type: "png",
+			url: "img/skybox/skyypos.png"
+		},
+		skyboxxneg: {
+			type: "png",
+			url: "img/skybox/skyxneg.png"
+		},
+		skyboxxpos: {
+			type: "png",
+			url: "img/skybox/skyxpos.png"
+		}
     };
 
 }

@@ -25,6 +25,16 @@ const CITY_X = 0;
 const CITY_Z = -30;
 const CITY_Y_OFFSET = -50;
 
+//Skybox
+const SKYBOX_SIZE = 5000;
+const SKYBOX_ZNEG = "skyboxzneg";
+const SKYBOX_ZPOS = "skyboxzpos";
+const SKYBOX_YNEG = "skyboxyneg";
+const SKYBOX_YPOS = "skyboxypos";
+const SKYBOX_XNEG = "skyboxxneg";
+const SKYBOX_XPOS = "skyboxxpos";
+
+
 // Entity names
 const PLAYER = "player";
 const BALL = "ball";
