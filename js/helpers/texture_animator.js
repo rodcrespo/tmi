@@ -27,8 +27,9 @@ var TextureAnimator = function (texture, tilesHoriz, tilesVert, numTiles, tileDi
         {
             this.currentDisplayTime -= this.tileDisplayDuration;
             this.currentTile++;
-            if (this.currentTile == this.numberOfTiles)
+            if (this.currentTile == this.numberOfTiles) {
                 this.currentTile = 0;
+            }
             var currentColumn = this.currentTile % this.tilesHorizontal;
             texture.offset.x = currentColumn / this.tilesHorizontal;
             var currentRow = Math.floor( this.currentTile / this.tilesHorizontal );

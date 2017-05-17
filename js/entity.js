@@ -1,17 +1,17 @@
-var Entity = function(name, mesh, texture, width, height, position){
+var Entity = function(name, mesh, animatedTexture, width, height, position){
 	this.name = name;
-	this.texture = texture;
+	this.animatedTexture = animatedTexture;
 	this.mesh = mesh;
 	this.width = width;
 	this.height = height;
 	this.mesh.position.set(position.x, position.y, position.z);
-	
+
 	this.physics = new WorldPhysics(); //keep this here to allow modification by child class
-	this.triggers = [];	
+	this.triggers = [];
 	//initialize movement
 	this.verticalVelocity = 0;
 	this.horizontalVelocity = 0;
-	
+
 	//helper variables to avoid triggering hit() multiple times on the same object
 	this.lastTickHorizontalMovement = 0;
 	this.lastTickVerticalMovement = 0;
@@ -63,8 +63,8 @@ Entity.prototype.getPosition = function() {
 
 Entity.prototype.update = function(game, lapsedMillis) {
 	//update animations
-	if (typeof this.texture.update === 'function') {
-		this.texture.update(lapsedMillis);
+	if (typeof this.animatedTexture.update === 'function') {
+		this.animatedTexture.update(lapsedMillis);
 	}
 	//return;
 	//update velocities (gravity and/or friction)
@@ -79,7 +79,7 @@ Entity.prototype.update = function(game, lapsedMillis) {
 	this.distanceLeft	= getNearestCollisionFrom([this.getHitboxTop(), this.getHitboxBottom()], new THREE.Vector3(-1,  0, 0), game.collidables);
 	this.distanceTop		= getNearestCollisionFrom([this.getHitboxLeft(), this.getHitboxRight()], new THREE.Vector3( 0,  1, 0), game.collidables);
 	this.distanceBottom	= getNearestCollisionFrom([this.getHitboxLeft(), this.getHitboxRight()], new THREE.Vector3( 0, -1, 0), game.collidables);
-	//Check triggers 
+	//Check triggers
 	for (var trigger of this.triggers) {
 		trigger.detectCollision(lapsedMillis);
 	}
@@ -130,7 +130,6 @@ Entity.prototype.getHorizontalVelocity = function() {
 }
 
 Entity.prototype.updateVelocities = function(lapsedMillis) {
-	console.log(this.distanceBottom);
 	this.verticalVelocity += this.physics.getGravity() * lapsedMillis / 1000;
 	this.horizontalVelocity *=  this.physics.getFriction();
 }
@@ -150,7 +149,7 @@ Entity.prototype.updateHorizontalPositionAndVelocity = function(lapsedMillis, di
 	var movement = getDirectionalMovement(lapsedMillis, this.horizontalVelocity, distanceLeft, distanceRight, this.width/2);
 	if (movement.movement != 0) {
 		this.mesh.position.x += movement.movement;
-	} 
+	}
 	if (Math.abs(movement.movement) > 0.2) {
 		this.movedHorizontallyLastCycle = true;
 	} else {
@@ -167,7 +166,7 @@ Entity.prototype.updateVerticalPositionAndVelocity = function(lapsedMillis, dist
 	var movement = getDirectionalMovement(lapsedMillis, this.verticalVelocity, distanceBottom, distanceTop, this.height/2);
 	if (movement.movement != 0) {
 		this.mesh.position.y += movement.movement;
-	} 
+	}
 	if (Math.abs(movement.movement) > 0.2) {
 		this.movedVerticallyLastCycle = true;
 	} else {
@@ -178,7 +177,6 @@ Entity.prototype.updateVerticalPositionAndVelocity = function(lapsedMillis, dist
 			this.hit();
 		this.verticalVelocity = -this.physics.getElasticity()*this.verticalVelocity;
 	}
-	console.log(movement);
 
 }
 

@@ -28,6 +28,7 @@ Game.prototype.load = function(){
       this.animate();
   }.bind(this));
   this.audioManager = new AudioManager();
+  this.cameraEffects = new CameraEffects();
   this.textureManager.load();
   this.collidables = [];
   this.entities = [];
@@ -58,9 +59,11 @@ Game.prototype.init = function(){
     document.body.appendChild(this.renderer.domElement);
 
 
-
-    this.city= new CityBackground(this.textureManager);
-    this.scene.add( this.city.plane );
+	//this.city= new CityBackground(this.textureManager);
+    //this.scene.add( this.city.plane );
+	
+	this.skybox = new Skybox("img/skybox/skybox", ".png");
+	this.scene.add(this.skybox.getMesh());
 
 	//initialize entities
 	this.player = new Player(this);
@@ -154,7 +157,8 @@ Game.prototype.update = function(){
 				this.entities[i].update(this, 1000 * delta);
 			}
             this.cameraUpdate();
-            this.city.update(this.player.mesh.position);
+            //this.city.update(this.player.mesh.position);
+			this.skybox.update(this.player.mesh.position);
             this.tilesUpdate();
         }
         else {
@@ -197,7 +201,6 @@ Game.prototype.tilesUpdate = function(){
 		if (typeof(tile.entities) !== 'undefined') {
 			for (var i = 0; i < tile.entities.length; i++) {
 				this.addEntity(tile.entities[i]);
-				console.log(tile.entities[i]);
 			}
 		}
         this.collidables.shift();

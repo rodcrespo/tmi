@@ -30,6 +30,16 @@ const CITY_X = 0;
 const CITY_Z = -30;
 const CITY_Y_OFFSET = -50;
 
+//Skybox
+const SKYBOX_SIZE = 5000;
+const SKYBOX_ZNEG = "skyboxzneg";
+const SKYBOX_ZPOS = "skyboxzpos";
+const SKYBOX_YNEG = "skyboxyneg";
+const SKYBOX_YPOS = "skyboxypos";
+const SKYBOX_XNEG = "skyboxxneg";
+const SKYBOX_XPOS = "skyboxxpos";
+
+
 // Entity names
 const PLAYER = "player";
 const BALL = "ball";
@@ -44,6 +54,11 @@ const SKYLINE = "skyline";
 const BOUNCE = "bounce";
 const JUMP = "jump";
 const SHOOT = "shoot";
+
+// Effect names
+const ZOOM_AND_ROLL = "zoomroll";
+const LOOK_AHEAD = "lookahead";
+const LOOK_UP = "lookup";
 
 //Player
 const PLAYER_WIDTH = 75;
