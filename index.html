@@ -3,14 +3,34 @@
 <head>
 	<meta charset="utf-8">
 	<title>Er Zevillano contra el Mundo</title>
-	<style>
-		body { margin: 0; padding: 0; font-size: 0; }
-		canvas { width: 100%; height: 100%; }
-	</style>
+	<link href="https://fonts.googleapis.com/css?family=Bungee+Shade" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Baloo" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barrio" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="styles/styles.css">
+
 </head>
 <body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
+
+<div class="wrapper start-wrapper">
+	<div class="title">
+		Las aventuras der Zevillano
+	</div>
+	<div class="description">
+		<div>
+			Una aventura en la que debes ayudar a Er Zevillano en su búsqueda de su novia Mª Isabel.
+		</div>
+		<div>
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore ducimus ea error eveniet illo inventore quis tempore ut, vel! Consequuntur cumque deleniti dolorem impedit pariatur sed! Accusamus assumenda debitis ea!
+		</div>
+	</div>
+	<div class="btn start-button">
+		JUGAR
+	</div>
+</div>
 
 <script src="js/helpers/variables.js"></script>
 <script src="js/annyang.js"></script>
@@ -38,11 +58,19 @@
 
 <script src="./scripts/functions.js"></script>
 <script>
-	var game = new Game();
-	game.load();
+    var game = new Game();
+	$(".start-button").click(function(){
 
-	document.addEventListener("keydown",  onKeyDown, false);
-	document.addEventListener("keyup", onKeyUp, false);
+        game.load();
+        game.setStatus(GAME_RUNNING)
+
+        $(".start-wrapper").hide();
+
+	})
+
+    document.addEventListener("keydown",  onKeyDown, false);
+    document.addEventListener("keyup", onKeyUp, false);
+
 </script>
 </body>
 </html>

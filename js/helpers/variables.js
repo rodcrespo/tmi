@@ -19,6 +19,11 @@ const LIGHT_INIT_Z = 0;
 const LIGHT_COLOR = 0xE0E0E0;
 const LIGHT_DARK = 0x101010;
 
+//Game
+const GAME_IDLE = "game_idle";
+const GAME_RUNNING = "game_running";
+const GAME_FINISHED = "game_finished";
+
 //Backgound city
 const CITY_WIDTH = SCREEN_WIDTH / 1.6;
 const CITY_X = 0;

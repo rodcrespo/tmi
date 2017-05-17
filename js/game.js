@@ -17,6 +17,7 @@ var score = 0;
 
 var Game = function(){
     this.clock = new THREE.Clock();
+    this.status = GAME_IDLE;
 };
 
 Game.prototype.load = function(){
@@ -30,6 +31,10 @@ Game.prototype.load = function(){
   this.textureManager.load();
   this.collidables = [];
   this.entities = [];
+}
+
+Game.prototype.setStatus = function(status){
+    this.status = status;
 }
 
 Game.prototype.init = function(){
