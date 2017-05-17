@@ -115,6 +115,10 @@ Game.prototype.init = function(){
     // LIGHT
     this.light = new Light ();
     this.scene.add(this.light.getAmbientLight()); 
+	
+	
+	//AudioManager
+	this.audioManager.startMusic(AUDIO_BACKGROUND);
 
 };
 

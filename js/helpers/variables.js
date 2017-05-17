@@ -45,7 +45,10 @@ const FLOWER_SHOP = "flower_shop";
 const BAKERY_SHOP = "bakery_shop";
 const SKYLINE = "skyline";
 
-// Audio names
+// Audio names (files)
+const AUDIO_FOLDER = "sound/";
+const AUDIO_BACKGROUND = "background"
+// Audio names (variables)
 const BOUNCE = "bounce";
 const JUMP = "jump";
 const SHOOT = "shoot";
