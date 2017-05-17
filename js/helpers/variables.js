@@ -46,8 +46,6 @@ const BALL = "ball";
 
 // Texture names
 const RUNNER = "runner";
-const FLOWER_SHOP = "flower_shop";
-const BAKERY_SHOP = "bakery_shop";
 const SKYLINE = "skyline";
 
 // Audio names

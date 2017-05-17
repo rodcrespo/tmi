@@ -10,7 +10,6 @@ var rotation = 0;
 var rotationEnabled = false;
 var circleSpeed = new THREE.Vector3 (-1, 0, 0);
 var startPos, endPos;
-var score = 0;
 
 
 
@@ -18,7 +17,12 @@ var score = 0;
 var Game = function(){
     this.clock = new THREE.Clock();
     this.status = GAME_IDLE;
+    this.score = 0;
+    this.updateScore(0);
+    this.updateLives(3);
+
 };
+
 
 Game.prototype.load = function(){
   this.textureManager = new TextureManager(function () {
@@ -36,6 +40,21 @@ Game.prototype.load = function(){
 
 Game.prototype.setStatus = function(status){
     this.status = status;
+}
+
+Game.prototype.updateScore = function(score){
+    this.score += score;
+    $(".score .value").html(this.score);
+}
+
+Game.prototype.updateLives = function(lives){
+    this.lives = lives;
+    $.each($(".hud .lives .fa"), function( index, item ) {
+        console.log(lives);
+        if(this.lives <= index){
+            $(item).removeClass("fa-heart").addClass("fa-heart-o");
+        }
+    }.bind(this));
 }
 
 Game.prototype.init = function(){
