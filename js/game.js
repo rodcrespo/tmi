@@ -28,6 +28,7 @@ Game.prototype.load = function(){
   }.bind(this));
   this.audioManager = new AudioManager();
   this.cameraEffects = new CameraEffects();
+  this.gui = new Gui();
   this.textureManager.load();
   this.collidables = [];
   this.entities = [];
@@ -47,7 +48,7 @@ Game.prototype.init = function(){
     this.camera.lookAt(new THREE.Vector3(PLAYER_INIT_X,PLAYER_INIT_Y,PLAYER_INIT_Z));
 
     // RENDERER
-    this.renderer = new THREE.WebGLRenderer({antialias: true});
+    this.renderer = new THREE.WebGLRenderer({antialias: true, logarithmicDepthBuffer: true});
     this.renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
     this.renderer.setClearColor(BACKGROUND_COLOR, 1);
     this.renderer.sortObjects = false;
@@ -119,6 +120,14 @@ Game.prototype.init = function(){
 	
 	//AudioManager
 	this.audioManager.startMusic(AUDIO_BACKGROUND);
+	
+	//Gui
+	var guiElements = this.gui.getDrawableElements();
+	for (var i = 0; i < guiElements.length; i++) {
+		console.log(guiElements[i]);
+		this.scene.add(guiElements[i]);
+	}
+	
 
 };
 
@@ -159,6 +168,7 @@ Game.prototype.update = function(){
             //this.city.update(this.player.mesh.position);
 			this.skybox.update(this.player.mesh.position);
             this.tilesUpdate();
+			this.gui.update(1000 * delta);
         }
         else {
             this.event.update(delta);

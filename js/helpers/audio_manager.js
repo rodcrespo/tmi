@@ -11,7 +11,9 @@ var AudioManager = function() {
 		shoot: {
 			type: "wav"
 		},
-		
+		death: {
+			type: "wav"
+		}
 	};
 	
 	//these are loaded once and only one instance exists

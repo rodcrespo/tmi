@@ -15,5 +15,5 @@ var Ball = function(game, position){
 Ball.prototype = Object.create(Entity.prototype);
 
 Ball.prototype.hit = function() {
-	game.audioManager.play(BOUNCE);
+	game.audioManager.play(AUDIO_BOUNCE);
 }
