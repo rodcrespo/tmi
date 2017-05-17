@@ -1,10 +1,13 @@
 var Player = function(game){
-	var texture = game.textureManager.getTexture(RUNNER);
-	var animatedTexture = new TextureAnimator( texture, 5, 2, 10, 75 ); // texture, #horiz, #vert, #total, duration.
+	var texture = game.textureManager.getTexture("player");
+	var map = game.textureManager.getMap("player");
+	var animatedTexture = new MapTextureAnimator(texture, map, "idle"); // texture, #horiz, #vert, #total, duration.
+	// this.animatedDefault = animatedTexture;
+	// this.animatedRun = new TextureAnimator( texture_run, 1, 10, 10, 75 );
 	var runnerMaterial = new THREE.MeshLambertMaterial( { map: texture, side: THREE.DoubleSide, transparent: true, depthTest: false } );
 	var runnerGeometry = new THREE.PlaneGeometry(PLAYER_WIDTH, PLAYER_HEIGHT, 1, 1);
 	var mesh = new THREE.Mesh(runnerGeometry, runnerMaterial);
-	
+
 	Entity.call(this, PLAYER, mesh, animatedTexture, PLAYER_WIDTH, PLAYER_HEIGHT, new THREE.Vector3(PLAYER_INIT_X, PLAYER_INIT_Y, PLAYER_INIT_Z));
 }
 
@@ -12,11 +15,17 @@ Player.prototype = Object.create(Entity.prototype);
 
 //////PLAYER API
 Player.prototype.startMovingLeft = function() {
+	// this.texture = this.animatedRun;
 	this.startOrKeepMoving(-PLAYER_DEFAULT_VELOCITY);
+
+	this.mesh.scale.x = -1;
 }
 
 Player.prototype.startMovingRight = function() {
+	// this.texture = this.animatedDefault;
 	this.startOrKeepMoving(PLAYER_DEFAULT_VELOCITY);
+
+	this.mesh.scale.x = 1;
 }
 
 Player.prototype.jump = function(velocity) {
@@ -54,3 +63,18 @@ Player.prototype.startOrKeepMoving = function(velocity) {
 	this.physics.setFriction(1);
 }
 
+Player.prototype.updateStatus = function() {
+	if (this.isOnAir()) {
+		this.animatedTexture.setStatus("jump");
+	} else if (this.isMovingRight() || this.isMovingLeft()) {
+			this.animatedTexture.setStatus("run");
+	} else {
+			this.animatedTexture.setStatus("idle");
+	}
+
+}
+
+Player.prototype.update = function(game, lapsedMillis) {
+	this.updateStatus();
+	Entity.prototype.update.call(this, game, lapsedMillis);
+}

@@ -10,7 +10,7 @@ const ANNYANG = {
 			annyang.addCommands(commands);
 			annyang.setLanguage("es-ES");
 			// Start listening.
-			annyang.start();
+			// annyang.start();
 		}
 	}
 }
@@ -29,7 +29,7 @@ function parseCommands(commandString) {
 
 
 /**
- * Search for command in the command dictionary 
+ * Search for command in the command dictionary
  * and execute the associated function
  */
 function executeCommand(command) {
@@ -44,18 +44,18 @@ function executeCommand(command) {
 		'comienza': execCmdStart,
 		'círculo':	execCmdCircle,
 		'cuadrado': execCmdSquare,
-		
+
 		'derecha':  execCmdRight,
 		'izquierda':execCmdLeft,
 		'dispara': 	execCmdShoot,
 		'para':		execCmdStop,
 		'salta':	execCmdJump,
 	};
-	
+
 	if (command in commands) {
 		commands[command]();
 	}
-	
+
 }
 
 

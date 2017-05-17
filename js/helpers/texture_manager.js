@@ -6,7 +6,8 @@ var TextureManager = function(onLoad){
 
     this.manager.onLoad = onLoad;
 
-    this.textureLoader = new THREE.TextureLoader( this.manager );
+    this.textureLoader = new THREE.TextureLoader(this.manager);
+    this.fileLoader = new THREE.FileLoader(this.manager);
     this.textures = {
         skyline: {
             type: "jpg",
@@ -60,9 +61,12 @@ var TextureManager = function(onLoad){
             type: "png",
             url: "img/buildings/building8.png"
         },
-
+        player: {
+            type: "png",
+            url: "img/player/sprite.png",
+            map_url: "img/player/map.json"
+        },
     };
-
 
 }
 
@@ -73,9 +77,22 @@ TextureManager.prototype.load = function(){
         this.textureLoader.load(item.url, function ( texture ) {
             this.context.textures[this.name].texture = texture;
         }.bind({context: this, name: name}));
+
+        if ('map_url' in item) {
+          console.log(item.map_url);
+          this.fileLoader.load(item.map_url, function (map) {
+              this.context.textures[this.name].map = JSON.parse(map);
+          }.bind({context: this, name: name}));
+        } else {
+          this.textures[name].map = false;
+        }
     }
 }
 
 TextureManager.prototype.getTexture = function(textureName){
     return this.textures[textureName].texture;
+}
+
+TextureManager.prototype.getMap = function(textureName){
+    return this.textures[textureName].map;
 }
