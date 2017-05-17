@@ -60,7 +60,31 @@ var TextureManager = function(onLoad){
             type: "png",
             url: "img/buildings/building8.png"
         },
-
+		skyboxzneg: {
+			type: "png",
+			url: "img/skybox/skyboxzneg.png"
+		},
+		skyboxzpos: {
+			type: "png",
+			url: "img/skybox/skyboxzpos.png"
+		},
+		skyboxyneg: {
+			type: "png",
+			url: "img/skybox/skyboxyneg.png"
+		},
+		skyboxypos: {
+			type: "png",
+			url: "img/skybox/skyboxypos.png"
+		},
+		skyboxxneg: {
+			type: "png",
+			url: "img/skybox/skyboxxneg.png"
+		},
+		skyboxxpos: {
+			type: "png",
+			url: "img/skybox/skyboxxpos.png"
+		}
+		
     };
 
 
