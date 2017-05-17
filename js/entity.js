@@ -130,7 +130,6 @@ Entity.prototype.getHorizontalVelocity = function() {
 }
 
 Entity.prototype.updateVelocities = function(lapsedMillis) {
-	// console.log(this.distanceBottom);
 	this.verticalVelocity += this.physics.getGravity() * lapsedMillis / 1000;
 	this.horizontalVelocity *=  this.physics.getFriction();
 }
@@ -178,7 +177,6 @@ Entity.prototype.updateVerticalPositionAndVelocity = function(lapsedMillis, dist
 			this.hit();
 		this.verticalVelocity = -this.physics.getElasticity()*this.verticalVelocity;
 	}
-	// console.log(movement);
 
 }
 

@@ -62,7 +62,7 @@ EventFactory.prototype.bossEvent = function (floor) {
                 //console.log("También puedes pulsar D")
                 game.switchSpotLight();
             },
-            animation2Start(10, 2)
+			game.cameraEffects.getEffect(LOOK_AHEAD)
         ],
         function () {
             //console.log("\nEstoy en el evento\n");
