@@ -6,7 +6,7 @@ var Wall = function (textureManager, type, x, y) {
   var cityWidth = FLOOR_WIDTH;
   var cityHeight = FLOOR_WIDTH * ratio;
   this.geometry = new THREE.PlaneGeometry(cityWidth , cityHeight);
-  this.material = new THREE.MeshLambertMaterial( {map: this.texture, side: THREE.DoubleSide, transparent: true, depthTest: false} );
+  this.material = new THREE.MeshLambertMaterial( {map: this.texture, side: THREE.DoubleSide, transparent: true, depthTest: true} );
   this.plane = new THREE.Mesh(this.geometry, this.material);
   this.plane.position.set(x, y + cityHeight / 2, 0);
 
