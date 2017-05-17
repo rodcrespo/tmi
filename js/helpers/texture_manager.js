@@ -10,19 +10,57 @@ var TextureManager = function(onLoad){
     this.textures = {
         skyline: {
             type: "jpg",
+            url: "img/skyline.jpg"
+        },
+        floor: {
+            type: "jpg",
+            url: "img/floor.jpg"
         },
         runner: {
-            type: "png"
+            type: "png",
+            url: "img/runner.png"
         },
-        bakery_shop: {
-            type: "png"
+        ball: {
+            type: "png",
+            url: "img/ball.png"
         },
-        flower_shop: {
-            type: "png"
+        building0: {
+            type: "jpg",
+            url: "img/buildings/building0.jpg"
         },
-		ball: {
-			type: "png"
-		}
+        building1: {
+            type: "jpg",
+            url: "img/buildings/building1.jpg"
+        },
+        building2: {
+            type: "jpg",
+            url: "img/buildings/building2.jpg"
+        },
+        building3: {
+            type: "jpg",
+            url: "img/buildings/building3.jpg"
+        },
+        building4: {
+            type: "jpg",
+            url: "img/buildings/building4.jpg"
+        },
+        building5: {
+            type: "jpg",
+            url: "img/buildings/building5.jpg"
+        },
+        building6: {
+            type: "jpg",
+            url: "img/buildings/building6.jpg"
+        },
+        building7: {
+            type: "jpg",
+            url: "img/buildings/building7.jpg"
+        },
+        building8: {
+            type: "png",
+            url: "img/buildings/building8.png"
+        },
+
     };
 
 
@@ -31,7 +69,8 @@ var TextureManager = function(onLoad){
 TextureManager.prototype.load = function(){
     for(var name in this.textures){
         var item = this.textures[name];
-        this.textureLoader.load('img/' + name + "." + item.type, function ( texture ) {
+        console.log(item.url);
+        this.textureLoader.load(item.url, function ( texture ) {
             this.context.textures[this.name].texture = texture;
         }.bind({context: this, name: name}));
     }

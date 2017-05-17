@@ -1,20 +1,10 @@
 var Wall = function (textureManager, type, x, y) {
 
-  // //TODO do this outside
-  switch(type) {
-    case 'flower_shop':
-      this.texture = textureManager.getTexture("flower_shop");
-      break;
-    case 'bakery_shop':
-      this.texture = textureManager.getTexture("bakery_shop");
-      break;
-    default:
-      this.texture = textureManager.getTexture("flower_shop");
-  }
+  this.texture = textureManager.getTexture(type);
 
   var ratio = this.texture.image.height / this.texture.image.width;
-  var cityWidth = SCREEN_WIDTH/10;
-  var cityHeight = SCREEN_WIDTH/10 * ratio;
+  var cityWidth = FLOOR_WIDTH;
+  var cityHeight = FLOOR_WIDTH * ratio;
   this.geometry = new THREE.PlaneGeometry(cityWidth , cityHeight);
   this.material = new THREE.MeshLambertMaterial( {map: this.texture, side: THREE.DoubleSide, transparent: true, depthTest: false} );
   this.plane = new THREE.Mesh(this.geometry, this.material);

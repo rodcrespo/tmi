@@ -183,8 +183,8 @@ Game.prototype.cameraUpdate = function(){
 
 Game.prototype.tilesUpdate = function(){
     var playerPosition = this.player.mesh.position;
-    if(playerPosition.x > this.tiles[7].floor.plane.position.x){
-        var x = this.tiles[9].floor.plane.position.x + TILE_WIDTH;
+    if(playerPosition.x > this.tiles[TILES_NUMBER - 5].floor.plane.position.x){
+        var x = this.tiles[TILES_NUMBER - 1].floor.plane.position.x + TILE_WIDTH;
         this.tiles.shift().removeFromScene(this.scene);
         var tile = new Tile(this.textureManager, Math.floor((Math.random() * Object.keys(Tile.TYPES).length)), x, 0);
 		
