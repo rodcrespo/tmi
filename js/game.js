@@ -162,9 +162,17 @@ Game.prototype.init = function(){
 Game.prototype.addTile = function(tile) {
 	this.player.addTrigger(tile.getTrigger());
 	this.tiles.push(tile);
-
+	
 	this.scene.remove(this.player.mesh);
+	
 	tile.addToScene(this.scene);
+	
+	if (typeof(tile.entities) !== 'undefined') {
+		for (var i = 0; i < tile.entities.length; i++) {
+			this.addEntity(tile.entities[i]);
+		}
+	}
+	
 	this.scene.add(this.player.mesh);
 	
 	this.collidables.push(tile.getCollidable());
@@ -258,11 +266,6 @@ Game.prototype.tilesUpdate = function(){
         var tile = new Tile(this.textureManager, Math.floor((Math.random() * Object.keys(Tile.TYPES).length)), x, 0);
 		
 		this.addTile(tile);
-		if (typeof(tile.entities) !== 'undefined') {
-			for (var i = 0; i < tile.entities.length; i++) {
-				this.addEntity(tile.entities[i]);
-			}
-		}
         this.collidables.shift();
     }
 

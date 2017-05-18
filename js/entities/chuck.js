@@ -1,26 +1,22 @@
 //TODO there are shared functions with player. possible merge them in a superclass
 
 var Chuck = function(game, position){
-	var texture = game.textureManager.getTexture("player");
-	var map = game.textureManager.getMap("player");
-	var animatedTexture = new MapTextureAnimator(texture, map, "idle"); // texture, #horiz, #vert, #total, duration.
-	// this.animatedDefault = animatedTexture;
-	// this.animatedRun = new TextureAnimator( texture_run, 1, 10, 10, 75 );
-	var runnerMaterial = new THREE.MeshLambertMaterial( { map: texture, side: THREE.DoubleSide, transparent: true, depthTest: false } );
-	var runnerGeometry = new THREE.PlaneGeometry(PLAYER_WIDTH, PLAYER_HEIGHT, 1, 1);
-	var mesh = new THREE.Mesh(runnerGeometry, runnerMaterial);
-
-	Entity.call(this, PLAYER, mesh, animatedTexture, PLAYER_WIDTH, PLAYER_HEIGHT, new THREE.Vector3(PLAYER_INIT_X, PLAYER_INIT_Y, PLAYER_INIT_Z));
+	this.texture = game.textureManager.getTexture(CHUCK);
+	var material = new THREE.MeshBasicMaterial( { map: this.texture, side: THREE.DoubleSide, transparent: true, depthTest: false } );
+	var geometry = new THREE.PlaneGeometry(CHUCK_WIDTH, CHUCK_HEIGHT, 1, 1);
+	var mesh = new THREE.Mesh(geometry, material);
 	
+	Entity.call(this, CHUCK, mesh, this.texture, CHUCK_WIDTH, CHUCK_HEIGHT, position);
 	
 	this.damageTimeout = 0;
 	this.jumpTimeout = 0;
+	console.log("chuck created");
 }
 
 Chuck.prototype = Object.create(Entity.prototype);
 
 Chuck.prototype.interactWith = function(entity) {
-	if (this.damageTimeout = 0) {
+	if (this.damageTimeout == 0) {
 		entity.damage(10);
 		game.audioManager.play(AUDIO_PUNCH);
 		this.damageTimeout = 1000;
@@ -29,13 +25,13 @@ Chuck.prototype.interactWith = function(entity) {
 
 
 Chuck.prototype.updateStatus = function() {
-	if (this.isOnAir()) {
+	/*if (this.isOnAir()) {
 		this.animatedTexture.setStatus("jump");
 	} else if (this.isMovingRight() || this.isMovingLeft()) {
 			this.animatedTexture.setStatus("run");
 	} else {
 			this.animatedTexture.setStatus("idle");
-	}
+	}*/
 	
 
 }

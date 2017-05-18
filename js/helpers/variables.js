@@ -69,6 +69,7 @@ const BALL = "ball";
 const FLOWERPOT = "flowerpot";
 const PARTICLE = "particle";
 const SALMOREJO = "salmorejo";
+const CHUCK = "chuck";
 
 //entity constants
 const BALL_WIDTH = 20;
@@ -78,6 +79,8 @@ const FLOWER_HEIGHT = 80;
 const PARTICLE_WIDTH = 5; //height is the same
 const SALMOREJO_HEIGHT = 20;
 const SALMOREJO_WIDTH = 40;
+const CHUCK_HEIGHT = 40;
+const CHUCK_WIDTH = 40;
 
 
 //Player
