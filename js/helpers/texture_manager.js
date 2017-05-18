@@ -10,8 +10,8 @@ var TextureManager = function(onLoad){
     this.fileLoader = new THREE.FileLoader(this.manager);
     this.textures = {
         skyline: {
-            type: "jpg",
-            url: "img/skyline.jpg"
+            type: "png",
+            url: "img/skyline.png"
         },
         floor: {
             type: "jpg",

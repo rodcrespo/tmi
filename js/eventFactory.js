@@ -1,5 +1,5 @@
 var EventFactory = function () {
-    this.eventTypes = ["test", "boss"];
+    this.eventTypes = ["boss"];
 }
 
 EventFactory.prototype.getEvent = function (event, parameters) {
@@ -10,12 +10,12 @@ EventFactory.prototype.getEvent = function (event, parameters) {
 }
 
 EventFactory.prototype.getRandomEvent = function (parameters) {
-    var index = Math.floor(Math.random() * (this.eventTypes.length - 0));
+    var index = Math.floor(Math.random() * (this.eventTypes.length));
     return this.getEvent(this.eventTypes[index], parameters);
 }
 
-EventFactory.prototype.testEvent = function (floor) {
-    event = new Event (10, [KEYCODE_A, KEYCODE_D], 2);
+EventFactory.prototype.testEvent = function (tile) {
+    var event = new Event (10, [KEYCODE_A, KEYCODE_D], 2);
     event.setFunctions(
         [
             function() {
@@ -34,12 +34,12 @@ EventFactory.prototype.testEvent = function (floor) {
         },
         function () {
             //console.log("Se ejecuta bien: Se ha respondido bien");
-            floor.changeColor(0x00ff00);
+            // floor.changeColor(0x00ff00);
             game.switchSpotLight();
         },
         function() {
             //console.log("Se ejecuta mal; No se ha respondido bien, se ha fallado el evento");
-            floor.changeColor(0xff0000);
+            // floor.changeColor(0xff0000);
             game.switchSpotLight();
         },
         function() {
@@ -48,8 +48,8 @@ EventFactory.prototype.testEvent = function (floor) {
     return event;
 }
 
-EventFactory.prototype.bossEvent = function (floor) {
-    event = new Event (10, [KEYCODE_A, KEYCODE_D], 2);
+EventFactory.prototype.bossEvent = function (tile) {
+    var event = new Event (10, [KEYCODE_A, KEYCODE_D], 2);
     event.setFunctions(
         [
             function() {
@@ -69,12 +69,12 @@ EventFactory.prototype.bossEvent = function (floor) {
         },
         function () {
             //console.log("Se ejecuta bien: Se ha respondido bien");
-            floor.changeColor(0x00ff00);
+            // floor.changeColor(0x00ff00);
             game.switchSpotLight();
         },
         function() {
             //console.log("Se ejecuta mal; No se ha respondido bien, se ha fallado el evento");
-            floor.changeColor(0xff0000);
+            // floor.changeColor(0xff0000);
             game.switchSpotLight();
         },
         function() {

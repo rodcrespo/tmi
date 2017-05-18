@@ -9,20 +9,20 @@ var Tile = function (textureManager, type, x, y) {
     case Tile.TYPES.TYPE6:
     case Tile.TYPES.TYPE7:
     case Tile.TYPES.TYPE8:
-      this.floor = new Floor(textureManager, "default", x, y);
+      this.floor = new Floor(textureManager, this, "default", x, y);
       this.wall = new Wall(textureManager, "building" + type, x, y);
       break;
     case Tile.TYPES.TYPE1:
-      this.floor = new Floor(textureManager, "default", x, y);
+      this.floor = new Floor(textureManager, this, "default", x, y);
       this.wall = new Wall(textureManager, "building2", x, y);
       this.entities = [new Ball(game, new THREE.Vector3(x, y, PLAYER_INIT_Z))];
       break;
     case Tile.TYPES.TYPE2:
-      this.floor = new Floor(textureManager, "default", x, y);
+      this.floor = new Floor(textureManager, this, "default", x, y);
       this.wall = new Wall(textureManager, "building3", x, y);
       break;
     case Tile.TYPES.TYPE3:
-        this.floor = new Floor(textureManager, "red", x, y);
+        this.floor = new Floor(textureManager, this, "red", x, y);
         this.wall = new Wall(textureManager, "building4", x, y);
         break;
     default:
