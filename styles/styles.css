@@ -68,6 +68,7 @@ canvas {
     left: 0;
     right: 0;
     pointer-events: none;
+    text-shadow: 0 2px #fff;
 }
 
 .hud .score{
@@ -87,6 +88,15 @@ canvas {
     top: 30px;
     left: 3%;
     font-size: 2rem;
+}
+
+.hud .sound{
+    color: #F3465E;
+    position: absolute;
+    top: 90vh;
+    left: 3%;
+    font-size: 3rem;
+
 }
 
 
