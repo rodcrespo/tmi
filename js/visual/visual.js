@@ -58,38 +58,19 @@ Visual.prototype.init = function(){
 
     this.particles = [];
     for (var i = 0; i < this.particles_amount; i++) {
-        this.particles[i] = new Particle(new THREE.Vector3((Math.random() * particles_radius - particles_radius/2), (Math.random() * particles_radius - particles_radius/2), 0));
+        this.particles[i] = new Particle(new THREE.Vector3((Math.random() * particles_radius - particles_radius/2), (Math.random() * particles_radius - particles_radius/2), (Math.random() * particles_radius - particles_radius/2)));
         this.scene.add(this.particles[i].mesh);
     }
 
     // Text
-
-    var materials = [
-      new THREE.MeshBasicMaterial( { color: Math.random() * 0xffffff, overdraw: 0.5 } ),
-      new THREE.MeshBasicMaterial( { color: 0xffffff, overdraw: 0.5 } )
-    ];
-
-    var textGeom = new THREE.TextGeometry( 'Er Zevillano', {
-        font: this.font,
-        size: 20,
-        height: 20,
-        curveSegments: 2
-    });
-    var textMesh = new THREE.Mesh( textGeom, materials[0] );
-
-    this.scene.add( textMesh );
-
-    textGeom.computeBoundingBox();
-    textGeom.textWidth = textGeom.boundingBox.max.x - textGeom.boundingBox.min.x;
-    var centerOffset = -0.5 * ( textGeom.boundingBox.max.x - textGeom.boundingBox.min.x );
-    textMesh.position.x = centerOffset;
-    textMesh.position.y = 0;
-    textMesh.position.z = 0;
-    textMesh.rotation.x = -Math.PI/8;
-    textMesh.rotation.y = Math.PI * 2;
-
-
-
+    this.texts_amount = 20;
+    var texts_radius = 500;
+    var text_array = ['Er Zevillano', 'Hello', 'World', 'Choose']
+    this.texts = [];
+    for (var i = 0; i < this.texts_amount; i++) {
+        this.texts[i] = new Text3D(text_array[Math.floor(Math.random() * text_array.length)], new THREE.Vector3((Math.random() * texts_radius - texts_radius/2), (Math.random() * texts_radius - texts_radius/2), (Math.random() * particles_radius - particles_radius/2)), 0xffffff, Math.random() * 30 - 10, this.font);
+        this.scene.add(this.texts[i].mesh);
+    }
 
 
 
@@ -99,6 +80,17 @@ Visual.prototype.init = function(){
     // this.light = new Light ();
     // this.scene.add(this.light.getAmbientLight());
 
+    this.controls = new THREE.TrackballControls( this.camera );
+    this.controls.rotateSpeed = 1.0;
+		this.controls.zoomSpeed = 1.2;
+		this.controls.panSpeed = 0.8;
+		this.controls.noZoom = false;
+		this.controls.noPan = false;
+		this.controls.staticMoving = true;
+		this.controls.dynamicDampingFactor = 0.3;
+		this.controls.keys = [ 65, 83, 68 ];
+		this.controls.addEventListener( 'change', this.render );
+    window.addEventListener( 'resize', this.onWindowResize, false );
 };
 
 Visual.prototype.render = function(){
@@ -110,12 +102,19 @@ Visual.prototype.update = function(){
     for (var i = 0; i < this.particles_amount; i++) {
         this.particles[i].update(delta)
     }
-
-
 }
+
+Visual.prototype.onWindowResize = function() {
+		this.camera.aspect = window.innerWidth / window.innerHeight;
+		this.camera.updateProjectionMatrix();
+		this.renderer.setSize( window.innerWidth, window.innerHeight );
+		this.controls.handleResize();
+		render();
+	}
 
 Visual.prototype.animate = function(){
     requestAnimationFrame( this.animate.bind(this) );
     this.render();
     this.update();
-};
+    this.controls.update()
+}
