@@ -27,6 +27,12 @@ var onKeyDown = function(e) {
 		case KEYCODE_E:
 			game.player.shoot();
 			break;
+		case KEYCODE_PLUS:
+			game.player.heal(10);
+			break;
+		case KEYCODE_MINUS:
+			game.player.damage(10);
+			break;
 		}
 	}
 	else {

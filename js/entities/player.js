@@ -9,6 +9,8 @@ var Player = function(game){
 	var mesh = new THREE.Mesh(runnerGeometry, runnerMaterial);
 
 	Entity.call(this, PLAYER, mesh, animatedTexture, PLAYER_WIDTH, PLAYER_HEIGHT, new THREE.Vector3(PLAYER_INIT_X, PLAYER_INIT_Y, PLAYER_INIT_Z));
+	
+	this.life = PLAYER_MAX_HEALTH / 2;
 }
 
 Player.prototype = Object.create(Entity.prototype);
@@ -31,7 +33,7 @@ Player.prototype.startMovingRight = function() {
 Player.prototype.jump = function(velocity) {
 	if (!this.isOnAir()) {
 		this.setVerticalVelocity(velocity);
-		game.audioManager.play(JUMP);
+		game.audioManager.play(AUDIO_JUMP);
 	}
 }
 
@@ -52,7 +54,30 @@ Player.prototype.shoot = function() {
 	ball.init(null);
 	ball.setHorizontalVelocity
 	game.addEntity(ball);
-	game.audioManager.play(SHOOT);
+	game.audioManager.play(AUDIO_SHOOT);
+}
+
+Player.prototype.getHealth = function() {
+	return this.life;
+}
+
+Player.prototype.heal = function(boost) {
+	this.life += boost;
+	if (this.life > PLAYER_MAX_HEALTH) {
+		this.life = PLAYER_MAX_HEALTH;
+	}
+}
+
+Player.prototype.damage = function(damage) {
+	this.life -= damage;
+	if (this.life <= PLAYER_MIN_HEALTH) {
+		this.life = PLAYER_MIN_HEALTH;
+		this.die();
+	}
+}
+
+Player.prototype.die = function() {
+	game.audioManager.play(AUDIO_DEATH);
 }
 //////////////// END PLAYER API
 

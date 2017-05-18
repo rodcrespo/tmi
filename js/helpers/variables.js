@@ -48,10 +48,14 @@ const BALL = "ball";
 const RUNNER = "runner";
 const SKYLINE = "skyline";
 
-// Audio names
-const BOUNCE = "bounce";
-const JUMP = "jump";
-const SHOOT = "shoot";
+// Audio names (files)
+const AUDIO_FOLDER = "sound/";
+const AUDIO_BACKGROUND = "background"
+// Audio names (variables)
+const AUDIO_BOUNCE = "bounce";
+const AUDIO_JUMP = "jump";
+const AUDIO_SHOOT = "shoot";
+const AUDIO_DEATH = "death";
 
 // Effect names
 const ZOOM_AND_ROLL = "zoomroll";
@@ -70,6 +74,9 @@ const PLAYER_INIT_Z = 5;
 const PLAYER_DEFAULT_VELOCITY = 300;
 const PLAYER_JUMP_HIGH_VELOCITY = 400;
 const PLAYER_JUMP_LOW_VELOCITY = 200;
+
+const PLAYER_MAX_HEALTH = 100;
+const PLAYER_MIN_HEALTH = 0;
 
 //BALL
 const BALL_WIDTH = 20;
