@@ -13,7 +13,7 @@ var Salmorejo = function(game, position){
 Salmorejo.prototype = Object.create(Entity.prototype);
 
 Salmorejo.prototype.interactWith = function(entity) {
-	game.updateLives(game.lives + 1);
+	entity.heal(10);
 	this.removeFromGame();
 	game.audioManager.play(AUDIO_EAT);
 	//to be implemented by child class, or left like this if nothing is to happen when a collision occurs

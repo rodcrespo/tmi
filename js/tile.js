@@ -20,7 +20,6 @@ var Tile = function (textureManager, type, x, y) {
         this.wall = new Wall(textureManager, this.randomBuilding(), x, y);
         this.entities = [new Salmorejo(game, new THREE.Vector3(x, y, PLAYER_INIT_Z))];
         break;
-        break;
     case Tile.TYPES.DOG:
         this.question = "El perro de los García está fuera delante de la puerta y tiene muy mala leche...¡Decide!";
         this.options = ['Di "Hueso" para lanzar un hueso.', 'Di "Esquivar" para intentar esquivar.', 'Intenta hablar en su idioma para entenderte con él.'];
@@ -54,7 +53,7 @@ var Tile = function (textureManager, type, x, y) {
         this.wall = new Wall(textureManager, this.randomBuilding(), x, y);
         break;
     case Tile.TYPES.CUTE_GIRL:
-        this.question = "Una...¡Decide!";
+        this.question = "Una chiquilla se cruza en tu camino...¡Decide!";
         this.options = ['Di "Guapa" para echarle un piropo.', 'Di "Calabazas" para rechazarla.', 'Di "Novia" para decirle que estás en búsqueda de tu querida Mª Isabel.'];
         this.goodAnswers = ["guapa"];
         this.badAnswers = ["calabazas", "calabaza", "novia"];
