@@ -87,6 +87,10 @@ Entity.prototype.update = function(game, lapsedMillis) {
 	this.updateVerticalPositionAndVelocity(lapsedMillis, this.distanceBottom, this.distanceTop);
 	this.updateHorizontalPositionAndVelocity(lapsedMillis, this.distanceLeft, this.distanceRight);
 }
+
+Entity.prototype.removeFromGame = function() {
+	game.removeEntity(this);
+}
 //////////////// END Entity API
 
 
@@ -181,6 +185,15 @@ Entity.prototype.updateVerticalPositionAndVelocity = function(lapsedMillis, dist
 }
 
 Entity.prototype.hit = function() {
-	//called when this object is hit by another
+	//called when this object is hit by a static element of the map
+}
+
+Entity.prototype.collidesWith = function(entity) {
+	return isBboxColliding(this, entity);
+}
+
+Entity.prototype.interactWith = function(entity) {
+	//to be implemented by child class, or left like this if nothing is to happen when a collision occurs
+	//for now "entity" is always be the player, collisions between objects are not called
 }
 ///////////////////// END INTERNAL FUNCTIONS

@@ -34,5 +34,9 @@ Gui.prototype.getDrawableElements = function() {
 	for (var element in this.guiElements) {
 		elements.push(this.guiElements[element].mesh);
 	}
+	return []; //uncomment this line to enable the gui
+	
 	return elements;
+	
+	
 }

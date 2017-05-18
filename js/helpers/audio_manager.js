@@ -13,7 +13,10 @@ var AudioManager = function() {
 		},
 		death: {
 			type: "wav"
-		}
+		},
+		crash: {
+			type: "wav"
+		},
 	};
 	
 	//these are loaded once and only one instance exists

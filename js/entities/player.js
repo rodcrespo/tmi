@@ -11,6 +11,7 @@ var Player = function(game){
 	Entity.call(this, PLAYER, mesh, animatedTexture, PLAYER_WIDTH, PLAYER_HEIGHT, new THREE.Vector3(PLAYER_INIT_X, PLAYER_INIT_Y, PLAYER_INIT_Z));
 	
 	this.life = PLAYER_MAX_HEALTH / 2;
+	this.score = 0;
 }
 
 Player.prototype = Object.create(Entity.prototype);
@@ -50,11 +51,24 @@ Player.prototype.stopHorizontally = function() {
 }
 
 Player.prototype.shoot = function() {
-	var ball = new Ball(game, this.getPosition());
+	/*var ball = new Ball(game, this.getPosition());
 	ball.init(null);
 	ball.setHorizontalVelocity
 	game.addEntity(ball);
-	game.audioManager.play(AUDIO_SHOOT);
+	game.audioManager.play(AUDIO_SHOOT);*/
+	var pos = this.getPosition();
+	var flowerPot = new FlowerPot(game, new THREE.Vector3(pos.x, pos.y + this.height, pos.z));
+	flowerPot.init(null);
+	flowerPot.setVerticalVelocity(1000);
+	game.addEntity(flowerPot);
+}
+
+Player.prototype.getScore = function() {
+	return this.score;
+}
+
+Player.prototype.giveScore = function(score) {
+	this.score += score;
 }
 
 Player.prototype.getHealth = function() {
@@ -77,6 +91,7 @@ Player.prototype.damage = function(damage) {
 }
 
 Player.prototype.die = function() {
+	this.score = 0;
 	game.audioManager.play(AUDIO_DEATH);
 }
 //////////////// END PLAYER API
@@ -102,4 +117,13 @@ Player.prototype.updateStatus = function() {
 Player.prototype.update = function(game, lapsedMillis) {
 	this.updateStatus();
 	Entity.prototype.update.call(this, game, lapsedMillis);
+	
+	//Check collisions with other entities (do this only for the player since
+	//it is too costly otherwise
+	var entities = game.getEntities();
+	for (var i = 0; i < entities.length; i++) {
+		if (entities[i].collidesWith(this)) { //avoid self-checking
+			entities[i].interactWith(this);
+		}
+	}
 }

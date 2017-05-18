@@ -29,6 +29,7 @@ var onKeyDown = function(e) {
 			break;
 		case KEYCODE_PLUS:
 			game.player.heal(10);
+			game.player.giveScore(1);
 			break;
 		case KEYCODE_MINUS:
 			game.player.damage(10);
