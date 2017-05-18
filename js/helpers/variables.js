@@ -69,6 +69,7 @@ const BALL = "ball";
 const FLOWERPOT = "flowerpot";
 const PARTICLE = "particle";
 const SALMOREJO = "salmorejo";
+const MAQUINA = "salmorejo";
 const CHUCK = "chuck";
 
 //entity constants

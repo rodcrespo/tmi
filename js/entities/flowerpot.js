@@ -18,13 +18,14 @@ FlowerPot.prototype.hit = function() {
 	for (var i = 0; i < 10; i++) {
 		game.addEntity(new Particle(game, new THREE.Vector3(pos.x, pos.y, pos.z-5), this.texture));
 	}
-	game.removeEntity(this);
+
 }
 
 FlowerPot.prototype.interactWith = function(entity, failed) {
     if(failed){
         entity.damage(10);
         this.hit();
+        game.removeEntity(this);
     }else{
         entity.giveScore(100);
     }

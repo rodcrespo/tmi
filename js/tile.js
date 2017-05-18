@@ -57,6 +57,7 @@ var Tile = function (textureManager, type, x, y) {
         this.badAnswers = ["quita"];
         this.floor = new Floor(textureManager, this, "event", x, y);
         this.wall = new Wall(textureManager, this.randomBuilding(), x, y);
+        this.entities = [new Maquina(game, new THREE.Vector3(x, y + PLAYER_HEIGHT, PLAYER_INIT_Z))];
         break;
     case Tile.TYPES.CUTE_GIRL:
         this.question = "Una chiquilla se cruza en tu camino...¡Decide!";

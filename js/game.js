@@ -155,7 +155,7 @@ Game.prototype.addTile = function(tile) {
 	this.tiles.push(tile);
 	
 	this.scene.remove(this.player.mesh);
-	
+
 	tile.addToScene(this.scene);
 	
 	if (typeof(tile.entities) !== 'undefined') {
