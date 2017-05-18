@@ -8,7 +8,7 @@ var Text3D = function(text, position, color, size, font){
 	var textGeom = new THREE.TextGeometry( text, {
 			font: font,
 			size: size,
-			height: 20,
+			height: 5,
 			curveSegments: 2
 	});
 	this.mesh = new THREE.Mesh( textGeom, materials[0] );
