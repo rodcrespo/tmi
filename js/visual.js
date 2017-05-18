@@ -8,10 +8,21 @@ var Visual = function(){
 
 
 Visual.prototype.load = function(){
+
+  var loader = new THREE.FontLoader();
+
+loader.load( 'fonts/Baloo_Regular.json', function ( font ) {
+
+    // your code here
+    this.font = font;
+    this.init();
+    this.animate();
+
+}.bind(this) );
   // this.textureManager = new TextureManager(function () {
   //     console.log("All loaded")
-      this.init();
-      this.animate();
+      // this.init();
+      // this.animate();
   // }.bind(this));
   // this.audioManager = new AudioManager();
   // this.cameraEffects = new CameraEffects();
@@ -40,10 +51,7 @@ Visual.prototype.init = function(){
 
 
 
-
-
-    //CUBE
-
+    //Particles
 
     this.particles_amount = 1000;
     var particles_radius = 800;
@@ -54,26 +62,38 @@ Visual.prototype.init = function(){
         this.scene.add(this.particles[i].mesh);
     }
 
+    // Text
 
-    // // CIRCLE
-    // var circleGeometry = new THREE.CircleGeometry(5, 32, 0.65 * Math.PI * 2, 0.75 * Math.PI * 2);
-    // var circleMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
-    // circle = new THREE.Mesh( circleGeometry, circleMaterial );
-    // //alert(screen2WorldPoint(camera, new THREE.Vector3(0 + 20, window.innerHeight, 0)).x);
-    // startPos = screen2WorldPoint(camera, new THREE.Vector3(window.innerWidth*1.5, window.innerHeight, 0));
-    // endPos = new THREE.Vector3(0, startPos.y, startPos.z);
-    // circle.position.set (startPos.x, startPos.y, startPos.z);
-    // circle.name = 'enemy';
-    // this.scene.add(circle);
+    var materials = [
+      new THREE.MeshBasicMaterial( { color: Math.random() * 0xffffff, overdraw: 0.5 } ),
+      new THREE.MeshBasicMaterial( { color: 0xffffff, overdraw: 0.5 } )
+    ];
 
-    // SPEAKPOINT
-    // var speakPointGeometry = new THREE.BoxGeometry(0.5, 60, 0.5)
-    // var speakPointMaterial = new THREE.MeshBasicMaterial( { color: 0x000000 } );
-    // speakPointMaterial.side = THREE.DoubleSide;
-    // //speakPointMaterial.wireframe = true;
-    // speakPoint = new THREE.Mesh( speakPointGeometry, speakPointMaterial );
-    // speakPoint.position.set (cube.position.x + 120, 0, cube.position.z);
-    // this.scene.add(speakPoint);
+    var textGeom = new THREE.TextGeometry( 'Er Zevillano', {
+        font: this.font,
+        size: 20,
+        height: 20,
+        curveSegments: 2
+    });
+    var textMesh = new THREE.Mesh( textGeom, materials[0] );
+
+    this.scene.add( textMesh );
+
+    textGeom.computeBoundingBox();
+    textGeom.textWidth = textGeom.boundingBox.max.x - textGeom.boundingBox.min.x;
+    var centerOffset = -0.5 * ( textGeom.boundingBox.max.x - textGeom.boundingBox.min.x );
+    textMesh.position.x = centerOffset;
+    textMesh.position.y = 0;
+    textMesh.position.z = 0;
+    textMesh.rotation.x = -Math.PI/8;
+    textMesh.rotation.y = Math.PI * 2;
+
+
+
+
+
+
+
 
     // LIGHT
     // this.light = new Light ();
