@@ -85,7 +85,7 @@ Visual.prototype.init = function(){
 		this.controls.staticMoving = true;
 		this.controls.dynamicDampingFactor = 0.3;
 		this.controls.keys = [ 65, 83, 68 ];
-		// this.controls.addEventListener( 'change', this.render );
+		// this.controls.addEventListener( 'change', this.render.bind(this) );
     window.addEventListener( 'resize', this.onWindowResize.bind(this), false );
 };
 
