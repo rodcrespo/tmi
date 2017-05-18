@@ -67,7 +67,7 @@ Game.prototype.updateLives = function(){
     }.bind(this));
 }
 
-function end(words) { console.log(JSON.stringify(words)); } 
+function end(words) { console.log(JSON.stringify(words)); }
 
 Game.prototype.init = function(){
     // console.log(this)
@@ -92,20 +92,20 @@ Game.prototype.init = function(){
 
 	this.skybox = new Skybox("img/skybox/skybox", ".png");
 	this.scene.add(this.skybox.getMesh());
-	
+
 	this.city= new CityBackground(this.textureManager);
     this.scene.add( this.city.plane );
-	
+
 
 	//initialize entities
 	this.player = new Player(this);
     this.player.init();
 	this.addEntity(this.player);
-	
+
     //Initialize tiles
     this.tiles = [];
     var x = TILES_START;
-	
+
     for (var i = 0; i < TILES_NUMBER; i++) {
         if(i < TILES_NUMBER / 2){
             var tile = new Tile(this.textureManager, Tile.TYPES.TYPE0, x, 0);
@@ -124,38 +124,47 @@ Game.prototype.init = function(){
 
     // LIGHT
     this.light = new Light ();
-    this.scene.add(this.light.getAmbientLight()); 
-	
-	
+    this.scene.add(this.light.getAmbientLight());
+
+
 	//AudioManager
 	this.audioManager.startMusic(AUDIO_BACKGROUND);
-	
+
 	//Gui
 	var guiElements = this.gui.getDrawableElements();
 	for (var i = 0; i < guiElements.length; i++) {
 		// console.log(guiElements[i]);
 		this.scene.add(guiElements[i]);
 	}
-	
+
+
+  window.addEventListener( 'resize', this.onWindowResize.bind(this), false );
 
 };
+
+Game.prototype.onWindowResize = function() {
+		this.camera.aspect = window.innerWidth / window.innerHeight;
+		this.camera.updateProjectionMatrix();
+		this.renderer.setSize( window.innerWidth, window.innerHeight );
+		this.render();
+	}
 
 Game.prototype.addTile = function(tile) {
 	this.player.addTrigger(tile.getTrigger());
 	this.tiles.push(tile);
-	
+
 	this.scene.remove(this.player.mesh);
-	
+
 	tile.addToScene(this.scene);
-	
+
 	if (typeof(tile.entities) !== 'undefined') {
 		for (var i = 0; i < tile.entities.length; i++) {
 			this.addEntity(tile.entities[i]);
 		}
 	}
-	
+
 	this.scene.add(this.player.mesh);
-	
+
 	this.collidables.push(tile.getCollidable());
 };
 
@@ -197,7 +206,7 @@ Game.prototype.switchSpotLight = function () {
         var playerPosition = this.player.getPosition();
         this.light.turnOnSpotLight(new THREE.Vector3(playerPosition.x + PLAYER_DEFAULT_VELOCITY / 3, playerPosition.y, playerPosition.z), this);
     }
-    
+
 }
 
 Game.prototype.addEntity = function(entity) {
@@ -239,7 +248,7 @@ Game.prototype.tilesUpdate = function(){
         var x = this.tiles[TILES_NUMBER - 1].floor.plane.position.x + TILE_WIDTH;
         this.tiles.shift().removeFromScene(this.scene);
         var tile = new Tile(this.textureManager, Math.floor((Math.random() * Object.keys(Tile.TYPES).length)), x, 0);
-		
+
 		this.addTile(tile);
         this.collidables.shift();
     }

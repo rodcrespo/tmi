@@ -38,6 +38,8 @@ Text3D.prototype.getPosition = function() {
 
 
 Text3D.prototype.update = function(lapsedMillis) {
-	var npos = new THREE.Vector3(this.mesh.position.x + (Math.random() * 10 - 5), this.mesh.position.y + (Math.random() * 10 - 5), this.mesh.position.z + (Math.random() * 10 - 5));
+	var variation_r = 10;
+	var positionVariation = 0.05;
+	var npos = new THREE.Vector3(this.mesh.position.x + (Math.random() * variation_r - variation_r/2), this.mesh.position.y + (Math.random() *  variation_r - variation_r/2), this.mesh.position.z + (Math.random() *  variation_r - variation_r/2));
 	this.mesh.position.lerp(npos, positionVariation)
 }

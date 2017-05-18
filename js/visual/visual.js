@@ -1,7 +1,3 @@
-// standard global variables
-var container, scene, camera, renderer;
-
-
 var Visual = function(){
     this.clock = new THREE.Clock();
 };
@@ -68,7 +64,7 @@ Visual.prototype.init = function(){
     var text_array = ['Er Zevillano', 'Hello', 'World', 'Choose']
     this.texts = [];
     for (var i = 0; i < this.texts_amount; i++) {
-        this.texts[i] = new Text3D(text_array[Math.floor(Math.random() * text_array.length)], new THREE.Vector3((Math.random() * texts_radius - texts_radius/2), (Math.random() * texts_radius - texts_radius/2), (Math.random() * particles_radius - particles_radius/2)), 0xffffff, Math.random() * 30 - 10, this.font);
+        this.texts[i] = new Text3D(text_array[Math.floor(Math.random() * text_array.length)], new THREE.Vector3((Math.random() * texts_radius - texts_radius/2), (Math.random() * texts_radius - texts_radius/2), (Math.random() * particles_radius - particles_radius/2)), Math.random() * 0xffffff, Math.random() * 30 - 10, this.font);
         this.scene.add(this.texts[i].mesh);
     }
 
@@ -89,8 +85,8 @@ Visual.prototype.init = function(){
 		this.controls.staticMoving = true;
 		this.controls.dynamicDampingFactor = 0.3;
 		this.controls.keys = [ 65, 83, 68 ];
-		this.controls.addEventListener( 'change', this.render );
-    window.addEventListener( 'resize', this.onWindowResize, false );
+		// this.controls.addEventListener( 'change', this.render );
+    window.addEventListener( 'resize', this.onWindowResize.bind(this), false );
 };
 
 Visual.prototype.render = function(){
@@ -102,6 +98,9 @@ Visual.prototype.update = function(){
     for (var i = 0; i < this.particles_amount; i++) {
         this.particles[i].update(delta)
     }
+    for (var i = 0; i < this.texts_amount; i++) {
+        this.texts[i].update(delta)
+    }
 }
 
 Visual.prototype.onWindowResize = function() {
@@ -109,7 +108,7 @@ Visual.prototype.onWindowResize = function() {
 		this.camera.updateProjectionMatrix();
 		this.renderer.setSize( window.innerWidth, window.innerHeight );
 		this.controls.handleResize();
-		render();
+		this.render();
 	}
 
 Visual.prototype.animate = function(){
