@@ -11,6 +11,7 @@ var Player = function(game){
 	Entity.call(this, PLAYER, mesh, animatedTexture, PLAYER_WIDTH, PLAYER_HEIGHT, new THREE.Vector3(PLAYER_INIT_X, PLAYER_INIT_Y, PLAYER_INIT_Z));
 	
 	this.life = PLAYER_MAX_HEALTH / 2;
+	this.score = 0;
 }
 
 Player.prototype = Object.create(Entity.prototype);
@@ -57,6 +58,14 @@ Player.prototype.shoot = function() {
 	game.audioManager.play(AUDIO_SHOOT);
 }
 
+Player.prototype.getScore = function() {
+	return this.score;
+}
+
+Player.prototype.giveScore = function(score) {
+	this.score += score;
+}
+
 Player.prototype.getHealth = function() {
 	return this.life;
 }
@@ -77,6 +86,7 @@ Player.prototype.damage = function(damage) {
 }
 
 Player.prototype.die = function() {
+	this.score = 0;
 	game.audioManager.play(AUDIO_DEATH);
 }
 //////////////// END PLAYER API

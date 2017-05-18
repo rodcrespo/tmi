@@ -17,10 +17,6 @@ var startPos, endPos;
 var Game = function(){
     this.clock = new THREE.Clock();
     this.status = GAME_IDLE;
-    this.score = 0;
-    this.updateScore(0);
-    this.updateLives(3);
-
 };
 
 
@@ -43,18 +39,25 @@ Game.prototype.setStatus = function(status){
     this.status = status;
 }
 
-Game.prototype.updateScore = function(score){
-    this.score += score;
-    $(".score .value").html(this.score);
+
+Game.prototype.updateHud = function() {
+	this.updateScore();
+	this.updateLives();
 }
 
-Game.prototype.updateLives = function(lives){
-    this.lives = lives;
+Game.prototype.updateScore = function(){
+    $(".score .value").html(this.player.getScore());
+}
+
+Game.prototype.updateLives = function(){
+	lives = Math.round(5 * this.player.getHealth() / PLAYER_MAX_HEALTH)
     $.each($(".hud .lives .fa"), function( index, item ) {
         console.log(lives);
-        if(this.lives <= index){
+        if(lives <= index){
             $(item).removeClass("fa-heart").addClass("fa-heart-o");
-        }
+        } else {
+			$(item).removeClass("fa-heart-o").addClass("fa-heart");
+		}
     }.bind(this));
 }
 
@@ -193,6 +196,7 @@ Game.prototype.update = function(){
 			this.skybox.update(this.player.mesh.position);
             this.tilesUpdate();
 			this.gui.update(1000 * delta);
+			this.updateHud();
         }
         else {
             this.event.update(delta);
