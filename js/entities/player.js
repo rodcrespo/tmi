@@ -10,7 +10,7 @@ var Player = function(game){
 
 	Entity.call(this, PLAYER, mesh, animatedTexture, PLAYER_WIDTH, PLAYER_HEIGHT, new THREE.Vector3(PLAYER_INIT_X, PLAYER_INIT_Y, PLAYER_INIT_Z));
 	
-	this.life = PLAYER_MAX_HEALTH;
+	this.life = PLAYER_MAX_HEALTH/4;
 	this.score = 0;
 }
 
@@ -124,10 +124,10 @@ Player.prototype.update = function(game, lapsedMillis) {
 	
 	//Check collisions with other entities (do this only for the player since
 	//it is too costly otherwise
-	// var entities = game.getEntities();
-	// for (var i = 0; i < entities.length; i++) {
-	// 	if (entities[i].collidesWith(this)) { //avoid self-checking
-	// 		entities[i].interactWith(this);
-	// 	}
-	// }
+	var entities = game.getEntities();
+	for (var i = 0; i < entities.length; i++) {
+		if (entities[i].collidesWith(this)) { //avoid self-checking
+			entities[i].interactWith(this, false);
+		}
+	}
 }
