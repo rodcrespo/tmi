@@ -36,6 +36,7 @@ Game.prototype.load = function(){
   this.collidables = [];
   this.entities = [];
   this.soundOn = true;
+  this.wordCloud = new WordCloud();
 }
 
 Game.prototype.setStatus = function(status){
@@ -65,6 +66,8 @@ Game.prototype.updateLives = function(){
 		}
     }.bind(this));
 }
+
+function end(words) { console.log(JSON.stringify(words)); } 
 
 Game.prototype.init = function(){
     // console.log(this)
