@@ -18,7 +18,12 @@ const ANNYANG = {
 	},
 	pause: function pause () {
 		annyang.pause();
-	}
+	},
+	right: function right () {return ["derecha", "delante", "muévete", "anda", "corre"]},
+	left: function left () {return ["izquierda", "atrás"]},
+	jump: function jump () {return ["salta", "arriba", "elévate", "brinca"]},
+	shot: function shot () {return ["dispara", "lanza"]},
+	stop: function stop () {return ["stop", "para", "quieto"]},
 }
 
 
@@ -41,7 +46,7 @@ function parseCommands(commandString) {
 function executeCommand(command) {
 	console.log("Cmd: " + command);
 	// define the commands
-	var commands = {
+	/*var commands = {
 		'hola':		execCmdHello,
 		'gira':		function () {execCmdSetTurn(true);},
 		'rojo':		function () {execCmdCubeColor(0xff0000);},
@@ -56,12 +61,27 @@ function executeCommand(command) {
 		'dispara': 	execCmdShoot,
 		'para':		execCmdStop,
 		'salta':	execCmdJump,
-	};
+	};*/
 
 	if (!game.pauseEvent) {
-		if (command in commands) {
-			commands[command]();
-		}
+		//if (command in commands) {
+			//commands[command]();
+			if (ANNYANG.right().includes(command)) {
+				execCmdRight();
+			}
+			else if (ANNYANG.left().includes(command)) {
+				execCmdLeft();
+			}
+			else if (ANNYANG.jump().includes(command)) {
+				execCmdJump();
+			}
+			else if (ANNYANG.shot().includes(command)) {
+				execCmdShoot();
+			}
+			else if (ANNYANG.stop().includes(command)) {
+				execCmdStop();
+			}
+		//}
 	}
 	else {
 		game.event.checkAnswer(command);
