@@ -91,11 +91,19 @@ canvas {
 }
 
 .hud .sound{
+    cursor: pointer;
     color: #F3465E;
     position: absolute;
     top: 90vh;
     left: 3%;
     font-size: 3rem;
+    pointer-events: auto;
+
+}
+
+.hud .sound.fa-volume-off{
+
+    color: gray;
 
 }
 

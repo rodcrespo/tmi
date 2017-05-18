@@ -34,10 +34,14 @@ Game.prototype.load = function(){
   this.textureManager.load();
   this.collidables = [];
   this.entities = [];
+  this.soundOn = true;
 }
 
 Game.prototype.setStatus = function(status){
     this.status = status;
+}
+Game.prototype.toggleSound = function(){
+    this.soundOn = !this.soundOn;
 }
 
 

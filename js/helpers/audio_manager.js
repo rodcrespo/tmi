@@ -43,16 +43,22 @@ var AudioManager = function() {
 }
 
 AudioManager.prototype.play = function(name){
-	var item = this.effects[name];
-	var audio = new Audio(AUDIO_FOLDER + name + "." + item.type);
-	audio.play();
+	if(game.soundOn){
+        var item = this.effects[name];
+        var audio = new Audio(AUDIO_FOLDER + name + "." + item.type);
+        audio.play();
+	}
+
 }
 
 AudioManager.prototype.startMusic = function(name) {
-	var song = this.music[name];
-	song.sound.pause();
-	song.sound.currentTime = 0;
-	song.sound.play();
+	if(game.soundOn){
+        var song = this.music[name];
+        song.sound.pause();
+        song.sound.currentTime = 0;
+        song.sound.play();
+	}
+
 }
 
 AudioManager.prototype.pauseMusic = function(name) {

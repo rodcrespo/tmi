@@ -119,6 +119,11 @@
 
 
 	})
+    $(".sound").click(function(){
+       $(this).toggleClass("fa-volume-off").toggleClass("fa-volume-up");
+       game.toggleSound();
+
+    })
     $(".cloud-wrapper").hide();
     document.addEventListener("keydown",  onKeyDown, false);
     document.addEventListener("keyup", onKeyUp, false);
