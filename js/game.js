@@ -29,6 +29,7 @@ Game.prototype.load = function(){
   }.bind(this));
   this.audioManager = new AudioManager();
   this.cameraEffects = new CameraEffects();
+  this.updateCamera = true;
   this.gui = new Gui();
   this.textureManager.load();
   this.collidables = [];
@@ -232,10 +233,20 @@ Game.prototype.getEntities = function() {
 	return this.entities;
 }
 
+Game.prototype.disableCameraUpdate = function() {
+	this.updateCamera = false;
+}
+
+Game.prototype.enableCameraUpdate = function() {
+	this.updateCamera = true;
+}
+
 Game.prototype.cameraUpdate = function(){
-    var playerPosition = this.player.mesh.position;
-    this.camera.position.set(this.camera.position.x + (playerPosition.x - this.camera.position.x), 150, 400);
-    this.camera.lookAt(playerPosition);
+	if (this.updateCamera) {
+		var playerPosition = this.player.mesh.position;
+		this.camera.position.set(this.camera.position.x + (playerPosition.x - this.camera.position.x), 150, 400);
+		this.camera.lookAt(playerPosition);
+	}
 };
 
 Game.prototype.tilesUpdate = function(){
