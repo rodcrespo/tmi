@@ -18,7 +18,7 @@ var Tile = function (textureManager, type, x, y) {
     case Tile.TYPES.TYPE1:
       this.floor = new Floor(textureManager, this, "default", x, y);
       this.wall = new Wall(textureManager, "building2", x, y);
-      this.entities = [new Ball(game, new THREE.Vector3(x, y, PLAYER_INIT_Z))];
+      this.entities = [new Salmorejo(game, new THREE.Vector3(x, y, PLAYER_INIT_Z))];
       break;
     case Tile.TYPES.TYPE2:
       this.floor = new Floor(textureManager, this, "default", x, y);

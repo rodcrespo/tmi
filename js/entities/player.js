@@ -57,10 +57,14 @@ Player.prototype.shoot = function() {
 	game.addEntity(ball);
 	game.audioManager.play(AUDIO_SHOOT);*/
 	var pos = this.getPosition();
-	var flowerPot = new FlowerPot(game, new THREE.Vector3(pos.x, pos.y + this.height, pos.z));
-	flowerPot.init(null);
-	flowerPot.setVerticalVelocity(1000);
-	game.addEntity(flowerPot);
+	if (Math.random() > 0.5)
+		var entity = new Salmorejo(game, new THREE.Vector3(pos.x, pos.y + this.height, pos.z));
+	else
+		var entity = new FlowerPot(game, new THREE.Vector3(pos.x, pos.y + this.height, pos.z));
+	
+	entity.init(null);
+	entity.setVerticalVelocity(1000);
+	game.addEntity(entity);
 }
 
 Player.prototype.getScore = function() {
