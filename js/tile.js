@@ -7,6 +7,10 @@ var Tile = function (textureManager, type, x, y) {
   switch(type) {
     case Tile.TYPES.TYPE0:
     case Tile.TYPES.TYPE1:
+      this.floor = new Floor(textureManager, this, "default", x, y);
+      this.wall = new Wall(textureManager, "building2", x, y);
+      this.entities = [new Chuck(game, new THREE.Vector3(x, y + PLAYER_HEIGHT, PLAYER_INIT_Z))];
+      break;
     case Tile.TYPES.TYPE2:
     case Tile.TYPES.TYPE3:
     case Tile.TYPES.TYPE4:
