@@ -2,7 +2,9 @@ var Tile = function (textureManager, type, x, y) {
 
     //TODO refactor: choose randomly from json file
     this.question = "El perro de los García está fuera delante de la puerta y tiene muy mala leche...¡Decide!";
-    this.options = ['Di "Hueso" para lanzar un hueso.', 'Di "Esquivar" para intentar esquivar.', 'Intenta hablar en su idioma para entenderte con él.']
+    this.options = ['Di "Hueso" para lanzar un hueso.', 'Di "Esquivar" para intentar esquivar.', 'Intenta hablar en su idioma para entenderte con él.'];
+    this.goodAnswers = ["hueso", "esquivar"];
+    this.badAnswers = ["guauguau"];
 
   console.log("Type " + type);
   switch(type) {

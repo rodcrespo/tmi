@@ -15,7 +15,7 @@ EventFactory.prototype.getRandomEvent = function (parameters) {
 }
 
 EventFactory.prototype.testEvent = function (tile) {
-    var event = new Event (10, [KEYCODE_A, KEYCODE_D], 2);
+    var event = new Event (10, [KEYCODE_A, KEYCODE_D],[], 2);
     event.setFunctions(
         [
             function() {
@@ -49,7 +49,7 @@ EventFactory.prototype.testEvent = function (tile) {
 }
 
 EventFactory.prototype.bossEvent = function (tile) {
-    var event = new Event (10, [KEYCODE_A, KEYCODE_D], 2);
+    var event = new Event (10, tile.goodAnswers, tile.badAnswers, 1);
     event.setFunctions(
         [
             function() {
@@ -76,19 +76,20 @@ EventFactory.prototype.bossEvent = function (tile) {
             //TODO wait for annyang command
         },
         function () {
-            //console.log("Se ejecuta bien: Se ha respondido bien");
+            console.log("Se ejecuta bien: Se ha respondido bien");
             // floor.changeColor(0x00ff00);
             game.switchSpotLight();
+            $(".dialog").css("visibility", "hidden");
         },
         function() {
-            //console.log("Se ejecuta mal; No se ha respondido bien, se ha fallado el evento");
+            console.log("Se ejecuta mal; No se ha respondido bien, se ha fallado el evento");
             // floor.changeColor(0xff0000);
             game.switchSpotLight();
+            $(".dialog").css("visibility", "hidden");
         },
         function() {
             //console.log("Has respondido mal, pero no tiene porque haber fallado el evento");
             //TODO restore camera to normal position
-            $(".dialog").css("visibility", "hidden");
         });
     return event;
 }

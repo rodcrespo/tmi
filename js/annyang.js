@@ -10,8 +10,14 @@ const ANNYANG = {
 			annyang.addCommands(commands);
 			annyang.setLanguage("es-ES");
 			// Start listening.
-			// annyang.start();
+			annyang.start();
 		}
+	},
+	resume: function resume () {
+		annyang.resume();
+	},
+	pause: function pause () {
+		annyang.pause();
 	}
 }
 
@@ -52,10 +58,14 @@ function executeCommand(command) {
 		'salta':	execCmdJump,
 	};
 
-	if (command in commands) {
-		commands[command]();
+	if (!game.pauseEvent) {
+		if (command in commands) {
+			commands[command]();
+		}
 	}
-
+	else {
+		game.event.checkAnswer(command);
+	}
 }
 
 

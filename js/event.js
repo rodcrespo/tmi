@@ -1,13 +1,23 @@
-var Event = function(time, goodAnswer, opportunities){
+var Event = function(time, goodAnswer, badAnswers, opportunities){
     this.time = time; // seconds
     this.timer = 0;
     this.running = false;
-    this.goodAnswer = goodAnswer;
+   
+    this.goodAnswer = goodAnswer == undefined ? [] : goodAnswer;
+    if (!Array.isArray(this.goodAnswer)) {
+        this.goodAnswer = [badAnswers];
+    }
+    
+    this.badAnswers = badAnswers == undefined ? [] : badAnswers;
+    if (!Array.isArray(this.badAnswers)) {
+        this.badAnswers = [badAnswers];
+    }
     this.correct = false;
     this.end = false;
     this.ready = false;
     this.opportunities = opportunities == undefined ? 1 : opportunities;
     this.count = 0;
+    this.answer = null;
 }
 
 Event.prototype.setFunctions = function (beforeEvent, event, afterSuccess, afterWrong, badAnswer) {
@@ -34,7 +44,7 @@ Event.prototype.start = function() {
 }
 
 Event.prototype.update = function (deltaTime) {
-    if (this.running) {
+    if (this.running && !game.pause) {
         this.timer += deltaTime;
 
         if (this.timer >= this.time) {
@@ -90,18 +100,35 @@ Event.prototype.callFunctions = function (f) {
 
 Event.prototype.checkAnswer = function (answer) {
     if (this.running && !game.pause) {
-        if (Array.isArray(this.goodAnswer)) {
-            if (this.goodAnswer.includes(answer)) {
-                this.correct = true;
-                this.timer = this.time;
-            }
+        this.answer = answer;
+        if (this.badAnswers.length > 0) {
+            this.checkLimitAnswers();
         }
         else {
-            if (this.goodAnswer == answer) {
-                this.correct = true;
-                this.timer = this.time;
-            }
+            this.checkUnlimitAnswers();
         }
+    }  
+}
+
+Event.prototype.checkLimitAnswers = function () {
+    if (this.answer != null) {
+        if (this.goodAnswer.includes(this.answer) || this.badAnswers.includes(this.answer)) {
+            this.checkUnlimitAnswers();
+        }
+        else {
+            this.answer = null;
+        }
+    }
+}
+
+Event.prototype.checkUnlimitAnswers = function () {
+    if (this.answer != null) {
+        if (this.goodAnswer.includes(this.answer)) {
+            this.correct = true;
+            this.timer = this.time;
+        }
+
+        this.answer = null;
 
         if (!this.correct && this.badAnswer != null) {
             this.callFunctions(this.badAnswer);
@@ -113,7 +140,8 @@ Event.prototype.checkAnswer = function (answer) {
                 this.timer = this.time;
             }
         }
-    }  
+    }
+    
 }
 
 
