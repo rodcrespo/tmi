@@ -86,6 +86,10 @@ Entity.prototype.update = function(game, lapsedMillis) {
 	//update positions based on the Entity's velocity (while checking collisions)
 	this.updateVerticalPositionAndVelocity(lapsedMillis, this.distanceBottom, this.distanceTop);
 	this.updateHorizontalPositionAndVelocity(lapsedMillis, this.distanceLeft, this.distanceRight);
+	//if it falls out of the world, remove it
+	if (this.getPosition().y < -300) {
+		this.removeFromGame();
+	}
 }
 
 Entity.prototype.removeFromGame = function() {
@@ -197,7 +201,7 @@ Entity.prototype.collidesWith = function(entity) {
  * for now "entity" is always be the player, collisions between objects are not called
  * calls hit() by default
  */
-Entity.prototype.interactWith = function(entity) {
+Entity.prototype.interactWith = function(entity, failed) {
 	this.hit();
 	
 }

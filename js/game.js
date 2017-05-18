@@ -17,6 +17,7 @@ var startPos, endPos;
 var Game = function(){
     this.clock = new THREE.Clock();
     this.status = GAME_IDLE;
+    ANNYANG.init();
 };
 
 
@@ -34,10 +35,14 @@ Game.prototype.load = function(){
   this.textureManager.load();
   this.collidables = [];
   this.entities = [];
+  this.soundOn = true;
 }
 
 Game.prototype.setStatus = function(status){
     this.status = status;
+}
+Game.prototype.toggleSound = function(){
+    this.soundOn = !this.soundOn;
 }
 
 
@@ -47,7 +52,7 @@ Game.prototype.updateHud = function() {
 }
 
 Game.prototype.updateScore = function(){
-    $(".score .value").html(this.player.getScore());
+    $(".score .value").html(('000' + this.player.getScore()).slice(-4));
 }
 
 Game.prototype.updateLives = function(){
@@ -63,7 +68,7 @@ Game.prototype.updateLives = function(){
 
 Game.prototype.init = function(){
     // console.log(this)
-  	ANNYANG.init();
+
 
     this.pause = false;
 
@@ -99,7 +104,12 @@ Game.prototype.init = function(){
     var x = TILES_START;
 	
     for (var i = 0; i < TILES_NUMBER; i++) {
-		var tile = new Tile(this.textureManager, Math.floor((Math.random() * Object.keys(Tile.TYPES).length)), x, 0);
+        if(i < TILES_NUMBER / 2){
+            var tile = new Tile(this.textureManager, Tile.TYPES.TYPE0, x, 0);
+        }else{
+            var tile = new Tile(this.textureManager, Math.floor((Math.random() * Object.keys(Tile.TYPES).length)), x, 0);
+        }
+
 		x += TILE_WIDTH;
 		this.addTile(tile);
     }
@@ -108,38 +118,6 @@ Game.prototype.init = function(){
     this.event = null;
     this.pauseEvent = false;
 
-
-
-
-
-
-    //CUBE
-
-    // var boxGeometry = new THREE.BoxGeometry(30, 30, 30);
-    // var basicMaterial = new THREE.MeshBasicMaterial({color: 0x0095DD});
-    // cube = new THREE.Mesh(boxGeometry, basicMaterial);
-    // cube.name = 'player';
-    // this.scene.add(cube);
-
-    // // CIRCLE
-    // var circleGeometry = new THREE.CircleGeometry(5, 32, 0.65 * Math.PI * 2, 0.75 * Math.PI * 2);
-    // var circleMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
-    // circle = new THREE.Mesh( circleGeometry, circleMaterial );
-    // //alert(screen2WorldPoint(camera, new THREE.Vector3(0 + 20, window.innerHeight, 0)).x);
-    // startPos = screen2WorldPoint(camera, new THREE.Vector3(window.innerWidth*1.5, window.innerHeight, 0));
-    // endPos = new THREE.Vector3(0, startPos.y, startPos.z);
-    // circle.position.set (startPos.x, startPos.y, startPos.z);
-    // circle.name = 'enemy';
-    // this.scene.add(circle);
-
-    // SPEAKPOINT
-    // var speakPointGeometry = new THREE.BoxGeometry(0.5, 60, 0.5)
-    // var speakPointMaterial = new THREE.MeshBasicMaterial( { color: 0x000000 } );
-    // speakPointMaterial.side = THREE.DoubleSide;
-    // //speakPointMaterial.wireframe = true;
-    // speakPoint = new THREE.Mesh( speakPointGeometry, speakPointMaterial );
-    // speakPoint.position.set (cube.position.x + 120, 0, cube.position.z);
-    // this.scene.add(speakPoint);
 
     // LIGHT
     this.light = new Light ();
@@ -152,7 +130,7 @@ Game.prototype.init = function(){
 	//Gui
 	var guiElements = this.gui.getDrawableElements();
 	for (var i = 0; i < guiElements.length; i++) {
-		console.log(guiElements[i]);
+		// console.log(guiElements[i]);
 		this.scene.add(guiElements[i]);
 	}
 	
@@ -162,9 +140,17 @@ Game.prototype.init = function(){
 Game.prototype.addTile = function(tile) {
 	this.player.addTrigger(tile.getTrigger());
 	this.tiles.push(tile);
-
+	
 	this.scene.remove(this.player.mesh);
+	
 	tile.addToScene(this.scene);
+	
+	if (typeof(tile.entities) !== 'undefined') {
+		for (var i = 0; i < tile.entities.length; i++) {
+			this.addEntity(tile.entities[i]);
+		}
+	}
+	
 	this.scene.add(this.player.mesh);
 	
 	this.collidables.push(tile.getCollidable());
@@ -181,13 +167,7 @@ Game.prototype.update = function(){
             if (rotationEnabled){
 				otation += 0.05;
             }
-            if (this.scene.getObjectByName('enemy')) {
-                circle.position.x += circleSpeed.x;
-                if (circle.position.distanceToManhattan(endPos) <= 5) {
-                    this.scene.remove(circle);
-                    alert ("Game Over!\nScore: " + score );
-                }
-            }
+
 			//updates all entities on screen (including the player)
 			for (var i = 0; i < this.entities.length; i++) {
 				this.entities[i].update(this, 1000 * delta);
@@ -258,11 +238,6 @@ Game.prototype.tilesUpdate = function(){
         var tile = new Tile(this.textureManager, Math.floor((Math.random() * Object.keys(Tile.TYPES).length)), x, 0);
 		
 		this.addTile(tile);
-		if (typeof(tile.entities) !== 'undefined') {
-			for (var i = 0; i < tile.entities.length; i++) {
-				this.addEntity(tile.entities[i]);
-			}
-		}
         this.collidables.shift();
     }
 

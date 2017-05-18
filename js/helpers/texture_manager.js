@@ -98,6 +98,15 @@ var TextureManager = function(onLoad){
 			type: "png",
 			url: "img/entities/salmorejo.png"
 		},
+		chuck: {
+			type: "png",
+			url: "img/entities/chuck.png"
+		},
+        maquina: {
+            type: "png",
+            url: "img/maquina/sprite.png",
+            map_url: "img/maquina/map.json"
+        },
     };
 
 }

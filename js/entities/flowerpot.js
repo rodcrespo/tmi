@@ -21,7 +21,12 @@ FlowerPot.prototype.hit = function() {
 	game.removeEntity(this);
 }
 
-FlowerPot.prototype.interactWith = function(entity) {
-	entity.damage(10);
-	this.hit();
+FlowerPot.prototype.interactWith = function(entity, failed) {
+    if(failed){
+        entity.damage(10);
+        this.hit();
+    }else{
+        entity.giveScore(100);
+    }
+
 }

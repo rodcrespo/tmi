@@ -1,4 +1,4 @@
-var Floor = function (textureManager, tile, type, x, y) {
+var Floor = function (textureManager, tile, type, x, y, event) {
   this.tile = tile;
   var eventFactory = new EventFactory ();
 
@@ -8,7 +8,7 @@ var Floor = function (textureManager, tile, type, x, y) {
       this.color = 0xf4a460;
       this.hitpoint = null;
       break;
-    case 'red':
+    case 'event':
       this.color = 0x550000;
       this.hitpoint = new Hitpoint(eventFactory.getRandomEvent(this.tile));
       break;

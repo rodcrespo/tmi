@@ -17,3 +17,12 @@ Ball.prototype = Object.create(Entity.prototype);
 Ball.prototype.hit = function() {
 	game.audioManager.play(AUDIO_BOUNCE);
 }
+
+Ball.prototype.interactWith = function(entity, failed) {
+    if(failed){
+    	game.audioManager.play(AUDIO_BOUNCE);
+        entity.damage(10);
+    }else{
+    	entity.giveScore(20);
+	}
+}

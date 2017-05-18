@@ -24,14 +24,20 @@
 	</div>
 	<div class="description">
 		<div>
-			Una aventura en la que debes ayudar a Er Zevillano en su búsqueda de su novia Mª Isabel.
+			Recorre las calles de Sevilla de la mano de Er Zevillano en busca de su novia María Isabel.
 		</div>
 		<div>
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore ducimus ea error eveniet illo inventore quis tempore ut, vel! Consequuntur cumque deleniti dolorem impedit pariatur sed! Accusamus assumenda debitis ea!
+			Se te presentará ciertas ocasiones en las que debes tomar decisiones complejas para salir airoso...
+		</div>
+		<div>
+			Dile al sevillano lo que debe decir o hacer en cada situación para completar la misión.
+		</div>
+		<div>
+			¡Ah! Y no te olvides de tomarte un salmorejo de vez en cuando, porque te dan la vida.
 		</div>
 	</div>
 	<div class="btn start-button">
-		JUGAR
+		Di "JUGAR" para empezar.
 	</div>
 </div>
 
@@ -45,7 +51,10 @@
 	</div>
 	<div class="score">
 		<span>Puntos: </span>
-		<span class="value">3500</span>
+		<span class="value">0000</span>
+	</div>
+
+	<div class="sound fa fa-volume-up">
 	</div>
 </div>
 
@@ -65,6 +74,13 @@
 		</div>
 	</div>
 </div>
+
+<div class="cloud-wrapper">
+	<div id="cloud">
+
+	</div>
+</div>
+
 
 <script src="js/helpers/variables.js"></script>
 <script src="js/annyang.js"></script>
@@ -86,6 +102,7 @@
 <script src="js/entities/ball.js"></script>
 <script src="js/entities/flowerpot.js"></script>
 <script src="js/entities/salmorejo.js"></script>
+<script src="js/entities/chuck.js"></script>
 <script src="js/entities/player.js"></script>
 <script src="js/city_background.js"></script>
 <script src="js/event.js"></script>
@@ -106,8 +123,14 @@
         $(".start-wrapper").hide();
         $(".hud").css("visibility", "visible");
 
-	})
 
+	})
+    $(".sound").click(function(){
+       $(this).toggleClass("fa-volume-off").toggleClass("fa-volume-up");
+       game.toggleSound();
+
+    })
+    $(".cloud-wrapper").hide();
     document.addEventListener("keydown",  onKeyDown, false);
     document.addEventListener("keyup", onKeyUp, false);
 

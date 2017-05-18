@@ -126,11 +126,15 @@ Event.prototype.checkUnlimitAnswers = function () {
         if (this.goodAnswer.includes(this.answer)) {
             this.correct = true;
             this.timer = this.time;
+            $(".cloud-wrapper").css("color","green");
+            $(".cloud-wrapper").fadeOut(2000);
         }
 
         this.answer = null;
 
         if (!this.correct && this.badAnswer != null) {
+            $(".cloud-wrapper").css("color","red");
+            $(".cloud-wrapper").fadeOut(2000);
             this.callFunctions(this.badAnswer);
         }
 

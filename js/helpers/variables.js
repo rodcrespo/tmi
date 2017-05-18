@@ -54,6 +54,7 @@ const AUDIO_SHOOT = "shoot";
 const AUDIO_DEATH = "death";
 const AUDIO_CRASH = "crash";
 const AUDIO_EAT = "eat";
+const AUDIO_PUNCH = "punch";
 
 // Effect names
 const ZOOM_AND_ROLL = "zoomroll";
@@ -68,6 +69,7 @@ const BALL = "ball";
 const FLOWERPOT = "flowerpot";
 const PARTICLE = "particle";
 const SALMOREJO = "salmorejo";
+const CHUCK = "chuck";
 
 //entity constants
 const BALL_WIDTH = 20;
@@ -77,6 +79,8 @@ const FLOWER_HEIGHT = 80;
 const PARTICLE_WIDTH = 5; //height is the same
 const SALMOREJO_HEIGHT = 20;
 const SALMOREJO_WIDTH = 40;
+const CHUCK_HEIGHT = 40;
+const CHUCK_WIDTH = 40;
 
 
 //Player
@@ -85,8 +89,8 @@ const PLAYER_TEXTURE_ASPECT_RATIO = 1.375;
 const PLAYER_HEIGHT = 75 * PLAYER_TEXTURE_ASPECT_RATIO;
 
 const PLAYER_INIT_X = 0;
-const PLAYER_INIT_Y = PLAYER_HEIGHT / 2;
-const PLAYER_INIT_Z = 5;
+const PLAYER_INIT_Y = PLAYER_HEIGHT / 2 - 5;
+const PLAYER_INIT_Z = 100;
 
 const PLAYER_DEFAULT_VELOCITY = 300;
 const PLAYER_JUMP_HIGH_VELOCITY = 400;

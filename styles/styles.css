@@ -68,6 +68,7 @@ canvas {
     left: 0;
     right: 0;
     pointer-events: none;
+    text-shadow: 0 2px #fff;
 }
 
 .hud .score{
@@ -87,6 +88,23 @@ canvas {
     top: 30px;
     left: 3%;
     font-size: 2rem;
+}
+
+.hud .sound{
+    cursor: pointer;
+    color: #F3465E;
+    position: absolute;
+    top: 90vh;
+    left: 3%;
+    font-size: 3rem;
+    pointer-events: auto;
+
+}
+
+.hud .sound.fa-volume-off{
+
+    color: gray;
+
 }
 
 
@@ -132,5 +150,58 @@ canvas {
     border: none;
     border-radius: 15px;
     box-shadow: 0 9px #999;
+}
+
+.cloud-wrapper{
+    position: absolute;
+    top: 5%;
+    transform: translateX(150%);
+    font-family: Barrio, cursive;
+    font-size: 3rem;
+    z-index: 9999;
+    text-align: center;
+}
+#cloud {
+    width: 350px; height: 120px;
+    opacity: 0.7;
+    background: #f2f9fe;
+    background: linear-gradient(top, #f2f9fe 5%, #d6f0fd 100%);
+    background: -webkit-linear-gradient(top, #f2f9fe 5%, #d6f0fd 100%);
+    background: -moz-linear-gradient(top, #f2f9fe 5%, #d6f0fd 100%);
+    background: -ms-linear-gradient(top, #f2f9fe 5%, #d6f0fd 100%);
+    background: -o-linear-gradient(top, #f2f9fe 5%, #d6f0fd 100%);
+
+    border-radius: 100px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    position: relative;
+    display: table-cell;
+    vertical-align: middle;
+
+}
+
+#cloud:after, #cloud:before {
+    content: '';
+    position: absolute;
+    background: #f2f9fe;
+    z-index: -1
+}
+
+#cloud:after {
+    width: 100px; height: 100px;
+    top: -50px; left: 50px;
+
+    border-radius: 100px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+}
+
+#cloud:before {
+    width: 180px; height: 180px;
+    top: -90px; right: 50px;
+
+    border-radius: 200px;
+    -webkit-border-radius: 200px;
+    -moz-border-radius: 200px;
 }
 
