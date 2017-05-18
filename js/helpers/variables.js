@@ -54,6 +54,7 @@ const AUDIO_SHOOT = "shoot";
 const AUDIO_DEATH = "death";
 const AUDIO_CRASH = "crash";
 const AUDIO_EAT = "eat";
+const AUDIO_PUNCH = "punch";
 
 // Effect names
 const ZOOM_AND_ROLL = "zoomroll";

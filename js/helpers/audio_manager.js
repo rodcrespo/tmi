@@ -20,6 +20,9 @@ var AudioManager = function() {
 		eat: {
 			type: "wav"
 		},
+		punch: {
+			type: "wav"
+		},
 	};
 	
 	//these are loaded once and only one instance exists
