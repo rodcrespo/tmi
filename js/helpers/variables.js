@@ -40,10 +40,7 @@ const SKYBOX_XNEG = "skyboxxneg";
 const SKYBOX_XPOS = "skyboxxpos";
 
 
-// Entity names
-const PLAYER = "player";
-const BALL = "ball";
-const FLOWERPOT = "flowerpot";
+
 
 // Texture names
 const RUNNER = "runner";
@@ -65,6 +62,21 @@ const LOOK_AHEAD = "lookahead";
 const LOOK_BACK = "lookback";
 const LOOK_UP = "lookup";
 
+
+// Entity names
+const PLAYER = "player";
+const BALL = "ball";
+const FLOWERPOT = "flowerpot";
+const PARTICLE = "particle";
+
+//entity constants
+const BALL_WIDTH = 20;
+const BALL_HEIGHT = 20;
+const FLOWER_WIDTH = 40;
+const FLOWER_HEIGHT = 60;
+const PARTICLE_WIDTH = 5; //height is the same
+
+
 //Player
 const PLAYER_WIDTH = 75;
 const PLAYER_TEXTURE_ASPECT_RATIO = 1.375;
@@ -81,11 +93,7 @@ const PLAYER_JUMP_LOW_VELOCITY = 200;
 const PLAYER_MAX_HEALTH = 100;
 const PLAYER_MIN_HEALTH = 0;
 
-//BALL
-const BALL_WIDTH = 20;
-const BALL_HEIGHT = 20;
-const FLOWER_WIDTH = 40;
-const FLOWER_HEIGHT = 60;
+
 
 
 //Tiles

@@ -63,7 +63,7 @@ Entity.prototype.getPosition = function() {
 
 Entity.prototype.update = function(game, lapsedMillis) {
 	//update animations
-	if (typeof this.animatedTexture.update === 'function') {
+	if (this.animatedTexture != null && typeof this.animatedTexture.update === 'function') {
 		this.animatedTexture.update(lapsedMillis);
 	}
 	//return;
@@ -192,8 +192,13 @@ Entity.prototype.collidesWith = function(entity) {
 	return isBboxColliding(this, entity);
 }
 
+/**
+ * to be implemented by child class, or left like this if nothing is to happen when a collision occurs
+ * for now "entity" is always be the player, collisions between objects are not called
+ * calls hit() by default
+ */
 Entity.prototype.interactWith = function(entity) {
-	//to be implemented by child class, or left like this if nothing is to happen when a collision occurs
-	//for now "entity" is always be the player, collisions between objects are not called
+	this.hit();
+	
 }
 ///////////////////// END INTERNAL FUNCTIONS
