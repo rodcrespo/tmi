@@ -73,7 +73,7 @@ const PARTICLE = "particle";
 const BALL_WIDTH = 20;
 const BALL_HEIGHT = 20;
 const FLOWER_WIDTH = 40;
-const FLOWER_HEIGHT = 60;
+const FLOWER_HEIGHT = 80;
 const PARTICLE_WIDTH = 5; //height is the same
 
 

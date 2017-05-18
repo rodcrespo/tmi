@@ -5,6 +5,10 @@ var WorldPhysics = function(){
 	this.elasticity = 0;
 }
 
+WorldPhysics.prototype.setGravity = function(gravity) {
+	this.gravity = gravity;
+}
+
 WorldPhysics.prototype.getGravity = function() {
 	return this.gravity;
 }
