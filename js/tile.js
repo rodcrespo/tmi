@@ -4,7 +4,7 @@ var Tile = function (textureManager, type, x, y) {
     this.question = "El perro de los García está fuera delante de la puerta y tiene muy mala leche...¡Decide!";
     this.options = ['Di "Hueso" para lanzar un hueso.', 'Di "Esquivar" para intentar esquivar.', 'Intenta hablar en su idioma para entenderte con él.'];
     this.goodAnswers = ["hueso", "esquivar"];
-    this.badAnswers = ["guauguau"];
+    this.badAnswers = ["guauguau", "guau guau", "guau"];
 
   console.log("Type " + type);
   switch(type) {
