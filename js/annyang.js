@@ -19,6 +19,9 @@ const ANNYANG = {
 	pause: function pause () {
 		annyang.pause();
 	},
+	play: function(){
+		return ["jugar"];
+	},
 	right: function right () {return ["derecha", "delante", "muévete", "anda", "corre"]},
 	left: function left () {return ["izquierda", "atrás"]},
 	jump: function jump () {return ["salta", "arriba", "elévate", "brinca"]},
@@ -81,6 +84,12 @@ function executeCommand(command) {
 			else if (ANNYANG.stop().includes(command)) {
 				execCmdStop();
 			}
+            else if (ANNYANG.play().includes(command)) {
+                game.load();
+                game.setStatus(GAME_RUNNING);
+                $(".start-wrapper").hide();
+                $(".hud").css("visibility", "visible");
+            }
 		//}
 	}
 	else {

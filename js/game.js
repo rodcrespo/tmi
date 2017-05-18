@@ -17,6 +17,7 @@ var startPos, endPos;
 var Game = function(){
     this.clock = new THREE.Clock();
     this.status = GAME_IDLE;
+    ANNYANG.init();
 };
 
 
@@ -67,7 +68,7 @@ Game.prototype.updateLives = function(){
 
 Game.prototype.init = function(){
     // console.log(this)
-  	ANNYANG.init();
+
 
     this.pause = false;
 
