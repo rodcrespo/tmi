@@ -62,6 +62,7 @@ const AUDIO_CRASH = "crash";
 // Effect names
 const ZOOM_AND_ROLL = "zoomroll";
 const LOOK_AHEAD = "lookahead";
+const LOOK_BACK = "lookback";
 const LOOK_UP = "lookup";
 
 //Player
