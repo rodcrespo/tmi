@@ -57,7 +57,6 @@ Particle.prototype.update = function(lapsedMillis) {
 	// 		m = _meshes[i];
 
 	var scaleVariation = 2;
-	var positionVariation = 0.05;
 
 	var newScale = this.mesh.scale.y + (this.flip ? -scaleVariation : scaleVariation);
 	this.mesh.scale.y = newScale;
@@ -68,7 +67,9 @@ Particle.prototype.update = function(lapsedMillis) {
 	// this.mesh.scale.y = this.flip ? -1 : 1;
 	// this.flip = !this.flip;
 
-	var npos = new THREE.Vector3(this.mesh.position.x + (Math.random() * 10 - 5), this.mesh.position.y + (Math.random() * 10 - 5), this.mesh.position.z + (Math.random() * 10 - 5));
+	var positionVariation = 0.05;
+	var variation_r = 10;
+	var npos = new THREE.Vector3(this.mesh.position.x + (Math.random() * variation_r - variation_r/2), this.mesh.position.y + (Math.random() *  variation_r - variation_r/2), this.mesh.position.z + (Math.random() *  variation_r - variation_r/2));
 
 	this.mesh.position.lerp(npos, positionVariation)
 

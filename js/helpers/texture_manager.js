@@ -107,6 +107,11 @@ var TextureManager = function(onLoad){
             url: "img/maquina/sprite.png",
             map_url: "img/maquina/map.json"
         },
+        cute_girl: {
+            type: "png",
+            url: "img/cute_girl/sprite.png",
+            map_url: "img/cute_girl/map.json"
+        },
     };
 
 }
