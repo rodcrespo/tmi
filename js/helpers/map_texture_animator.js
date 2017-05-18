@@ -9,7 +9,7 @@ var MapTextureAnimator = function (texture, map, defaultStatus)
         while (this.currentDisplayTime > map[this.status].duration) {
             this.currentDisplayTime -= map[this.status].duration;
             this.currentTile++;
-            if (this.currentTile == map[this.status].tiles.length) {
+            if (this.currentTile >= map[this.status].tiles.length) {
                 this.currentTile = 0;
             }
             texture.offset.x = map[this.status].tiles[this.currentTile].x/map.width ;
