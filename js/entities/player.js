@@ -71,7 +71,7 @@ Player.prototype.getScore = function() {
 	return this.score;
 }
 
-Player.prototype.varia = function(score) {
+Player.prototype.giveScore = function(score) {
 	this.score += score;
 }
 
