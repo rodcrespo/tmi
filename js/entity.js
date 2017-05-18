@@ -201,7 +201,7 @@ Entity.prototype.collidesWith = function(entity) {
  * for now "entity" is always be the player, collisions between objects are not called
  * calls hit() by default
  */
-Entity.prototype.interactWith = function(entity) {
+Entity.prototype.interactWith = function(entity, failed) {
 	this.hit();
 	
 }

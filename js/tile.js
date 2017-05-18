@@ -1,16 +1,16 @@
 var Tile = function (textureManager, type, x, y) {
 
     //TODO refactor: add entities
+    this.entities = []
 
-
-  console.log("Type " + type);
+  // console.log("Type " + type);
   switch(type) {
     case Tile.TYPES.TYPE0:
     case Tile.TYPES.TYPE1:
-      this.floor = new Floor(textureManager, this, "default", x, y);
-      this.wall = new Wall(textureManager, "building2", x, y);
-      this.entities = [new Chuck(game, new THREE.Vector3(x, y + PLAYER_HEIGHT, PLAYER_INIT_Z))];
-      break;
+      // this.floor = new Floor(textureManager, this, "default", x, y);
+      // this.wall = new Wall(textureManager, this.randomBuilding(), x, y);
+      // this.entities = [new Chuck(game, new THREE.Vector3(x, y + PLAYER_HEIGHT, PLAYER_INIT_Z))];
+      // break;
     case Tile.TYPES.TYPE2:
     case Tile.TYPES.TYPE3:
     case Tile.TYPES.TYPE4:
@@ -39,6 +39,7 @@ var Tile = function (textureManager, type, x, y) {
         this.badAnswers = ["ignorar", "loca"];
         this.floor = new Floor(textureManager, this, "event", x, y);
         this.wall = new Wall(textureManager, this.randomBuilding(), x, y);
+        this.entities = [new FlowerPot(game, new THREE.Vector3(x, y + PLAYER_HEIGHT, PLAYER_INIT_Z))];
         break;
     case Tile.TYPES.FOOTBALL:
         this.question = "Un hincha del Betis se te acerca y te empieza a hablar de fútbol...¡Decide!";
@@ -47,6 +48,7 @@ var Tile = function (textureManager, type, x, y) {
         this.badAnswers = ["sevilla", "no"];
         this.floor = new Floor(textureManager, this, "event", x, y);
         this.wall = new Wall(textureManager, this.randomBuilding(), x, y);
+        this.entities = [new Ball(game, new THREE.Vector3(x, y + PLAYER_HEIGHT, PLAYER_INIT_Z))];
         break;
     case Tile.TYPES.ROBOT:
         this.question = "Un transeunte típico sevillano te bloquea el paso...¡Decide!";

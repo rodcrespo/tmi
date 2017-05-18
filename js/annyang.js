@@ -84,6 +84,9 @@ function executeCommand(command) {
 		//}
 	}
 	else {
+        $("#cloud").html(command);
+        $(".cloud-wrapper").fadeIn(1000);
+
 		game.event.checkAnswer(command);
 	}
 }

@@ -45,7 +45,7 @@
 	</div>
 	<div class="score">
 		<span>Puntos: </span>
-		<span class="value">3500</span>
+		<span class="value">0000</span>
 	</div>
 </div>
 
@@ -66,9 +66,12 @@
 	</div>
 </div>
 
-<div id="cloud">
+<div class="cloud-wrapper">
+	<div id="cloud">
 
+	</div>
 </div>
+
 
 <script src="js/helpers/variables.js"></script>
 <script src="js/annyang.js"></script>
@@ -111,8 +114,9 @@
         $(".start-wrapper").hide();
         $(".hud").css("visibility", "visible");
 
-	})
 
+	})
+    $(".cloud-wrapper").hide();
     document.addEventListener("keydown",  onKeyDown, false);
     document.addEventListener("keyup", onKeyUp, false);
 

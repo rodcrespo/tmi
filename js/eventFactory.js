@@ -68,20 +68,23 @@ EventFactory.prototype.bossEvent = function (tile) {
                 //console.log("También puedes pulsar D")
 
             },
-            //TODO stick camera to look ahead
 			game.cameraEffects.getEffect(LOOK_AHEAD)
         ],
         function () {
             //console.log("\nEstoy en el evento\n");
-            //TODO wait for annyang command
         },
         function () {
+            for(var i = 0; i < tile.entities.length; i++){
+                tile.entities[i].interactWith(game.player, false);
+            }
             console.log("Se ejecuta bien: Se ha respondido bien");
-            // floor.changeColor(0x00ff00);
             game.switchSpotLight();
             $(".dialog").css("visibility", "hidden");
         },
         function() {
+            for(var i = 0; i < tile.entities.length; i++){
+                tile.entities[i].interactWith(game.player, true);
+            }
             console.log("Se ejecuta mal; No se ha respondido bien, se ha fallado el evento");
             // floor.changeColor(0xff0000);
             game.switchSpotLight();
@@ -89,7 +92,6 @@ EventFactory.prototype.bossEvent = function (tile) {
         },
         function() {
             //console.log("Has respondido mal, pero no tiene porque haber fallado el evento");
-            //TODO restore camera to normal position
         });
     return event;
 }

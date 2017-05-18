@@ -134,11 +134,18 @@ canvas {
     box-shadow: 0 9px #999;
 }
 
-
+.cloud-wrapper{
+    position: absolute;
+    top: 5%;
+    transform: translateX(150%);
+    font-family: Barrio, cursive;
+    font-size: 3rem;
+    z-index: 9999;
+    text-align: center;
+}
 #cloud {
-    visibility: hidden;
     width: 350px; height: 120px;
-
+    opacity: 0.7;
     background: #f2f9fe;
     background: linear-gradient(top, #f2f9fe 5%, #d6f0fd 100%);
     background: -webkit-linear-gradient(top, #f2f9fe 5%, #d6f0fd 100%);
@@ -149,10 +156,10 @@ canvas {
     border-radius: 100px;
     -webkit-border-radius: 100px;
     -moz-border-radius: 100px;
+    position: relative;
+    display: table-cell;
+    vertical-align: middle;
 
-    position: absolute;
-    top: 30%;
-    right: 30%;
 }
 
 #cloud:after, #cloud:before {

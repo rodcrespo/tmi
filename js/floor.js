@@ -1,4 +1,4 @@
-var Floor = function (textureManager, tile, type, x, y) {
+var Floor = function (textureManager, tile, type, x, y, event) {
   this.tile = tile;
   var eventFactory = new EventFactory ();
 

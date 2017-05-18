@@ -47,7 +47,7 @@ Game.prototype.updateHud = function() {
 }
 
 Game.prototype.updateScore = function(){
-    $(".score .value").html(this.player.getScore());
+    $(".score .value").html(('000' + this.player.getScore()).slice(-4));
 }
 
 Game.prototype.updateLives = function(){
@@ -125,7 +125,7 @@ Game.prototype.init = function(){
 	//Gui
 	var guiElements = this.gui.getDrawableElements();
 	for (var i = 0; i < guiElements.length; i++) {
-		console.log(guiElements[i]);
+		// console.log(guiElements[i]);
 		this.scene.add(guiElements[i]);
 	}
 	
@@ -162,13 +162,7 @@ Game.prototype.update = function(){
             if (rotationEnabled){
 				otation += 0.05;
             }
-            if (this.scene.getObjectByName('enemy')) {
-                circle.position.x += circleSpeed.x;
-                if (circle.position.distanceToManhattan(endPos) <= 5) {
-                    this.scene.remove(circle);
-                    alert ("Game Over!\nScore: " + score );
-                }
-            }
+
 			//updates all entities on screen (including the player)
 			for (var i = 0; i < this.entities.length; i++) {
 				this.entities[i].update(this, 1000 * delta);
