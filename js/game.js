@@ -52,7 +52,6 @@ Game.prototype.updateScore = function(){
 Game.prototype.updateLives = function(){
 	lives = Math.round(5 * this.player.getHealth() / PLAYER_MAX_HEALTH)
     $.each($(".hud .lives .fa"), function( index, item ) {
-        console.log(lives);
         if(lives <= index){
             $(item).removeClass("fa-heart").addClass("fa-heart-o");
         } else {
@@ -220,6 +219,18 @@ Game.prototype.addEntity = function(entity) {
 	this.entities.push(entity);
 	this.scene.add(entity.mesh);
 };
+
+Game.prototype.removeEntity = function(entity) {
+	var index = this.entities.indexOf(entity);
+	if (index > -1) {
+		this.entities.splice(index, 1);
+	}
+	this.scene.remove(entity.mesh);
+}
+
+Game.prototype.getEntities = function() {
+	return this.entities;
+}
 
 Game.prototype.cameraUpdate = function(){
     var playerPosition = this.player.mesh.position;

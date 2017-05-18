@@ -63,3 +63,29 @@ function checkTriggerCollision(distance, velocity, lapsedMillis, positionOffset)
 		return true;
 	}
 }
+
+
+
+function isBboxColliding(entity1, entity2) {
+	var maxLowX = Math.max(
+		entity1.mesh.position.x - entity1.width / 2, 
+		entity2.mesh.position.x - entity2.width / 2);
+	var minHighX = Math.min(
+		entity1.mesh.position.x + entity1.width / 2, 
+		entity2.mesh.position.x + entity2.width / 2);
+	
+	if (maxLowX > minHighX)
+		return false;	//entities do not overlap on the x axis, dont even bother to check y
+	
+	var maxLowY = Math.max(
+		entity1.mesh.position.y - entity1.height / 2, 
+		entity2.mesh.position.y - entity2.height / 2);
+	var minHighY = Math.min(              
+		entity1.mesh.position.y + entity1.height / 2, 
+		entity2.mesh.position.y + entity2.height / 2);
+	
+	if (maxLowY > minHighY)
+		return false;	//entities do not overlap on the y axis
+	
+	return true;	//entities overlap on both x and y axis: collision!!
+}

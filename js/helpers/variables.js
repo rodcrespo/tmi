@@ -43,6 +43,7 @@ const SKYBOX_XPOS = "skyboxxpos";
 // Entity names
 const PLAYER = "player";
 const BALL = "ball";
+const FLOWERPOT = "flowerpot";
 
 // Texture names
 const RUNNER = "runner";
@@ -56,6 +57,7 @@ const AUDIO_BOUNCE = "bounce";
 const AUDIO_JUMP = "jump";
 const AUDIO_SHOOT = "shoot";
 const AUDIO_DEATH = "death";
+const AUDIO_CRASH = "crash";
 
 // Effect names
 const ZOOM_AND_ROLL = "zoomroll";
@@ -81,6 +83,9 @@ const PLAYER_MIN_HEALTH = 0;
 //BALL
 const BALL_WIDTH = 20;
 const BALL_HEIGHT = 20;
+const FLOWER_WIDTH = 40;
+const FLOWER_HEIGHT = 60;
+
 
 //Tiles
 const MULTIPLIER = 17;

@@ -89,7 +89,11 @@ var TextureManager = function(onLoad){
 		skyboxxpos: {
 			type: "png",
 			url: "img/skybox/skyxpos.png"
-		}
+		},
+		flowerpot: {
+			type: "png",
+			url: "img/City Decoration/flowerpot.png"
+		},
     };
 
 }

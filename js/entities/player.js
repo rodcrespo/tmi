@@ -51,11 +51,16 @@ Player.prototype.stopHorizontally = function() {
 }
 
 Player.prototype.shoot = function() {
-	var ball = new Ball(game, this.getPosition());
+	/*var ball = new Ball(game, this.getPosition());
 	ball.init(null);
 	ball.setHorizontalVelocity
 	game.addEntity(ball);
-	game.audioManager.play(AUDIO_SHOOT);
+	game.audioManager.play(AUDIO_SHOOT);*/
+	var pos = this.getPosition();
+	var flowerPot = new FlowerPot(game, new THREE.Vector3(pos.x, pos.y + this.height, pos.z));
+	flowerPot.init(null);
+	flowerPot.setVerticalVelocity(1000);
+	game.addEntity(flowerPot);
 }
 
 Player.prototype.getScore = function() {
@@ -112,4 +117,13 @@ Player.prototype.updateStatus = function() {
 Player.prototype.update = function(game, lapsedMillis) {
 	this.updateStatus();
 	Entity.prototype.update.call(this, game, lapsedMillis);
+	
+	//Check collisions with other entities (do this only for the player since
+	//it is too costly otherwise
+	var entities = game.getEntities();
+	for (var i = 0; i < entities.length; i++) {
+		if (entities[i].collidesWith(this)) { //avoid self-checking
+			entities[i].interactWith(this);
+		}
+	}
 }
