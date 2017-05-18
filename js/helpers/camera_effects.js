@@ -39,7 +39,7 @@ var effect_animation2Start = function(speed, nGyros) {
         }
         setTimeout(function () {
                     game.pause = false;
-                    game.camera.rotation.z = 0; 
+                    game.camera.rotation.z = 0;
                     game.camera.setFocalLength(initialFocal)
                 }, 2 * nGyros * 360);
     };

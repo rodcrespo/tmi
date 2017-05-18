@@ -73,7 +73,7 @@ canvas {
 .hud .score{
     position: absolute;
     top: 30px;
-    right: 50px;
+    right: 5%;
     font-size: 2rem;
 }
 
@@ -85,6 +85,52 @@ canvas {
     color: #F3465E;
     position: absolute;
     top: 30px;
-    left: 50px;
+    left: 3%;
     font-size: 2rem;
 }
+
+
+/* Dialog */
+
+.dialog {
+    visibility: hidden;
+    z-index: 9999;
+    position: absolute;
+    padding: 20px;
+    top: 30%;
+    right: 5%;
+    width: 30%;
+    pointer-events: none;
+}
+
+.dialog .question {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    display: inline-block;
+    padding: 15px 25px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #65a7d8;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+.dialog .option{
+    margin-top: 20px;
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #F3465E;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+

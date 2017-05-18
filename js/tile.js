@@ -1,6 +1,9 @@
 var Tile = function (textureManager, type, x, y) {
 
-  // //TODO do this outside
+    //TODO refactor: choose randomly from json file
+    this.question = "El perro de los García está fuera delante de la puerta y tiene muy mala leche...¡Decide!";
+    this.options = ['Di "Hueso" para lanzar un hueso.', 'Di "Esquivar" para intentar esquivar.', 'Intenta hablar en su idioma para entenderte con él.']
+
   console.log("Type " + type);
   switch(type) {
     case Tile.TYPES.TYPE0:
