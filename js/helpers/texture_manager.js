@@ -92,7 +92,11 @@ var TextureManager = function(onLoad){
 		},
 		flowerpot: {
 			type: "png",
-			url: "img/City Decoration/flowerpot.png"
+			url: "img/entities/flowerpot.png"
+		},
+		salmorejo: {
+			type: "png",
+			url: "img/entities/salmorejo.png"
 		},
     };
 

@@ -17,6 +17,9 @@ var AudioManager = function() {
 		crash: {
 			type: "wav"
 		},
+		eat: {
+			type: "wav"
+		},
 	};
 	
 	//these are loaded once and only one instance exists

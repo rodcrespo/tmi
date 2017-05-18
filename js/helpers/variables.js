@@ -44,6 +44,7 @@ const SKYBOX_XPOS = "skyboxxpos";
 const PLAYER = "player";
 const BALL = "ball";
 const FLOWERPOT = "flowerpot";
+const SALMOREJO = "salmorejo";
 
 // Texture names
 const RUNNER = "runner";
@@ -58,6 +59,7 @@ const AUDIO_JUMP = "jump";
 const AUDIO_SHOOT = "shoot";
 const AUDIO_DEATH = "death";
 const AUDIO_CRASH = "crash";
+const AUDIO_EAT = "eat";
 
 // Effect names
 const ZOOM_AND_ROLL = "zoomroll";
@@ -86,6 +88,8 @@ const BALL_WIDTH = 20;
 const BALL_HEIGHT = 20;
 const FLOWER_WIDTH = 40;
 const FLOWER_HEIGHT = 60;
+const SALMOREJO_HEIGHT = 20;
+const SALMOREJO_WIDTH = 40;
 
 
 //Tiles
