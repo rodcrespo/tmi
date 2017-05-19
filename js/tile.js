@@ -31,6 +31,7 @@ var Tile = function (textureManager, type, x, y) {
         this.badAnswers = ["guauguau", "guau guau", "guau"];
         this.floor = new Floor(textureManager, this, "event", x, y);
         this.wall = new Wall(textureManager, this.randomBuilding(), x, y);
+        this.entities = [new Dog(game, new THREE.Vector3(x, y + PLAYER_HEIGHT, PLAYER_INIT_Z))];
         break;
     case Tile.TYPES.FLOWERPOT:
         this.question = "La maruja del cuarto derecha está regando las plantas...¡Decide!";

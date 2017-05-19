@@ -1,6 +1,6 @@
-var CuteGirl = function(game, position){
-	var texture = game.textureManager.getTexture("cute_girl");
-	var map = game.textureManager.getMap("cute_girl");
+var Dog = function(game, position){
+	var texture = game.textureManager.getTexture("dog");
+	var map = game.textureManager.getMap("dog");
 	var animatedTexture = new MapTextureAnimator(texture, map, "idle"); // texture, #horiz, #vert, #total, duration.
 	// this.animatedDefault = animatedTexture;
 	// this.animatedRun = new TextureAnimator( texture_run, 1, 10, 10, 75 );
@@ -9,34 +9,32 @@ var CuteGirl = function(game, position){
 	var mesh = new THREE.Mesh(runnerGeometry, runnerMaterial);
 
     mesh.scale.x = -1;
-	Entity.call(this, CuteGirl, mesh, animatedTexture, PLAYER_WIDTH / 2, PLAYER_HEIGHT / 2, position);
+	Entity.call(this, Dog, mesh, animatedTexture, PLAYER_WIDTH / 2, PLAYER_HEIGHT / 2, position);
 
 	
 }
 
-CuteGirl.prototype = Object.create(Entity.prototype);
+Dog.prototype = Object.create(Entity.prototype);
 
 
-CuteGirl.prototype.hit = function() {
+Dog.prototype.hit = function() {
     // game.audioManager.play(AUDIO_CRASH);
-    this.animatedTexture.setStatus("idle");
     // game.removeEntity(this);
 }
 
-CuteGirl.prototype.interactWith = function(entity, failed) {
+Dog.prototype.interactWith = function(entity, failed) {
     if(failed){
-        entity.damage(200);
-        this.animatedTexture.setStatus("jump");
+        entity.damage(150);
+        this.animatedTexture.setStatus("hurt");
     }else{
         this.animatedTexture.setStatus("dead");
         entity.giveScore(100);
 
     }
-    
 
 }
 
-CuteGirl.prototype.update = function(game, lapsedMillis) {
+Dog.prototype.update = function(game, lapsedMillis) {
     // this.updateStatus();
     Entity.prototype.update.call(this, game, lapsedMillis);
 }

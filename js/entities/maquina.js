@@ -33,6 +33,7 @@ Maquina.prototype.interactWith = function(entity, failed) {
 
     }
 
+
 }
 
 Maquina.prototype.update = function(game, lapsedMillis) {
