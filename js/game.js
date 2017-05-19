@@ -200,16 +200,25 @@ Game.prototype.update = function(){
     if(this.status == GAME_FINISHED){
         
     }
+
+
+    //updates all entities on screen (including the player)
+    for (var i = 0; i < this.entities.length; i++) {
+        if (!this.pause && !this.pauseEvent) {
+            this.entities[i].update(this, 1000 * delta);
+        }
+        if (!this.pause) {
+            this.entities[i].updateAnimation (1000 * delta);
+        }
+    }
+
+
     if (!this.pause) {
         if (!this.pauseEvent) {
             if (rotationEnabled){
 				otation += 0.05;
             }
 
-			//updates all entities on screen (including the player)
-			for (var i = 0; i < this.entities.length; i++) {
-				this.entities[i].update(this, 1000 * delta);
-			}
             this.cameraUpdate();
             this.city.update(this.player.mesh.position);
 			this.skybox.update(this.player.mesh.position);
