@@ -1,6 +1,6 @@
 var Ball = function(game, position){
 	var texture = game.textureManager.getTexture(BALL);
-	var runnerMaterial = new THREE.MeshBasicMaterial( { map: texture, side: THREE.DoubleSide, transparent: true, depthTest: false } );
+	var runnerMaterial = new THREE.MeshBasicMaterial( { map: texture, side: THREE.DoubleSide, transparent: true, depthTest: true } );
 	var runnerGeometry = new THREE.PlaneGeometry(BALL_WIDTH, BALL_HEIGHT, 1, 1);
 	var mesh = new THREE.Mesh(runnerGeometry, runnerMaterial);
 	
@@ -15,11 +15,12 @@ var Ball = function(game, position){
 Ball.prototype = Object.create(Entity.prototype);
 
 Ball.prototype.hit = function() {
-	game.audioManager.play(AUDIO_BOUNCE);
+
 }
 
 Ball.prototype.interactWith = function(entity, failed) {
     if(failed){
+        game.audioManager.play(AUDIO_BOUNCE);
     	game.audioManager.play(AUDIO_BOUNCE);
         entity.damage(10);
     }else{

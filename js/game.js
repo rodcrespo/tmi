@@ -57,14 +57,24 @@ Game.prototype.updateScore = function(){
 }
 
 Game.prototype.updateLives = function(){
-	lives = Math.round(5 * this.player.getHealth() / PLAYER_MAX_HEALTH)
+	this.lives = Math.round(5 * this.player.getHealth() / PLAYER_MAX_HEALTH);
+
     $.each($(".hud .lives .fa"), function( index, item ) {
-        if(lives <= index){
+        if(this.lives <= index){
             $(item).removeClass("fa-heart").addClass("fa-heart-o");
         } else {
 			$(item).removeClass("fa-heart-o").addClass("fa-heart");
 		}
     }.bind(this));
+
+    if(this.lives == 0){
+        console.log("Game over")
+        this.setStatus(GAME_FINISHED)
+        //TODO Game over
+        //TODO Play sound
+        game.cameraEffects.getEffect(ZOOM_AND_ROLL);
+        //TODO Transition to final screen
+    }
 }
 
 function end(words) { console.log(JSON.stringify(words)); }
@@ -174,6 +184,9 @@ Game.prototype.render = function(){
 
 Game.prototype.update = function(){
     var delta = this.clock.getDelta();
+    if(this.status == GAME_FINISHED){
+        
+    }
     if (!this.pause) {
         if (!this.pauseEvent) {
             if (rotationEnabled){

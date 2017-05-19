@@ -23,7 +23,7 @@ var Floor = function (textureManager, tile, type, x, y, event) {
 
   this.geometry = new THREE.PlaneGeometry(FLOOR_WIDTH , FLOOR_HEIGHT);
 
-  this.material = new THREE.MeshLambertMaterial( {map: this.texture, side: THREE.DoubleSide, transparent: true, depthTest: false} );
+  this.material = new THREE.MeshLambertMaterial( {map: this.texture, side: THREE.DoubleSide, transparent: true, depthTest: true} );
   this.plane = new THREE.Mesh(this.geometry, this.material);
   this.plane.position.set(x, y, FLOOR_Z);
   this.plane.rotation.set(Math.PI/2, 0, 0);

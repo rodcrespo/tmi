@@ -112,6 +112,11 @@ var TextureManager = function(onLoad){
             url: "img/cute_girl/sprite.png",
             map_url: "img/cute_girl/map.json"
         },
+        dog: {
+            type: "png",
+            url: "img/dog/sprite.png",
+            map_url: "img/dog/map.json"
+        },
     };
 
 }

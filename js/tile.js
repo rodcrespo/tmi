@@ -53,10 +53,11 @@ var Tile = function (textureManager, type, x, y) {
     case Tile.TYPES.ROBOT:
         this.question = "Un transeunte típico sevillano te bloquea el paso...¡Decide!";
         this.options = ['Di "Máquina" para decirle : Tío, ¡ereh un máquina!.', 'Di "Quita" para que se aparte del camino.', 'Di "Primo" para saludar a tu pariente.'];
-        this.goodAnswers = ["máquina", "quita", ""];
+        this.goodAnswers = ["máquina"];
         this.badAnswers = ["quita"];
         this.floor = new Floor(textureManager, this, "event", x, y);
         this.wall = new Wall(textureManager, this.randomBuilding(), x, y);
+        this.entities = [new Maquina(game, new THREE.Vector3(x, y + PLAYER_HEIGHT, PLAYER_INIT_Z))];
         break;
     case Tile.TYPES.CUTE_GIRL:
         this.question = "Una chiquilla se cruza en tu camino...¡Decide!";
@@ -65,6 +66,7 @@ var Tile = function (textureManager, type, x, y) {
         this.badAnswers = ["calabazas", "calabaza", "novia"];
         this.floor = new Floor(textureManager, this, "event", x, y);
         this.wall = new Wall(textureManager, this.randomBuilding(), x, y);
+        this.entities = [new CuteGirl(game, new THREE.Vector3(x, y + PLAYER_HEIGHT, PLAYER_INIT_Z))];
         break;
     default:
 
