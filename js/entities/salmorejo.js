@@ -12,7 +12,7 @@ var Salmorejo = function(game, position){
 
 Salmorejo.prototype = Object.create(Entity.prototype);
 
-Salmorejo.prototype.interactWith = function(entity) {
+Salmorejo.prototype.collideWith = function(entity) {
 	entity.heal(PLAYER_MAX_HEALTH / NUM_HEARTS);
 	this.removeFromGame();
 	game.audioManager.play(AUDIO_EAT);

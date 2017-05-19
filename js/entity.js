@@ -204,7 +204,9 @@ Entity.prototype.collidesWith = function(entity) {
  * calls hit() by default
  */
 Entity.prototype.interactWith = function(entity, failed) {
+}
+
+Entity.prototype.collideWith = function(entity) {
 	this.hit();
-	
 }
 ///////////////////// END INTERNAL FUNCTIONS

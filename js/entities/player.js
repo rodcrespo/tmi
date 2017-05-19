@@ -127,7 +127,7 @@ Player.prototype.update = function(game, lapsedMillis) {
 	var entities = game.getEntities();
 	for (var i = 0; i < entities.length; i++) {
 		if (entities[i].collidesWith(this)) { //avoid self-checking
-			entities[i].interactWith(this, false);
+			entities[i].collideWith(this);
 		}
 	}
 
