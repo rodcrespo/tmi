@@ -39,7 +39,7 @@ function parseCommands(commandString) {
 	console.log("CmdString: " + commandString);
 	var commands = commandString.toLowerCase().split(" ");
 	commands.forEach(executeCommand);
-	// game.wordCloud.addWords(commands.join(" "));
+	game.wordCloud.addWords(commands.join(" "));
 }
 
 

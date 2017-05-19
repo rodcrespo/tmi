@@ -7,26 +7,30 @@ Visual.prototype.load = function(){
 
   var loader = new THREE.FontLoader();
 
-loader.load( 'fonts/Baloo_Regular.json', function ( font ) {
+  loader.load( 'fonts/Baloo_Regular.json', function ( font ) {
 
-    // your code here
-    this.font = font;
-    this.init();
-    this.animate();
+      this.font = font;
+      this.init();
+      this.animate();
 
-}.bind(this) );
-  // this.textureManager = new TextureManager(function () {
-  //     console.log("All loaded")
-      // this.init();
-      // this.animate();
-  // }.bind(this));
-  // this.audioManager = new AudioManager();
-  // this.cameraEffects = new CameraEffects();
-  // this.updateCamera = true;
-  // this.gui = new Gui();
-  // this.textureManager.load();
-  // this.collidables = [];
-  // this.entities = [];
+  }.bind(this) );
+
+  function gup( name, url ) {
+      if (!url) url = location.href;
+      name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+      var regexS = "[\\?&]"+name+"=([^&#]*)";
+      var regex = new RegExp( regexS );
+      var results = regex.exec( url );
+      return results == null ? null : results[1];
+  }
+
+  this.words = gup("words").split(',');
+  // for (var i = 0; i < this.words.length; i++) {
+  //   this.words[i] = unescape(this.words[i])
+  // }
+  this.words = this.words.map(function(w){return unescape(w)})
+  console.log(this.words)
+
 }
 
 
@@ -61,7 +65,7 @@ Visual.prototype.init = function(){
     // Text
     this.texts_amount = 20;
     var texts_radius = 500;
-    var text_array = ['Er Zevillano', 'Hello', 'World', 'Choose']
+    var text_array = this.words || ['Er Zevillano', 'Hello', 'World', 'Choose']
     this.texts = [];
     for (var i = 0; i < this.texts_amount; i++) {
         this.texts[i] = new Text3D(text_array[Math.floor(Math.random() * text_array.length)], new THREE.Vector3((Math.random() * texts_radius - texts_radius/2), (Math.random() * texts_radius - texts_radius/2), (Math.random() * texts_radius - texts_radius/2)), Math.random() * 0xffffff, Math.random() * 30 - 10, this.font);
@@ -83,60 +87,23 @@ Visual.prototype.init = function(){
       this.dots_group[j] = {
         dots: []
       };
-      var split = Math.random() * this.dots_group_split  - this.dots_group_split /2;
       for (var i = 0; i < this.dots_amount; i++) {
           var position = new THREE.Vector3((group_position.x + Math.random() * dots_radius - dots_radius / 2), (group_position.y + Math.random() * dots_radius - dots_radius / 2), (group_position.z + Math.random() * dots_radius - dots_radius / 2)) ;
-          console.log(group_position)
           this.dots_group[j].dots[i] = new Dot(position);
           lines_geo.vertices.push(position);
           this.scene.add(this.dots_group[j].dots[i].mesh);
       }
 
-      // var geometry = new THREE.Geometry();
-      //
-      // for ( var i = 0; i < 100; i ++ ) {
-      //
-      // 	particle = new THREE.Sprite( material );
-      // 	particle.position.x = Math.random() * 2 - 1;
-      // 	particle.position.y = Math.random() * 2 - 1;
-      // 	particle.position.z = Math.random() * 2 - 1;
-      // 	particle.position.normalize();
-      // 	particle.position.multiplyScalar( Math.random() * 10 + 450 );
-      // 	particle.scale.x = particle.scale.y = 10;
-      // 	this.scene.add( particle );
-      //
-      // 	geometry.vertices.push( particle.position );
-      //
-      // }
-      //
-      // // lines
-      //
       var line = new THREE.Line( lines_geo, new THREE.LineBasicMaterial( { color: 0xffffff, opacity: 0.5 } ) );
       this.scene.add( line );
 
     }
 
 
-		// var material = new THREE.SpriteCanvasMaterial( {
-    //
-		// 	color: 0xffffff,
-		// 	program: function ( context ) {
-    //
-		// 		context.beginPath();
-		// 		context.arc( 0, 0, 0.5, 0, Math.PI * 2, true );
-		// 		context.fill();
-    //
-		// 	}
-    //
-		// } );
-    //
-
-
-
-
     // LIGHT
-    // this.light = new Light ();
-    // this.scene.add(this.light.getAmbientLight());
+
+    this.light = new Light ();
+    this.scene.add(this.light.getAmbientLight());
 
     this.controls = new THREE.TrackballControls( this.camera );
     this.controls.rotateSpeed = 1.0;
@@ -147,7 +114,6 @@ Visual.prototype.init = function(){
 		this.controls.staticMoving = true;
 		this.controls.dynamicDampingFactor = 0.3;
 		this.controls.keys = [ 65, 83, 68 ];
-		// this.controls.addEventListener( 'change', this.render.bind(this) );
     window.addEventListener( 'resize', this.onWindowResize.bind(this), false );
 };
 
