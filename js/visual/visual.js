@@ -64,10 +64,72 @@ Visual.prototype.init = function(){
     var text_array = ['Er Zevillano', 'Hello', 'World', 'Choose']
     this.texts = [];
     for (var i = 0; i < this.texts_amount; i++) {
-        this.texts[i] = new Text3D(text_array[Math.floor(Math.random() * text_array.length)], new THREE.Vector3((Math.random() * texts_radius - texts_radius/2), (Math.random() * texts_radius - texts_radius/2), (Math.random() * particles_radius - particles_radius/2)), Math.random() * 0xffffff, Math.random() * 30 - 10, this.font);
+        this.texts[i] = new Text3D(text_array[Math.floor(Math.random() * text_array.length)], new THREE.Vector3((Math.random() * texts_radius - texts_radius/2), (Math.random() * texts_radius - texts_radius/2), (Math.random() * texts_radius - texts_radius/2)), Math.random() * 0xffffff, Math.random() * 30 - 10, this.font);
         this.scene.add(this.texts[i].mesh);
     }
 
+
+    this.dots_group_amount = Math.random() * 10 + 5;
+    this.dots_group_radius = 800;
+    this.dots_group = []
+    //Dots group
+    for (var j = 0; j < this.dots_group_amount; j++) {
+      var lines_geo = new THREE.Geometry();
+
+      var group_position = new THREE.Vector3(( (Math.random() * this.dots_group_radius - this.dots_group_radius/2)), (Math.random() * this.dots_group_radius - this.dots_group_radius/2 ), (Math.random() * this.dots_group_radius - this.dots_group_radius/2))
+      // Dots
+      this.dots_amount = Math.random() * 10;
+      var dots_radius = 100;
+      this.dots_group[j] = {
+        dots: []
+      };
+      var split = Math.random() * this.dots_group_split  - this.dots_group_split /2;
+      for (var i = 0; i < this.dots_amount; i++) {
+          var position = new THREE.Vector3((group_position.x + Math.random() * dots_radius - dots_radius / 2), (group_position.y + Math.random() * dots_radius - dots_radius / 2), (group_position.z + Math.random() * dots_radius - dots_radius / 2)) ;
+          console.log(group_position)
+          this.dots_group[j].dots[i] = new Dot(position);
+          lines_geo.vertices.push(position);
+          this.scene.add(this.dots_group[j].dots[i].mesh);
+      }
+
+      // var geometry = new THREE.Geometry();
+      //
+      // for ( var i = 0; i < 100; i ++ ) {
+      //
+      // 	particle = new THREE.Sprite( material );
+      // 	particle.position.x = Math.random() * 2 - 1;
+      // 	particle.position.y = Math.random() * 2 - 1;
+      // 	particle.position.z = Math.random() * 2 - 1;
+      // 	particle.position.normalize();
+      // 	particle.position.multiplyScalar( Math.random() * 10 + 450 );
+      // 	particle.scale.x = particle.scale.y = 10;
+      // 	this.scene.add( particle );
+      //
+      // 	geometry.vertices.push( particle.position );
+      //
+      // }
+      //
+      // // lines
+      //
+      var line = new THREE.Line( lines_geo, new THREE.LineBasicMaterial( { color: 0xffffff, opacity: 0.5 } ) );
+      this.scene.add( line );
+
+    }
+
+
+		// var material = new THREE.SpriteCanvasMaterial( {
+    //
+		// 	color: 0xffffff,
+		// 	program: function ( context ) {
+    //
+		// 		context.beginPath();
+		// 		context.arc( 0, 0, 0.5, 0, Math.PI * 2, true );
+		// 		context.fill();
+    //
+		// 	}
+    //
+		// } );
+    //
 
 
 
