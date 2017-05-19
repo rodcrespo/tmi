@@ -31,9 +31,9 @@ var onKeyDown = function(e) {
 			var words = ['Er Zevillano', 'Deberias', 'decir', 'algo', 'o', 'no', 'saldran', 'palabras'].join(',')
 			console.log(words)
 			if(game.wordCloud && game.wordCloud.words.length > 0) {
-				words = game.wordCloud.words.join(',')
+				words = escape(game.wordCloud.words.join(','))
 			}
-			window.location.href = '/visual.html?words=' + escape(words);
+			window.location.href = '/visual.html?words=' + words;
 			break;
 		case KEYCODE_PLUS:
 			game.player.heal(10);
