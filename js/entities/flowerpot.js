@@ -23,7 +23,7 @@ FlowerPot.prototype.hit = function() {
 
 FlowerPot.prototype.interactWith = function(entity, failed) {
     if(failed){
-        entity.damage(10);
+        entity.damage(PLAYER_MAX_HEALTH / NUM_HEARTS);
         this.hit();
         game.removeEntity(this);
     }else{

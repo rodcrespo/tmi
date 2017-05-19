@@ -9,8 +9,7 @@ var Player = function(game){
 	var mesh = new THREE.Mesh(runnerGeometry, runnerMaterial);
 
 	Entity.call(this, PLAYER, mesh, animatedTexture, PLAYER_WIDTH, PLAYER_HEIGHT, new THREE.Vector3(PLAYER_INIT_X, PLAYER_INIT_Y, PLAYER_INIT_Z));
-	
-	this.physics.setGravity(-100);
+
 	this.life = PLAYER_MAX_HEALTH;
 	this.score = 0;
 }
@@ -130,5 +129,9 @@ Player.prototype.update = function(game, lapsedMillis) {
 		if (entities[i].collidesWith(this)) { //avoid self-checking
 			entities[i].interactWith(this, false);
 		}
+	}
+
+	if (this.mesh.position.x <= game.tiles[0].floor.plane.position.x - FLOOR_WIDTH/2) {
+		this.mesh.position.x = game.tiles[0].floor.plane.position.x - FLOOR_WIDTH/2
 	}
 }

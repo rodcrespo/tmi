@@ -60,12 +60,14 @@ Entity.prototype.getPosition = function() {
 	return this.mesh.position.clone();
 }
 
-
-Entity.prototype.update = function(game, lapsedMillis) {
-	//update animations
+Entity.prototype.updateAnimation = function (lapsedMillis) {
 	if (this.animatedTexture != null && typeof this.animatedTexture.update === 'function') {
 		this.animatedTexture.update(lapsedMillis);
 	}
+}
+
+
+Entity.prototype.update = function(game, lapsedMillis) {
 	//return;
 	//update velocities (gravity and/or friction)
 	this.updateVelocities(lapsedMillis);

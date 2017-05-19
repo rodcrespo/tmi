@@ -26,7 +26,7 @@ CuteGirl.prototype.hit = function() {
 CuteGirl.prototype.interactWith = function(entity, failed) {
     var context = this;
     if(failed){
-        entity.damage(200);
+        entity.damage(PLAYER_MAX_HEALTH / NUM_HEARTS);
         this.animatedTexture.setStatus("jump");
         setTimeout(game.removeEntity(context), context.map["jump"].duration * context.map["jump"].tiles.length);
     }else{
