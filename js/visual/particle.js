@@ -43,19 +43,6 @@ Particle.prototype.getPosition = function() {
 
 
 Particle.prototype.update = function(lapsedMillis) {
-	// _triangleMesh.visible = settings.useTriangleParticles;
-	// _particleMesh.visible = !settings.useTriangleParticles;
-	//
-	// _tmpColor.setStyle(settings.color1);
-	// _color1.lerp(_tmpColor, 0.05);
-	//
-	// _tmpColor.setStyle(settings.color2);
-	// _color2.lerp(_tmpColor, 0.05);
-	// var m
-
-	// for(var i = 0; i < 2; i++) {
-	// 		m = _meshes[i];
-
 	var scaleVariation = 2;
 
 	var newScale = this.mesh.scale.y + (this.flip ? -scaleVariation : scaleVariation);
@@ -63,9 +50,6 @@ Particle.prototype.update = function(lapsedMillis) {
 	if (newScale >= 1 || newScale <= -1) {
 		this.flip = !this.flip;
 	}
-
-	// this.mesh.scale.y = this.flip ? -1 : 1;
-	// this.flip = !this.flip;
 
 	var positionVariation = 0.05;
 	var variation_r = 10;

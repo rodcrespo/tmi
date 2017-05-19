@@ -9,24 +9,11 @@ Visual.prototype.load = function(){
 
 loader.load( 'fonts/Baloo_Regular.json', function ( font ) {
 
-    // your code here
     this.font = font;
     this.init();
     this.animate();
 
 }.bind(this) );
-  // this.textureManager = new TextureManager(function () {
-  //     console.log("All loaded")
-      // this.init();
-      // this.animate();
-  // }.bind(this));
-  // this.audioManager = new AudioManager();
-  // this.cameraEffects = new CameraEffects();
-  // this.updateCamera = true;
-  // this.gui = new Gui();
-  // this.textureManager.load();
-  // this.collidables = [];
-  // this.entities = [];
 }
 
 
@@ -83,55 +70,17 @@ Visual.prototype.init = function(){
       this.dots_group[j] = {
         dots: []
       };
-      var split = Math.random() * this.dots_group_split  - this.dots_group_split /2;
       for (var i = 0; i < this.dots_amount; i++) {
           var position = new THREE.Vector3((group_position.x + Math.random() * dots_radius - dots_radius / 2), (group_position.y + Math.random() * dots_radius - dots_radius / 2), (group_position.z + Math.random() * dots_radius - dots_radius / 2)) ;
-          console.log(group_position)
           this.dots_group[j].dots[i] = new Dot(position);
           lines_geo.vertices.push(position);
           this.scene.add(this.dots_group[j].dots[i].mesh);
       }
 
-      // var geometry = new THREE.Geometry();
-      //
-      // for ( var i = 0; i < 100; i ++ ) {
-      //
-      // 	particle = new THREE.Sprite( material );
-      // 	particle.position.x = Math.random() * 2 - 1;
-      // 	particle.position.y = Math.random() * 2 - 1;
-      // 	particle.position.z = Math.random() * 2 - 1;
-      // 	particle.position.normalize();
-      // 	particle.position.multiplyScalar( Math.random() * 10 + 450 );
-      // 	particle.scale.x = particle.scale.y = 10;
-      // 	this.scene.add( particle );
-      //
-      // 	geometry.vertices.push( particle.position );
-      //
-      // }
-      //
-      // // lines
-      //
       var line = new THREE.Line( lines_geo, new THREE.LineBasicMaterial( { color: 0xffffff, opacity: 0.5 } ) );
       this.scene.add( line );
 
     }
-
-
-		// var material = new THREE.SpriteCanvasMaterial( {
-    //
-		// 	color: 0xffffff,
-		// 	program: function ( context ) {
-    //
-		// 		context.beginPath();
-		// 		context.arc( 0, 0, 0.5, 0, Math.PI * 2, true );
-		// 		context.fill();
-    //
-		// 	}
-    //
-		// } );
-    //
-
-
 
 
     // LIGHT
@@ -147,7 +96,6 @@ Visual.prototype.init = function(){
 		this.controls.staticMoving = true;
 		this.controls.dynamicDampingFactor = 0.3;
 		this.controls.keys = [ 65, 83, 68 ];
-		// this.controls.addEventListener( 'change', this.render.bind(this) );
     window.addEventListener( 'resize', this.onWindowResize.bind(this), false );
 };
 
