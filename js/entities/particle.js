@@ -5,10 +5,10 @@ var Particle = function(game, position, parentTexture){
 	texture.offset.y = Math.random();
 	texture.repeat.x = 0.1;
 	texture.repeat.y = 0.1;
-//	var material = new THREE.MeshBasicMaterial({color:"red", depthTest: false});
+//	var material = new THREE.MeshBasicMaterial({color:"red", depthTest: true});
 //	var geometry = new THREE.BoxGeometry(PARTICLE_WIDTH, PARTICLE_WIDTH, PARTICLE_WIDTH); //new THREE.PlaneGeometry(PARTICLE_WIDTH, PARTICLE_WIDTH, 1, 1);
 	
-	var material = new THREE.MeshBasicMaterial( { map: texture, side: THREE.DoubleSide, transparent: true, depthTest: false } );
+	var material = new THREE.MeshBasicMaterial( { map: texture, side: THREE.DoubleSide, transparent: true, depthTest: true } );
 	var geometry = new THREE.PlaneGeometry(PARTICLE_WIDTH, PARTICLE_WIDTH, 1, 1);
 
 	var mesh = new THREE.Mesh(geometry, material);

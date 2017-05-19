@@ -1,6 +1,6 @@
 var Salmorejo = function(game, position){
 	var texture = game.textureManager.getTexture(SALMOREJO);
-	var material = new THREE.MeshBasicMaterial( { map: texture, side: THREE.DoubleSide, transparent: true, depthTest: false } );
+	var material = new THREE.MeshBasicMaterial( { map: texture, side: THREE.DoubleSide, transparent: true, depthTest: true } );
 	var geometry = new THREE.PlaneGeometry(SALMOREJO_WIDTH, SALMOREJO_HEIGHT, 1, 1);
 	var mesh = new THREE.Mesh(geometry, material);
 	

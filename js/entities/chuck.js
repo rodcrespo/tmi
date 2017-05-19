@@ -2,7 +2,7 @@
 
 var Chuck = function(game, position){
 	this.texture = game.textureManager.getTexture(CHUCK);
-	var material = new THREE.MeshBasicMaterial( { map: this.texture, side: THREE.DoubleSide, transparent: true, depthTest: false } );
+	var material = new THREE.MeshBasicMaterial( { map: this.texture, side: THREE.DoubleSide, transparent: true, depthTest: true } );
 	var geometry = new THREE.PlaneGeometry(CHUCK_WIDTH, CHUCK_HEIGHT, 1, 1);
 	var mesh = new THREE.Mesh(geometry, material);
 	

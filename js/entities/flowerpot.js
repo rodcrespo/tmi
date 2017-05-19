@@ -1,6 +1,6 @@
 var FlowerPot = function(game, position){
 	this.texture = game.textureManager.getTexture(FLOWERPOT);
-	var material = new THREE.MeshBasicMaterial( { map: this.texture, side: THREE.DoubleSide, transparent: true, depthTest: false } );
+	var material = new THREE.MeshBasicMaterial( { map: this.texture, side: THREE.DoubleSide, transparent: true, depthTest: true } );
 	var geometry = new THREE.PlaneGeometry(FLOWER_WIDTH, FLOWER_HEIGHT, 1, 1);
 	var mesh = new THREE.Mesh(geometry, material);
 	
