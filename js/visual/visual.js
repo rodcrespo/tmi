@@ -7,13 +7,30 @@ Visual.prototype.load = function(){
 
   var loader = new THREE.FontLoader();
 
-loader.load( 'fonts/Baloo_Regular.json', function ( font ) {
+  loader.load( 'fonts/Baloo_Regular.json', function ( font ) {
 
-    this.font = font;
-    this.init();
-    this.animate();
+      this.font = font;
+      this.init();
+      this.animate();
 
-}.bind(this) );
+  }.bind(this) );
+
+  function gup( name, url ) {
+      if (!url) url = location.href;
+      name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+      var regexS = "[\\?&]"+name+"=([^&#]*)";
+      var regex = new RegExp( regexS );
+      var results = regex.exec( url );
+      return results == null ? null : results[1];
+  }
+
+  this.words = gup("words").split(',');
+  // for (var i = 0; i < this.words.length; i++) {
+  //   this.words[i] = unescape(this.words[i])
+  // }
+  this.words = this.words.map(function(w){return unescape(w)})
+  console.log(this.words)
+
 }
 
 
@@ -48,7 +65,7 @@ Visual.prototype.init = function(){
     // Text
     this.texts_amount = 20;
     var texts_radius = 500;
-    var text_array = ['Er Zevillano', 'Hello', 'World', 'Choose']
+    var text_array = this.words || ['Er Zevillano', 'Hello', 'World', 'Choose']
     this.texts = [];
     for (var i = 0; i < this.texts_amount; i++) {
         this.texts[i] = new Text3D(text_array[Math.floor(Math.random() * text_array.length)], new THREE.Vector3((Math.random() * texts_radius - texts_radius/2), (Math.random() * texts_radius - texts_radius/2), (Math.random() * texts_radius - texts_radius/2)), Math.random() * 0xffffff, Math.random() * 30 - 10, this.font);
@@ -84,8 +101,9 @@ Visual.prototype.init = function(){
 
 
     // LIGHT
-    // this.light = new Light ();
-    // this.scene.add(this.light.getAmbientLight());
+
+    this.light = new Light ();
+    this.scene.add(this.light.getAmbientLight());
 
     this.controls = new THREE.TrackballControls( this.camera );
     this.controls.rotateSpeed = 1.0;
