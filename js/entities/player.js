@@ -4,7 +4,7 @@ var Player = function(game){
 	var animatedTexture = new MapTextureAnimator(texture, map, "idle"); // texture, #horiz, #vert, #total, duration.
 	// this.animatedDefault = animatedTexture;
 	// this.animatedRun = new TextureAnimator( texture_run, 1, 10, 10, 75 );
-	var runnerMaterial = new THREE.MeshLambertMaterial( { map: texture, side: THREE.DoubleSide, transparent: true, depthTest: false } );
+	var runnerMaterial = new THREE.MeshLambertMaterial( { map: texture, side: THREE.DoubleSide, transparent: true, depthTest: true } );
 	var runnerGeometry = new THREE.PlaneGeometry(PLAYER_WIDTH, PLAYER_HEIGHT, 1, 1);
 	var mesh = new THREE.Mesh(runnerGeometry, runnerMaterial);
 
