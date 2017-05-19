@@ -32,7 +32,7 @@ CuteGirl.prototype.interactWith = function(entity, failed) {
         entity.giveScore(100);
 
     }
-    
+
 
 }
 

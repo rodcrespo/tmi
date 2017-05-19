@@ -56,6 +56,19 @@ Game.prototype.updateScore = function(){
     $(".score .value").html(('000' + this.player.getScore()).slice(-4));
 }
 
+Game.prototype.showMessage = function(failed){
+    if(failed){
+        var text = KO_MESSAGES[Math.floor((Math.random() * KO_MESSAGES.length))];
+        $(".message").addClass("wrong").removeClass("right").html(text);
+    }else{
+        var text = OK_MESSAGES[Math.floor((Math.random() * OK_MESSAGES.length))];
+        $(".message").addClass("right").removeClass("wrong").html(text);
+    }
+    $(".message").fadeIn(2000)
+    $(".message").fadeOut(2000)
+
+}
+
 Game.prototype.updateLives = function(){
 	this.lives = Math.round(5 * this.player.getHealth() / PLAYER_MAX_HEALTH);
 

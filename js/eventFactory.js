@@ -80,6 +80,7 @@ EventFactory.prototype.bossEvent = function (tile) {
             console.log("Se ejecuta bien: Se ha respondido bien");
             game.switchSpotLight();
             $(".dialog").css("visibility", "hidden");
+            game.showMessage(false);
         },
         function() {
             for(var i = 0; i < tile.entities.length; i++){
@@ -89,6 +90,7 @@ EventFactory.prototype.bossEvent = function (tile) {
             // floor.changeColor(0xff0000);
             game.switchSpotLight();
             $(".dialog").css("visibility", "hidden");
+            game.showMessage(true);
         },
         function() {
             //console.log("Has respondido mal, pero no tiene porque haber fallado el evento");

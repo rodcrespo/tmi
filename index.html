@@ -76,6 +76,9 @@
 	</div>
 </div>
 
+<div class="message">
+</div>
+
 <div class="cloud-wrapper">
 	<div id="cloud">
 
@@ -129,6 +132,7 @@
         game.load();
         game.setStatus(GAME_RUNNING);
         $(".start-wrapper").hide();
+
         $(".hud").css("visibility", "visible");
 
 
@@ -139,6 +143,7 @@
 
     })
     $(".cloud-wrapper").hide();
+    $(".message").hide();
     document.addEventListener("keydown",  onKeyDown, false);
     document.addEventListener("keyup", onKeyUp, false);
 

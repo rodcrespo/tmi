@@ -128,6 +128,7 @@ Event.prototype.checkUnlimitAnswers = function () {
             this.timer = this.time;
             $(".cloud-wrapper").css("color","green");
             $(".cloud-wrapper").fadeOut(2000);
+
         }
 
         this.answer = null;
