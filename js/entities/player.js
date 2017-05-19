@@ -131,4 +131,8 @@ Player.prototype.update = function(game, lapsedMillis) {
 			entities[i].interactWith(this, false);
 		}
 	}
+
+	if (this.mesh.position.x <= game.tiles[0].floor.plane.position.x - FLOOR_WIDTH/2) {
+		this.mesh.position.x = game.tiles[0].floor.plane.position.x - FLOOR_WIDTH/2
+	}
 }
