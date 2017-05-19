@@ -25,6 +25,7 @@ const GAME_RUNNING = "game_running";
 const GAME_FINISHED = "game_finished";
 const OK_MESSAGES = ["¡Has salido del paso por esta vez!", "¡Qué suerte!", "¡Has dado en el clavo!"];
 const KO_MESSAGES = ["¡Oh, Oh!", "Vaya, parece que la has liado...", "¡Piénsalo mejor!"];
+const NUM_HEARTS = 5;
 
 //Backgound city
 const CITY_WIDTH = SCREEN_WIDTH / 1.6;

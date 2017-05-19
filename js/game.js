@@ -70,7 +70,7 @@ Game.prototype.showMessage = function(failed){
 }
 
 Game.prototype.updateLives = function(){
-	this.lives = Math.round(5 * this.player.getHealth() / PLAYER_MAX_HEALTH);
+	this.lives = Math.round(NUM_HEARTS * this.player.getHealth() / PLAYER_MAX_HEALTH);
 
     $.each($(".hud .lives .fa"), function( index, item ) {
         if(this.lives <= index){
@@ -80,12 +80,12 @@ Game.prototype.updateLives = function(){
 		}
     }.bind(this));
 
-    if(this.lives == 0){
+    if(this.player.getHealth() <= PLAYER_MIN_HEALTH && this.status != GAME_FINISHED){
         console.log("Game over")
         this.setStatus(GAME_FINISHED)
         //TODO Game over
         //TODO Play sound
-        game.cameraEffects.getEffect(ZOOM_AND_ROLL);
+        game.cameraEffects.getEffect(ZOOM_AND_ROLL).call();
         //TODO Transition to final screen
     }
 }

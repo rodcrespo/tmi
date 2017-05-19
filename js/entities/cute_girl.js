@@ -25,7 +25,7 @@ CuteGirl.prototype.hit = function() {
 
 CuteGirl.prototype.interactWith = function(entity, failed) {
     if(failed){
-        entity.damage(200);
+        entity.damage(PLAYER_MAX_HEALTH / NUM_HEARTS);
         this.animatedTexture.setStatus("jump");
     }else{
         this.animatedTexture.setStatus("dead");

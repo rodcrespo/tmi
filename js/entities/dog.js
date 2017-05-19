@@ -24,7 +24,7 @@ Dog.prototype.hit = function() {
 
 Dog.prototype.interactWith = function(entity, failed) {
     if(failed){
-        entity.damage(150);
+        entity.damage(PLAYER_MAX_HEALTH / NUM_HEARTS);
         this.animatedTexture.setStatus("hurt");
     }else{
         this.animatedTexture.setStatus("dead");

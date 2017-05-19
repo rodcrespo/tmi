@@ -10,7 +10,7 @@ var Player = function(game){
 
 	Entity.call(this, PLAYER, mesh, animatedTexture, PLAYER_WIDTH, PLAYER_HEIGHT, new THREE.Vector3(PLAYER_INIT_X, PLAYER_INIT_Y, PLAYER_INIT_Z));
 	
-	this.life = PLAYER_MAX_HEALTH/4;
+	this.life = PLAYER_MAX_HEALTH;
 	this.score = 0;
 }
 
