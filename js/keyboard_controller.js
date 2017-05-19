@@ -31,7 +31,7 @@ var onKeyDown = function(e) {
 			var words = ['Er Zevillano', 'Deberias', 'decir', 'algo', 'o', 'no', 'saldran', 'palabras'].join(',')
 			console.log(words)
 			if(game.wordCloud && game.wordCloud.words.length > 0) {
-				words = escape(game.wordCloud.words.join(','))
+				words = game.wordCloud.words.join(',')
 			}
 			window.location.href = '/visual.html?words=' + words;
 			break;

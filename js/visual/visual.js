@@ -29,7 +29,7 @@ Visual.prototype.load = function(){
   //   this.words[i] = unescape(this.words[i])
   // }
   this.words = this.words.map(function(w){return unescape(w)})
-  console.log(this.words)
+  // console.log(this.words)
 
 }
 
