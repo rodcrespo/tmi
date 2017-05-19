@@ -87,6 +87,7 @@ Game.prototype.updateLives = function(){
         //TODO Play sound
         game.cameraEffects.getEffect(ZOOM_AND_ROLL);
         //TODO Transition to final screen
+
     }
 }
 

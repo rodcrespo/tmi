@@ -125,7 +125,7 @@ Tile.FREQUENCIES = {
     SALMOREJO: 15,
     DOG: 3,
     FLOWERPOT: 5,
-    CUTE_GIRL: 3,
+    CUTE_GIRL: 10,
     FOOTBALL: 3,
     ROBOT: 3,
 }

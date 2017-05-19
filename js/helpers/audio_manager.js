@@ -29,14 +29,14 @@ var AudioManager = function() {
 	//use them for background music
 	this.music = {
 		background: {
-			type: ".mp3",
+			type: ".wav",
 			sound: null
 		},
 	};
 	
 	for (var song in this.music) {
 		console.log(AUDIO_FOLDER + song + this.music[song].type)
-		var audio = new Audio(AUDIO_FOLDER + song);
+		var audio = new Audio(AUDIO_FOLDER + song + this.music[song].type);
 		audio.loop = true;
 		this.music[song].sound = audio;
 	}

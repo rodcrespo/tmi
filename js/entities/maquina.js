@@ -24,12 +24,15 @@ Maquina.prototype.hit = function() {
 }
 
 Maquina.prototype.interactWith = function(entity, failed) {
+    var context = this;
     if(failed){
         entity.damage(200);
         this.animatedTexture.setStatus("melee");
+        // setTimeout(game.removeEntity(context), context.map["melee"].duration * context.map["melee"].tiles.length);
     }else{
         this.animatedTexture.setStatus("dead");
-        entity.giveScore(100);
+        entity.giveScore(10);
+        // setTimeout(game.removeEntity(context), context.map["dead"].duration * context.map["dead"].tiles.length);
 
     }
 
