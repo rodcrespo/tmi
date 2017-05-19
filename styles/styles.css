@@ -101,6 +101,16 @@ canvas {
 
 }
 
+.hud .cloudholder{
+    cursor: pointer;
+    color: #F3465E;
+    position: fixed;
+    bottom: 4%;
+    right: 4%;
+    font-size: 3rem;
+    pointer-events: auto;
+}
+
 .hud .sound.fa-volume-off{
 
     color: gray;
