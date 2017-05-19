@@ -113,3 +113,46 @@ Tile.TYPES = {
     FOOTBALL: 11,
     ROBOT: 12,
 }
+
+Tile.FREQUENCIES = {
+    TYPE0: 10,
+    TYPE1: 10,
+    TYPE2: 10,
+    TYPE3: 10,
+    TYPE4: 10,
+    TYPE5: 10,
+    TYPE6: 10,
+    SALMOREJO: 15,
+    DOG: 3,
+    FLOWERPOT: 10,
+    CUTE_GIRL: 3,
+    FOOTBALL: 3,
+    ROBOT: 3,
+}
+
+
+
+
+var getRandomTileID = function(nameFrequencyMap) {
+	var electionArray = [];
+	var cnt = 0;
+	for (var tileType in nameFrequencyMap) {
+		cnt += nameFrequencyMap[tileType];
+		electionArray.push(cnt);
+	}
+	var choice = Math.floor(Math.random() * cnt);
+	if (choice < 0) {
+		console.log("fix me");
+		choice = 0;
+	}
+	if (choice > nameFrequencyMap.length - 1) {
+		console.log("fix me");
+		choice = nameFrequencyMap.length - 1;
+	}
+	return binarySearch(electionArray, choice);
+}
+
+var getRandomTile = function(textureManager, x, y) {
+	var id = getRandomTileID(Tile.FREQUENCIES);
+	return new Tile(textureManager, id, x, y);
+}

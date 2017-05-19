@@ -120,7 +120,7 @@ Game.prototype.init = function(){
         if(i < TILES_NUMBER / 2){
             var tile = new Tile(this.textureManager, Tile.TYPES.TYPE0, x, 0);
         }else{
-            var tile = new Tile(this.textureManager, Math.floor((Math.random() * Object.keys(Tile.TYPES).length)), x, 0);
+            var tile = getRandomTile(this.textureManager, x, 0); //new Tile(this.textureManager, Math.floor((Math.random() * Object.keys(Tile.TYPES).length)), x, 0);
         }
 
 		x += TILE_WIDTH;
@@ -260,7 +260,7 @@ Game.prototype.tilesUpdate = function(){
     if(playerPosition.x > this.tiles[TILES_NUMBER - 5].floor.plane.position.x){
         var x = this.tiles[TILES_NUMBER - 1].floor.plane.position.x + TILE_WIDTH;
         this.tiles.shift().removeFromScene(this.scene);
-        var tile = new Tile(this.textureManager, Math.floor((Math.random() * Object.keys(Tile.TYPES).length)), x, 0);
+        var tile = getRandomTile(this.textureManager, x, 0); //new Tile(this.textureManager, Math.floor((Math.random() * Object.keys(Tile.TYPES).length)), x, 0);
 
 		this.addTile(tile);
         this.collidables.shift();
