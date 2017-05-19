@@ -44,6 +44,11 @@ Game.prototype.setStatus = function(status){
 }
 Game.prototype.toggleSound = function(){
     this.soundOn = !this.soundOn;
+    if(this.soundOn){
+        this.audioManager.resumeMusic("background");
+    }else{
+        this.audioManager.pauseMusic("background");
+    }
 }
 
 
